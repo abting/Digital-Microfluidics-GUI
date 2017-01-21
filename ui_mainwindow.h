@@ -484,7 +484,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        ModeButtonTab->setCurrentIndex(0);
+        ModeButtonTab->setCurrentIndex(1);
         CancelButton->setDefault(false);
         ModeTableTab->setCurrentIndex(0);
 

@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QString>
+#include <QMessageBox>
 
 namespace Ui {
 class DropletSelector;

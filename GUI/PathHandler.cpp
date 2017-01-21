@@ -6,6 +6,14 @@ PathHandler::PathHandler()
 
 }
 
+PathHandler::PathHandler(QStringList pList)
+{
+    foreach(QString pos, pList){
+        pathList.append(pos);
+    }
+
+}
+
 //KIWI
 PathHandler::PathHandler(QList <Droplet*> dList)
 {
@@ -45,6 +53,20 @@ void PathHandler::setPathList()
             }
         }
     }
+}
+
+void PathHandler::setPathListEmode(Table* tableEmode){
+    //QStringList elecPath;
+    for (int j =1; j<tableEmode->getColumn();j++){
+        QString pos = "";
+        for(int i = 2; i<tableEmode->getRow(); i++){
+            if(tableEmode->getItem(i,j)){
+                pos += tableEmode->getItem(i,j)->text() + ",";
+            }
+        }
+        pathList.append(pos);
+    }
+
 }
 QStringList PathHandler::getPathList()
 {
