@@ -5,6 +5,7 @@ using namespace std;
 #include <Droplet.h>
 #include <QMainWindow>
 #include <QFileDialog>
+#include <table.h>
 
 struct PathInfo
 {
@@ -17,6 +18,7 @@ class PathHandler
 public:
     PathHandler();
     //KIWI
+    PathHandler(QStringList);
     PathHandler(QList <Droplet*>);
     void savePath(QMainWindow*);
     void openPath(QMainWindow*);
@@ -24,6 +26,7 @@ public:
     void setdropletList(QList <Droplet*>);
     QList <Droplet*> getdropletList();
     void setPathList();
+    void setPathListEmode(Table*);
     QStringList getPathList();
 
 

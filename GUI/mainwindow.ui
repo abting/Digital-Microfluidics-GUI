@@ -50,7 +50,7 @@
         <item>
          <widget class="QTabWidget" name="ModeButtonTab">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="DropletMode">
            <attribute name="title">
@@ -222,7 +222,7 @@
               <item>
                <widget class="QPushButton" name="SendSequence_EmodeButton">
                 <property name="text">
-                 <string>Send Sequence</string>
+                 <string>Save Sequence</string>
                 </property>
                </widget>
               </item>
@@ -230,6 +230,13 @@
                <widget class="QPushButton" name="OpenSequence_EmodeButton">
                 <property name="text">
                  <string>Open Sequence</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="preview_EmodeButton">
+                <property name="text">
+                 <string>Preview</string>
                 </property>
                </widget>
               </item>
@@ -265,7 +272,7 @@
     <item>
      <widget class="QTabWidget" name="ModeTableTab">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="DropletMode">
        <attribute name="title">
@@ -309,6 +316,19 @@
                <string>TextLabel</string>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="QLineEdit" name="lineEdit"/>
@@ -368,7 +388,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="dropTime_Emode">
+             <widget class="QSpinBox" name="dropTimeEmode">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -395,6 +415,19 @@
              </widget>
             </item>
             <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QLineEdit" name="lineEdit_3"/>
             </item>
             <item>
@@ -410,12 +443,12 @@
            </layout>
           </item>
           <item>
-           <widget class="QTableWidget" name="dropTable_3">
+           <widget class="QTableWidget" name="dropTableEmode">
             <property name="rowCount">
              <number>3</number>
             </property>
             <property name="columnCount">
-             <number>3</number>
+             <number>2</number>
             </property>
             <attribute name="horizontalHeaderVisible">
              <bool>false</bool>
@@ -426,7 +459,6 @@
             <row/>
             <row/>
             <row/>
-            <column/>
             <column/>
             <column/>
            </widget>

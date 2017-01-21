@@ -80,11 +80,12 @@ public:
     QPushButton *Increment_EmodeButton;
     QPushButton *SendSequence_EmodeButton;
     QPushButton *OpenSequence_EmodeButton;
+    QPushButton *preview_EmodeButton;
     QPushButton *Start_EmodeButton;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_3;
     QTextEdit *InstructonMonitor;
-    QTabWidget *ModeTab;
+    QTabWidget *ModeTableTab;
     QWidget *DropletMode1;
     QVBoxLayout *verticalLayout_6;
     QVBoxLayout *verticalLayout_5;
@@ -93,6 +94,7 @@ public:
     QSpinBox *dropTime;
     QLabel *label_2;
     QLabel *currentStepText;
+    QSpacerItem *horizontalSpacer_2;
     QLineEdit *lineEdit;
     QSlider *dropSlider;
     QTableWidget *dropTable;
@@ -101,12 +103,13 @@ public:
     QVBoxLayout *verticalLayout_8;
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_5;
-    QSpinBox *dropTime_Emode;
+    QSpinBox *dropTimeEmode;
     QLabel *label_6;
     QLabel *currentStepText_Emode;
+    QSpacerItem *horizontalSpacer_3;
     QLineEdit *lineEdit_3;
     QSlider *dropSlider_3;
-    QTableWidget *dropTable_3;
+    QTableWidget *dropTableEmode;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuSequencing;
@@ -285,6 +288,11 @@ public:
 
         verticalLayout_10->addWidget(OpenSequence_EmodeButton);
 
+        preview_EmodeButton = new QPushButton(ElectrodeMode);
+        preview_EmodeButton->setObjectName(QStringLiteral("preview_EmodeButton"));
+
+        verticalLayout_10->addWidget(preview_EmodeButton);
+
         Start_EmodeButton = new QPushButton(ElectrodeMode);
         Start_EmodeButton->setObjectName(QStringLiteral("Start_EmodeButton"));
 
@@ -315,8 +323,8 @@ public:
 
         verticalLayout_4->addWidget(splitter);
 
-        ModeTab = new QTabWidget(centralWidget);
-        ModeTab->setObjectName(QStringLiteral("ModeTab"));
+        ModeTableTab = new QTabWidget(centralWidget);
+        ModeTableTab->setObjectName(QStringLiteral("ModeTableTab"));
         DropletMode1 = new QWidget();
         DropletMode1->setObjectName(QStringLiteral("DropletMode1"));
         verticalLayout_6 = new QVBoxLayout(DropletMode1);
@@ -352,6 +360,10 @@ public:
 
         horizontalLayout_5->addWidget(currentStepText);
 
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_2);
+
         lineEdit = new QLineEdit(DropletMode1);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
 
@@ -383,7 +395,7 @@ public:
 
         verticalLayout_6->addLayout(verticalLayout_5);
 
-        ModeTab->addTab(DropletMode1, QString());
+        ModeTableTab->addTab(DropletMode1, QString());
         ElectrodeMode1 = new QWidget();
         ElectrodeMode1->setObjectName(QStringLiteral("ElectrodeMode1"));
         verticalLayout_9 = new QVBoxLayout(ElectrodeMode1);
@@ -401,13 +413,13 @@ public:
 
         horizontalLayout_7->addWidget(label_5);
 
-        dropTime_Emode = new QSpinBox(ElectrodeMode1);
-        dropTime_Emode->setObjectName(QStringLiteral("dropTime_Emode"));
-        dropTime_Emode->setEnabled(true);
-        dropTime_Emode->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
-        dropTime_Emode->setMaximum(500);
+        dropTimeEmode = new QSpinBox(ElectrodeMode1);
+        dropTimeEmode->setObjectName(QStringLiteral("dropTimeEmode"));
+        dropTimeEmode->setEnabled(true);
+        dropTimeEmode->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
+        dropTimeEmode->setMaximum(500);
 
-        horizontalLayout_7->addWidget(dropTime_Emode);
+        horizontalLayout_7->addWidget(dropTimeEmode);
 
         label_6 = new QLabel(ElectrodeMode1);
         label_6->setObjectName(QStringLiteral("label_6"));
@@ -418,6 +430,10 @@ public:
         currentStepText_Emode->setObjectName(QStringLiteral("currentStepText_Emode"));
 
         horizontalLayout_7->addWidget(currentStepText_Emode);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_7->addItem(horizontalSpacer_3);
 
         lineEdit_3 = new QLineEdit(ElectrodeMode1);
         lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
@@ -434,25 +450,25 @@ public:
 
         verticalLayout_8->addLayout(horizontalLayout_7);
 
-        dropTable_3 = new QTableWidget(ElectrodeMode1);
-        if (dropTable_3->columnCount() < 3)
-            dropTable_3->setColumnCount(3);
-        if (dropTable_3->rowCount() < 3)
-            dropTable_3->setRowCount(3);
-        dropTable_3->setObjectName(QStringLiteral("dropTable_3"));
-        dropTable_3->setRowCount(3);
-        dropTable_3->setColumnCount(3);
-        dropTable_3->horizontalHeader()->setVisible(false);
-        dropTable_3->verticalHeader()->setVisible(false);
+        dropTableEmode = new QTableWidget(ElectrodeMode1);
+        if (dropTableEmode->columnCount() < 2)
+            dropTableEmode->setColumnCount(2);
+        if (dropTableEmode->rowCount() < 3)
+            dropTableEmode->setRowCount(3);
+        dropTableEmode->setObjectName(QStringLiteral("dropTableEmode"));
+        dropTableEmode->setRowCount(3);
+        dropTableEmode->setColumnCount(2);
+        dropTableEmode->horizontalHeader()->setVisible(false);
+        dropTableEmode->verticalHeader()->setVisible(false);
 
-        verticalLayout_8->addWidget(dropTable_3);
+        verticalLayout_8->addWidget(dropTableEmode);
 
 
         verticalLayout_9->addLayout(verticalLayout_8);
 
-        ModeTab->addTab(ElectrodeMode1, QString());
+        ModeTableTab->addTab(ElectrodeMode1, QString());
 
-        verticalLayout_4->addWidget(ModeTab);
+        verticalLayout_4->addWidget(ModeTableTab);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -486,7 +502,7 @@ public:
 
         ModeButtonTab->setCurrentIndex(1);
         CancelButton->setDefault(false);
-        ModeTab->setCurrentIndex(0);
+        ModeTableTab->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -538,19 +554,20 @@ public:
         turnOn_EmodeButton->setText(QApplication::translate("MainWindow", "Turn ON Electrode", 0));
         turnOff_EmodeButton->setText(QApplication::translate("MainWindow", "Turn OFF Electrode", 0));
         Increment_EmodeButton->setText(QApplication::translate("MainWindow", "Increment", 0));
-        SendSequence_EmodeButton->setText(QApplication::translate("MainWindow", "Send Sequence", 0));
+        SendSequence_EmodeButton->setText(QApplication::translate("MainWindow", "Save Sequence", 0));
         OpenSequence_EmodeButton->setText(QApplication::translate("MainWindow", "Open Sequence", 0));
+        preview_EmodeButton->setText(QApplication::translate("MainWindow", "Preview", 0));
         Start_EmodeButton->setText(QApplication::translate("MainWindow", "Start", 0));
         ModeButtonTab->setTabText(ModeButtonTab->indexOf(ElectrodeMode), QApplication::translate("MainWindow", "Electrode Mode", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Instruction Monitor", 0));
         label->setText(QApplication::translate("MainWindow", "Maximum Step:", 0));
         label_2->setText(QApplication::translate("MainWindow", "Current Step:", 0));
         currentStepText->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        ModeTab->setTabText(ModeTab->indexOf(DropletMode1), QApplication::translate("MainWindow", "Droplet Mode", 0));
+        ModeTableTab->setTabText(ModeTableTab->indexOf(DropletMode1), QApplication::translate("MainWindow", "Droplet Mode", 0));
         label_5->setText(QApplication::translate("MainWindow", "Maximum Step:", 0));
         label_6->setText(QApplication::translate("MainWindow", "Current Step:", 0));
         currentStepText_Emode->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        ModeTab->setTabText(ModeTab->indexOf(ElectrodeMode1), QApplication::translate("MainWindow", "Electrode Mode", 0));
+        ModeTableTab->setTabText(ModeTableTab->indexOf(ElectrodeMode1), QApplication::translate("MainWindow", "Electrode Mode", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuSequencing->setTitle(QApplication::translate("MainWindow", "Sequencing", 0));
         menuAdruino->setTitle(QApplication::translate("MainWindow", "Adruino", 0));

@@ -64,8 +64,7 @@ private slots:
     void on_Connect_triggered();
     void on_Save_Layout_triggered();
     void on_Open_Layout_triggered();
-    void on_addDrop_clicked();
-    void on_removedrop_clicked();
+
 
 
     //TODO NEW
@@ -97,8 +96,18 @@ private slots:
 
     void on_ModeButtonTab_tabBarClicked(int index);
     
-    void on_ModeTab_tabBarClicked(int index);
+    void on_ModeTableTab_tabBarClicked(int index);
     
+    void on_dropTimeEmode_valueChanged(int arg1);
+
+    void on_addDrop_clicked(bool checked);
+
+    void on_removedrop_clicked(bool checked);
+
+
+
+    void on_preview_EmodeButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -109,7 +118,9 @@ private:
     Arduino *arduino;
     Time *time;
     Time *timeEmode;
-    Table* tab;
+    Table* tableDmode;
+    Table* tableEmode;
+
 
     //Modes
     bool DispenceMode;
@@ -127,7 +138,7 @@ private:
     QPushButton *StartButton;
     QPushButton *CancelButton;
     QCheckBox *AddDroplet;
-    QCheckBox *RemoveDeroplet;
+    QCheckBox *RemoveDroplet;
     QPushButton *BeginButton;
 
     QCheckBox *TurnOnButton;
@@ -139,9 +150,10 @@ private:
 
     //TODO NEW
     QTableWidget *DropletTable;
+    QTableWidget *DropletTableEmode;
     QSpinBox *TimeSpinner;
+    QSpinBox *TimeSpinnerEmode;
     QSlider *TimeSlider;
-    QSlider *TableSlider;
 
 };
 

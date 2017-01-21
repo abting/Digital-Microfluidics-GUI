@@ -319,6 +319,7 @@ release/moc_mainwindow.cpp: GUI/electrode.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget \
 		GUI/mainwindow.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/kaleem/Desktop/Digital-Microfluidics-GUI/GUI -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtSerialPort -IC:/Qt/5.6/mingw49_32/include/QtCore -I. GUI\mainwindow.h -o release\moc_mainwindow.cpp
 
@@ -1415,6 +1416,7 @@ release/main.o: GUI/main.cpp GUI/mainwindow.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		../../../../Qt/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
@@ -1594,6 +1596,7 @@ release/mainwindow.o: GUI/mainwindow.cpp GUI/mainwindow.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
+		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget \
 		GUI/ui_mainwindow.h \
 		../../../../Qt/5.6/mingw49_32/include/QtCore/QVariant \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QAction \
@@ -1626,7 +1629,6 @@ release/mainwindow.o: GUI/mainwindow.cpp GUI/mainwindow.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qsplitter.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QStatusBar \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qstatusbar.h \
-		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QToolBar \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qtoolbar.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QVBoxLayout \
@@ -2646,7 +2648,8 @@ release/LayoutDesign.o: GUI/LayoutDesign.cpp GUI/LayoutDesign.h \
 		GUI/Table.h \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
 		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
-		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h
+		../../../../Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
+		../../../../Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\LayoutDesign.o GUI\LayoutDesign.cpp
 
 release/Droplet.o: GUI/Droplet.cpp GUI/Droplet.h \
