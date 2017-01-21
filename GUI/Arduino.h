@@ -16,7 +16,6 @@ public:
     void Connect();
     bool isConnected();
     void SendSequence(PathHandler *pathhandler);
-    //KIWI
     void SendSingleCommand(QString, QString);
 
 private:

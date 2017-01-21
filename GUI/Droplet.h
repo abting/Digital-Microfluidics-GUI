@@ -40,8 +40,6 @@ public:
 
    bool Selected = false;
 
-   //TODO NEW
-
    void setParent(Electrode*);
    Electrode* getParent();
    void setInitialTime(int);
@@ -52,7 +50,7 @@ public:
 private:
    QString Color;
    QString Name;
-   double volume;      //microL
+   double volume;      //uL
    int InitialTime;
 
    Electrode* parent;

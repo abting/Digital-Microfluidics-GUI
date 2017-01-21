@@ -14,8 +14,6 @@
 #include <Time.h>
 #include <Droplet.h>
 #include <Table.h>
-
-//TODO NEW
 #include <QSlider>
 #include <QSpinBox>
 #include <QTableWidget>
@@ -45,7 +43,7 @@ public:
     void SplitDroplet(QList<Electrode*>);
     void DispenceDroplet(QList<Electrode*>);
 
-    QList<Droplet*> listdrop;  //TODO NEW
+    QList<Droplet*> listdrop;
 
 
 private slots:
@@ -66,8 +64,6 @@ private slots:
     void on_addDrop_clicked();
     void on_removedrop_clicked();
 
-
-    //TODO NEW
     void InitializeTable();
     void on_dropTime_valueChanged(int arg1);
     void addDropToTable(Droplet*);
@@ -107,8 +103,6 @@ private:
     QCheckBox *AddDroplet;
     QCheckBox *RemoveDeroplet;
     QPushButton *BeginButton;
-
-    //TODO NEW
     QTableWidget *DropletTable;
     QSpinBox *TimeSpinner;
     QSlider *TimeSlider;

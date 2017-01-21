@@ -31,9 +31,14 @@ double DropletSelector::getVolume(){
 }
 
 void DropletSelector::on_OK_clicked(){
+    //set volume range
+    QString temp = VolumeEditor->text();
+    double vol = temp.toDouble(false);
 
-    Done = true;
-    QDialog::accept();
+    if(vol>0 && NameEditor->text() != NULL){
+        Done = true;
+        QDialog::accept();
+    }
 }
 
 void DropletSelector::on_Cancel_clicked(){

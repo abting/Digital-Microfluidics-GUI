@@ -45,7 +45,7 @@ private:
 
     bool EditMode;
     Layout *mylayout;
-    Electrode *electrode = NULL;    //refrence to the most recent electrode clicked
+    Electrode *electrode = NULL;    //refrence to the most recent electrode clicked   
     int inputRows;                  //number of rows the user wants
     int inputColumns;               //number of columns the user wants
 
@@ -57,8 +57,6 @@ private:
     QGridLayout *TopFrame;        //contact pad number 1 to 47
     QGridLayout *BottomFrame;     //contact pad number 58 to 104
     QGridLayout *LeftFrame;       //contact pad number 48  to 57
-
-     QLineEdit *posInfo;           //FIXME needed?
 };
 
 #endif // LAYOUTDESIGN_H

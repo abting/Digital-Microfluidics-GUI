@@ -52,7 +52,7 @@
           <property name="currentIndex">
            <number>0</number>
           </property>
-          <widget class="QWidget" name="tabWidget_2Page1" native="true">
+          <widget class="QWidget" name="tabWidget_2Page1">
            <attribute name="title">
             <string/>
            </attribute>
@@ -132,6 +132,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="BeginButton">
+              <property name="styleSheet">
+               <string notr="true">background: rgb(255, 255, 0)</string>
+              </property>
               <property name="text">
                <string>Begin Dispensing</string>
               </property>
@@ -195,11 +198,24 @@
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
-      <widget class="QWidget" name="tabWidgetPage1" native="true">
+      <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">
         <string/>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>

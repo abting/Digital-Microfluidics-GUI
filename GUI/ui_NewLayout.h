@@ -43,7 +43,7 @@ public:
     {
         if (NewLayout->objectName().isEmpty())
             NewLayout->setObjectName(QStringLiteral("NewLayout"));
-        NewLayout->resize(251, 217);
+        NewLayout->resize(230, 159);
         horizontalLayout = new QHBoxLayout(NewLayout);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         verticalLayout_3 = new QVBoxLayout();

@@ -35,13 +35,13 @@ public:
     double getOffTime();
     int getAvailability();
     Droplet* getDroplet();
-    //BANANA
     void addNeighbor(Electrode*);
     QList<Electrode*> getNeighbors();
 
 private:
-    //BANANA
-    QList<Electrode*> neighbours;   //neighbors surrounding the electrode top, right, bottom, left
+
+    //neighbors surrounding the electrode top, right, bottom, left
+    QList<Electrode*> neighbours;
     int x_position;
     int y_position;
     std::string number;      //number displayed on the electrode

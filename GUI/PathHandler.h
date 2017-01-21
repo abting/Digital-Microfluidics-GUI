@@ -15,8 +15,8 @@ class PathHandler
 {
 public:
     PathHandler();
-    //KIWI
     PathHandler(QList <Droplet*>);
+
     void savePath();
     void openPath();
     void previewPath();
@@ -29,10 +29,8 @@ public:
     void savedropletpath(); //txt
     void opensavedpath();   //txt
 
-
-
 private:
-    //KIWI
+
     QList <Droplet*> dropletList;
     QStringList pathList;
 };

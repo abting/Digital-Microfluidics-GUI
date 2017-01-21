@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     RemoveDeroplet = ui->removedrop;
     BeginButton = ui->BeginButton;
 
-    //TODO NEW
     DropletTable = ui->dropTable;
     TimeSpinner = ui->dropTime;
     TimeSlider = ui->dropSlider;
@@ -62,8 +61,6 @@ void MainWindow::InitializeUI(bool enable){
     InstructonMonitor->setEnabled(enable);
     AddDroplet->setEnabled(enable);
     RemoveDeroplet->setEnabled(enable);
-
-    //TODO
     time = new Time(tab->getSlider());
 }
 
@@ -84,7 +81,7 @@ void MainWindow::connectSignals(){
 }
 
 void MainWindow::ProcessClick(){
-    //TODO add to path
+
     Electrode *electrode = qobject_cast<Electrode*>(QObject::sender());
 
     if(AddDroplet->isChecked()){                    //if "add droplet" option is selected
@@ -94,9 +91,9 @@ void MainWindow::ProcessClick(){
                 electrode->setDroplet(NewDroplet);
                 electrode->setToolTip("Name: " + NewDroplet->getName() + "\nVolume: " + QString::number(NewDroplet->getVolume()));
                 electrode->getDroplet()->updateInfo(electrode->text(), tab->getSlider()->value(), electrode, "update");
-                //TODO NEW
                 listdrop.append(NewDroplet);
                 addDropToTable(NewDroplet);
+                AddDroplet->setChecked(false);
             }
         }
     }
@@ -105,12 +102,13 @@ void MainWindow::ProcessClick(){
             listdrop.removeOne(electrode->getDroplet());
             removeDropFromTable(electrode->getDroplet());
             electrode->removeDroplet();
+            RemoveDeroplet->setChecked(false);
         }
     }
     else if(SplitMode){}
     else if(DispenceMode){}
     else{                                              //if the user just want to move the droplet
-        //TODO NEW
+
         time->setPreviousTime();
         time->increaseTime(TimeSpinner);
         //QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
@@ -202,7 +200,7 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
                 }
                 sharedNeighbor = 0;
             }
-//FIIME crashes????
+//FIXME crashes????
         //at this point everything should be ok, else the function should have broken out of the loop
 
 //        time->setPreviousTime();
@@ -302,8 +300,6 @@ void MainWindow::SplitDroplet(QList<Electrode*> elecList){
 
 void MainWindow::on_StartButton_clicked()
 {
-    //KIWI
-    //if(arduino->isConnected()){
         pathHandler = new PathHandler(listdrop);
         pathHandler->setPathList();
         if(pathHandler->getPathList().length()>0){
@@ -314,18 +310,23 @@ void MainWindow::on_StartButton_clicked()
             }
         }
         arduino->SendSequence(pathHandler);
-    //  }
-    /*
-    else{
-        StartButton->setEnabled(false);
-        QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
-    }
-    */
+}
+
+void MainWindow::on_BeginButton_clicked(){
+
+    clickhandler->Done();
+    BeginButton->setVisible(false);
+    BeginButton->setEnabled(false);
+    CancelButton->setVisible(false);
+    CancelButton->setEnabled(false);
 }
 
 void MainWindow::on_SplitButton_clicked()
 {
-    printToInstructionMonitor("Please click on the droplet you want to split\n");
+    if(clickhandler){
+        clickhandler->deleteLater();
+        thread->deleteLater();
+    }
     CancelButton->setVisible(true);
     CancelButton->setEnabled(true);
     SplitMode = true;
@@ -334,7 +335,6 @@ void MainWindow::on_SplitButton_clicked()
 
 void MainWindow::on_PreviewButton_clicked()
 {
-    //TODO implement
     //First bring the slider back to 0, remove the droplets at the last slider position
     time->setPreviousTime();
     timeChange(8);
@@ -347,18 +347,46 @@ void MainWindow::on_PreviewButton_clicked()
         timeChange(8);
         selectColumn(tab->getSlider()->value());
         qApp->processEvents();
-        Sleep(500);         //Specify the speed of preview
+        Sleep(200);         //Specify the speed of preview
     }
 }
 
 void MainWindow::on_DispenceButton_clicked()
 {
+    if(clickhandler){
+        clickhandler->deleteLater();
+        thread->deleteLater();
+    }
     BeginButton->setEnabled(true);
     BeginButton->setVisible(true);
     CancelButton->setVisible(true);
     CancelButton->setEnabled(true);
     DispenceMode = true;
     getUserInput(1000);
+}
+
+void MainWindow::on_CancelButton_clicked()
+{
+    clickhandler->deleteLater();
+    thread->deleteLater();
+    CancelButton->setVisible(false);
+    CancelButton->setEnabled(false);
+    BeginButton->setEnabled(false);
+    BeginButton->setVisible(false);
+}
+
+void MainWindow::on_addDrop_clicked(){
+    RemoveDeroplet->setChecked(false);
+    if(clickhandler){
+        CancelButton->clicked(true);
+    }
+}
+
+void MainWindow::on_removedrop_clicked(){
+    AddDroplet->setChecked(false);
+    if(clickhandler){
+        CancelButton->clicked(true);
+    }
 }
 
 void MainWindow::on_New_Layout_triggered(){
@@ -384,17 +412,6 @@ void MainWindow::on_New_Layout_triggered(){
 
     mylayout->Neighbors();
     }
-}
-
-void MainWindow::on_CancelButton_clicked()
-{
-    printToInstructionMonitor("Input canceled by user\n");
-    clickhandler->deleteLater();
-    thread->deleteLater();
-    CancelButton->setVisible(false);
-    CancelButton->setEnabled(false);
-    BeginButton->setEnabled(false);
-    BeginButton->setVisible(false);
 }
 
 void MainWindow::on_Connect_triggered()
@@ -424,58 +441,39 @@ void MainWindow::on_Open_Layout_triggered(){
 
         LayoutExists = true;
 
-        //BANANA
-        mylayout->Neighbors();
-
         AddDroplet->setEnabled(true);
         RemoveDeroplet->setEnabled(true);
         InitializeUI(true);
         connectSignals();
         connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
         connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addToDList(Droplet*)));
-
-
+        mylayout->Neighbors();
     }
 }
 
-void MainWindow::on_addDrop_clicked(){
-    RemoveDeroplet->setChecked(false);
-}
-
-void MainWindow::on_removedrop_clicked(){
-    AddDroplet->setChecked(false);
-}
-
-//TODO NEW
 void MainWindow::InitializeTable()
 {
     //Setup Table
     tab = new Table(DropletTable);
     tab->CreateTable(this);
     ui->currentStepText->setText(QString::number(0));
-    //ui->currentStepText_EMODE->setText(QString::number(0));
 }
 
-//TODO NEW
-void MainWindow::addDropToTable(Droplet *drop)
-{
+void MainWindow::addDropToTable(Droplet *drop){
 
     tab->addDropToTable(drop,listdrop,time->CurrentTime());
-
 }
 
-void MainWindow::removeDropFromTable(Droplet *drop)
-{
+void MainWindow::removeDropFromTable(Droplet *drop){
+
     tab->removeDropFromTable(drop);
 }
 
-//TODO NEW
 void MainWindow::updateTable(Droplet *drop)
 {
     tab->updateTable(drop,time->CurrentTime());
 }
 
-//TODO NEW
 void MainWindow::on_dropTime_valueChanged(int arg1)
 {
     //Increase the size of the table according to the TimeSpinner
@@ -491,8 +489,6 @@ void MainWindow::on_dropTime_valueChanged(int arg1)
     }
 }
 
-
-//TODO NEW
 void MainWindow::selectColumn(int value)        //Value is the value of the tableslider
 {
     ui->currentStepText->setText(QString::number(value));
@@ -542,15 +538,7 @@ void MainWindow::timeChange(int value)
 }
 
 void MainWindow::addToDList(Droplet* addD){
+
     listdrop.append(addD);
 }
 
-
-void MainWindow::on_BeginButton_clicked()
-{
-    clickhandler->Done();
-    BeginButton->setVisible(false);
-    BeginButton->setEnabled(false);
-    CancelButton->setVisible(false);
-    CancelButton->setEnabled(false);
-}

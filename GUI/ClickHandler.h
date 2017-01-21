@@ -11,7 +11,7 @@ public:
     explicit ClickHandler(QObject *parent = 0);
     ClickHandler(int inputs);
     ~ClickHandler();
-    //BANANA
+
     void setRequiredInputs(int);
     int getRequiredInputs();
     QList<Electrode*> getElectrodeList();

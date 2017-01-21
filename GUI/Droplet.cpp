@@ -65,8 +65,6 @@ void Droplet::updateInfo(QString pos, int time, Electrode* e, QString status){
             tempE = DropletInfo.at(DropletInfo.length()-1).elec;
        }
 
-       //TODO NEW
-
        int i = DropletInfo.length();
 
        QString statusE;
@@ -112,8 +110,6 @@ void Droplet::setdropletPath(Info inf){
 QList <Info> Droplet::getDropletInfo(){
    return DropletInfo;
 }
-
-//TODO NEW
 
 void Droplet::setParent(Electrode* par){
     parent = par;

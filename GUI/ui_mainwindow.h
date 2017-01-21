@@ -25,6 +25,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
@@ -75,6 +76,7 @@ public:
     QTabWidget *tabWidget;
     QWidget *tabWidgetPage1;
     QVBoxLayout *verticalLayout_6;
+    QSpacerItem *verticalSpacer;
     QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label;
@@ -199,6 +201,7 @@ public:
 
         BeginButton = new QPushButton(tabWidget_2Page1);
         BeginButton->setObjectName(QStringLiteral("BeginButton"));
+        BeginButton->setStyleSheet(QStringLiteral("background: rgb(255, 255, 0)"));
 
         verticalLayout->addWidget(BeginButton);
 
@@ -244,6 +247,10 @@ public:
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setContentsMargins(11, 11, 11, 11);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_6->addItem(verticalSpacer);
+
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
