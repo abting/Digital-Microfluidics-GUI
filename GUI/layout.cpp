@@ -11,7 +11,6 @@
 Layout::Layout(QObject *parent): QObject(parent){
 }
 Layout::~Layout(){
-
 }
 Layout::Layout(QGridLayout *_gridlayout,int _rows, int _columns)
 {

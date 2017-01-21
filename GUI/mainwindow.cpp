@@ -152,7 +152,6 @@ void MainWindow::getUserInput(int input){
 
 void MainWindow::ProcessEvents(){
 
-    //Electrode *arrayOfElectrodes = clickhandler->getElectrodeArray();
     QList<Electrode*> listOfElectrodes = clickhandler->getElectrodeList();
 
     clickhandler->deleteLater();
@@ -169,12 +168,6 @@ void MainWindow::ProcessEvents(){
 }
 
 void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
-//    std::cout<<"Dispenced"<<std::endl;
-//    CancelButton->setVisible(false);
-//    CancelButton->setEnabled(false);
-//    DispenceMode = false;
-    //TODO implement
-
 
     CancelButton->setVisible(false);
     CancelButton->setEnabled(false);
@@ -184,7 +177,6 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
     Electrode* current;
     Droplet *reservoir = elecList.at(0)->getDroplet();
 
-    //if there is a droplet on the first electrode continute
     if(elecList.at(0)->getAvailability() == 0 ){
     //if the electrodes are not empty at any poit, break
             foreach(Electrode* elec, elecList){
@@ -210,38 +202,38 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
                 }
                 sharedNeighbor = 0;
             }
-
+//FIIME crashes????
         //at this point everything should be ok, else the function should have broken out of the loop
 
-        time->setPreviousTime();
-        time->increaseTime(TimeSpinner);
-        Droplet* initialDrop = elecList.at(0)->getDroplet();
-        initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
-        updateTable(initialDrop);
-        timeChange(8);
+//        time->setPreviousTime();
+//        time->increaseTime(TimeSpinner);
+//        Droplet* initialDrop = elecList.at(0)->getDroplet();
+//        initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
+//        updateTable(initialDrop);
+//        timeChange(8);
 
 
-        time->setPreviousTime();
-        time->increaseTime(TimeSpinner);
-        Droplet* drop = new Droplet(elecList.at(0)->getDroplet()->getName()+ "-D",elecList.at(0)->getDroplet()->getColor(),1111111,time->CurrentTime());
-        drop->updateInfo(elecList.at(1)->text(),time->CurrentTime(),elecList.at(1),"update");
-        elecList.at(1)->setDroplet(drop);
-        listdrop.append(drop);
-        addDropToTable(drop);
-        timeChange(8);
-        for(int i = 2; i<elecList.size();i++){
-            time->setPreviousTime();
-            time->increaseTime(TimeSpinner);
-            elecList.at(i)->setDroplet(drop);
-            drop->updateInfo(elecList.at(i)->text(),time->CurrentTime(),elecList.at(i),"update");
-            updateTable(elecList.at(i)->getDroplet());
-            timeChange(8);
-        }
+//        time->setPreviousTime();
+//        time->increaseTime(TimeSpinner);
+//        Droplet* drop = new Droplet(elecList.at(0)->getDroplet()->getName()+ "-D",elecList.at(0)->getDroplet()->getColor(),1111111,time->CurrentTime());
+//        drop->updateInfo(elecList.at(1)->text(),time->CurrentTime(),elecList.at(1),"update");
+//        elecList.at(1)->setDroplet(drop);
+//        listdrop.append(drop);
+//        addDropToTable(drop);
+//        timeChange(8);
+//        for(int i = 2; i<elecList.size();i++){
+//            time->setPreviousTime();
+//            time->increaseTime(TimeSpinner);
+//            elecList.at(i)->setDroplet(drop);
+//            drop->updateInfo(elecList.at(i)->text(),time->CurrentTime(),elecList.at(i),"update");
+//            updateTable(elecList.at(i)->getDroplet());
+//            timeChange(8);
+//        }
 
-        initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
-        updateTable(initialDrop);
-        selectColumn(TableSlider->value());
-        QMessageBox::warning(this,tr("DONE"), tr("DONE!"));
+//        initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
+//        updateTable(initialDrop);
+//        selectColumn(TableSlider->value());
+//        QMessageBox::warning(this,tr("DONE"), tr("DONE!"));
 
     }else{
       QMessageBox::warning(this,tr("Warning"), tr("There is no droplet on the first Electrode"));
@@ -361,7 +353,6 @@ void MainWindow::on_PreviewButton_clicked()
 
 void MainWindow::on_DispenceButton_clicked()
 {
-    //TODO ASK USER FOR NUMBER OF INPUTS OR USE A VECTOR
     BeginButton->setEnabled(true);
     BeginButton->setVisible(true);
     CancelButton->setVisible(true);
@@ -384,15 +375,14 @@ void MainWindow::on_New_Layout_triggered(){
 
     mylayout = new Layout(ElectrodeLayout,row,column);
     mylayout->InsertDesign(layoutdesign->returnDesign());
-    //BANANA
-    mylayout->Neighbors();
 
     connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
     connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addToDList(Droplet*)));
 
-
     connectSignals();
     InitializeUI(true);
+
+    mylayout->Neighbors();
     }
 }
 
