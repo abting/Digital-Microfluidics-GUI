@@ -1,0 +1,70 @@
+void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
+
+    CancelButton->setVisible(false);
+    CancelButton->setEnabled(false);
+    DispenceMode = false;
+
+    Electrode *last;
+    Electrode* current;
+    //if there is a droplet on the first electrode continute
+    if(elecList.at(0)->getAvailability() == 0 ){
+    //if the electrodes are not empty at any poit, break
+        foreach(Electrode* elec, elecList){
+            if(elec->getAvailability() == 0){
+                QMessageBox::warning(this,tr("Warning"), tr("The chosen dispencing path has additional droplets on it"));
+                break;
+            }
+        }
+
+        for(int i=0; i<elecList.size()-1; i++){
+            last = elecList.at(i);
+            current = elecList.at(i+1);
+            int sharedNeighbor = 0;
+            //check through all the naighbors of each electrode and see if they are adjacent
+            foreach(Electrode* elec, current->getNeighbors()){
+                if(elec->text() == last->text()){
+                    sharedNeighbor++;
+                }
+            }
+            if(sharedNeighbor != 1){
+                break;
+            }
+            sharedNeighbor = 0;
+        }
+        //at this point everything should be ok, else the function should have broken out of the loop
+
+        //time->increaseTime();
+        if(TableSlider->value()== TableSlider->maximum() && TableSlider->value()==TimeSpinner->value()){
+            TimeSpinner->setValue(TimeSpinner->value()+1);
+            TableSlider->setValue(TableSlider->value()+1);
+        }
+        //if(elecList.at(0)->getDroplet()){
+            elecList.at(0)->getDroplet()->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
+            updateTable(elecList.at(0)->getDroplet());
+        //}
+        //time->increaseTime1();
+        if(TableSlider->value()== TableSlider->maximum() && TableSlider->value()==TimeSpinner->value()){
+            TimeSpinner->setValue(TimeSpinner->value()+1);
+            TableSlider->setValue(TableSlider->value()+1);
+        }
+        Droplet* drop = new Droplet(elecList.at(0)->getDroplet()->getName()+ "-D",elecList.at(0)->getDroplet()->getColor(),1111111,time->CurrentTime());
+        drop->updateInfo(elecList.at(1)->text(),time->CurrentTime(),elecList.at(1),"update");
+        elecList.at(1)->setDroplet(drop);
+        listdrop.append(drop);
+        addDropToTable(drop);
+//        for(int i = 1; i<elecList.size();i++){
+//            if(TableSlider->value()== TableSlider->maximum() && TableSlider->value()==TimeSpinner->value()){
+//                TimeSpinner->setValue(TimeSpinner->value()+1);
+//                TableSlider->setValue(TableSlider->value()+1);
+//            }
+//            drop->updateInfo(elecList.at(i)->text(),time->CurrentTime(),elecList.at(i),"update");
+//            updateTable(elecList.at(i)->getDroplet());
+//            if(i == elecList.size()){
+//                elecList.at(0)->getDroplet()->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
+//            }
+//        }
+        QMessageBox::warning(this,tr("DONE"), tr("DONE!"));
+    }else{
+      QMessageBox::warning(this,tr("Warning"), tr("There is no droplet on the first Electrode"));
+    }
+}
