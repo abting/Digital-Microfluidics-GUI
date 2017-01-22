@@ -50,7 +50,7 @@
         <item>
          <widget class="QTabWidget" name="ModeButtonTab">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="DropletMode">
            <attribute name="title">
@@ -101,6 +101,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="CancelPreviwButton">
+              <property name="styleSheet">
+               <string notr="true">background: rgb(255, 79, 48);</string>
+              </property>
               <property name="text">
                <string>Cancel Preview</string>
               </property>
@@ -183,46 +186,20 @@
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_11">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_9">
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_8">
-                <item>
-                 <widget class="QCheckBox" name="turnOn_EmodeButton">
-                  <property name="text">
-                   <string>Turn ON Electrode</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="turnOff_EmodeButton">
-                  <property name="text">
-                   <string>Turn OFF Electrode</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
              <layout class="QVBoxLayout" name="verticalLayout_10">
               <item>
                <widget class="QPushButton" name="Increment_EmodeButton">
+                <property name="toolTip">
+                 <string>Press spacebar to Increment</string>
+                </property>
+                <property name="statusTip">
+                 <string>Press spacebar to Increment</string>
+                </property>
                 <property name="text">
                  <string>Increment</string>
+                </property>
+                <property name="shortcut">
+                 <string>Space</string>
                 </property>
                </widget>
               </item>
@@ -235,6 +212,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="CancelPreviwEmodeButton">
+                <property name="styleSheet">
+                 <string notr="true">background: rgb(255, 79, 48);</string>
+                </property>
                 <property name="text">
                  <string>Cancel Preview</string>
                 </property>
@@ -242,10 +222,42 @@
               </item>
               <item>
                <widget class="QPushButton" name="Start_EmodeButton">
+                <property name="styleSheet">
+                 <string notr="true">background: rgb(71, 200, 51)</string>
+                </property>
                 <property name="text">
                  <string>Start</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                  <item>
+                   <widget class="QCheckBox" name="turnOn_EmodeButton">
+                    <property name="text">
+                     <string>Turn ON Electrode</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="turnOff_EmodeButton">
+                    <property name="text">
+                     <string>Turn OFF Electrode</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="RealTimeActuationBox">
+                  <property name="text">
+                   <string>Real-Time Actuation</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>

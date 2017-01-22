@@ -116,6 +116,8 @@ private slots:
 
     void on_CancelPreviwButton_clicked();
 
+    void on_RealTimeActuationBox_clicked(bool checked);
+
 signals:
     //Emited when the thread should be deleted
     void Done();
@@ -140,6 +142,7 @@ private:
     bool LayoutExists;
     bool turnOn;
     bool turnOff;
+    bool RealTimeActuate;
     bool CancelpreviewMode;
     bool CancelpreviewEMode;
 
@@ -163,6 +166,7 @@ private:
     QTabWidget *TabButton;
     QTabWidget *TabTable; 
     QPushButton *CancelPreviewEmodeButton;
+    QCheckBox *RealTimeActuationButton;
 
     //TODO NEW
     QTableWidget *DropletTable;

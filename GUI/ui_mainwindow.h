@@ -70,16 +70,16 @@ public:
     QPushButton *CancelButton;
     QWidget *ElectrodeMode;
     QVBoxLayout *verticalLayout_11;
-    QHBoxLayout *horizontalLayout_9;
-    QHBoxLayout *horizontalLayout_8;
-    QCheckBox *turnOn_EmodeButton;
-    QCheckBox *turnOff_EmodeButton;
-    QSpacerItem *horizontalSpacer;
     QVBoxLayout *verticalLayout_10;
     QPushButton *Increment_EmodeButton;
     QPushButton *preview_EmodeButton;
     QPushButton *CancelPreviwEmodeButton;
     QPushButton *Start_EmodeButton;
+    QVBoxLayout *verticalLayout_7;
+    QHBoxLayout *horizontalLayout_6;
+    QCheckBox *turnOn_EmodeButton;
+    QCheckBox *turnOff_EmodeButton;
+    QCheckBox *RealTimeActuationBox;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_3;
     QTextEdit *InstructonMonitor;
@@ -197,6 +197,7 @@ public:
 
         CancelPreviwButton = new QPushButton(DropletMode);
         CancelPreviwButton->setObjectName(QStringLiteral("CancelPreviwButton"));
+        CancelPreviwButton->setStyleSheet(QStringLiteral("background: rgb(255, 79, 48);"));
 
         verticalLayout->addWidget(CancelPreviwButton);
 
@@ -243,32 +244,6 @@ public:
         verticalLayout_11->setSpacing(6);
         verticalLayout_11->setContentsMargins(11, 11, 11, 11);
         verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
-        horizontalLayout_9 = new QHBoxLayout();
-        horizontalLayout_9->setSpacing(6);
-        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
-        horizontalLayout_8 = new QHBoxLayout();
-        horizontalLayout_8->setSpacing(6);
-        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
-        turnOn_EmodeButton = new QCheckBox(ElectrodeMode);
-        turnOn_EmodeButton->setObjectName(QStringLiteral("turnOn_EmodeButton"));
-
-        horizontalLayout_8->addWidget(turnOn_EmodeButton);
-
-        turnOff_EmodeButton = new QCheckBox(ElectrodeMode);
-        turnOff_EmodeButton->setObjectName(QStringLiteral("turnOff_EmodeButton"));
-
-        horizontalLayout_8->addWidget(turnOff_EmodeButton);
-
-
-        horizontalLayout_9->addLayout(horizontalLayout_8);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_9->addItem(horizontalSpacer);
-
-
-        verticalLayout_11->addLayout(horizontalLayout_9);
-
         verticalLayout_10 = new QVBoxLayout();
         verticalLayout_10->setSpacing(6);
         verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
@@ -284,13 +259,42 @@ public:
 
         CancelPreviwEmodeButton = new QPushButton(ElectrodeMode);
         CancelPreviwEmodeButton->setObjectName(QStringLiteral("CancelPreviwEmodeButton"));
+        CancelPreviwEmodeButton->setStyleSheet(QStringLiteral("background: rgb(255, 79, 48);"));
 
         verticalLayout_10->addWidget(CancelPreviwEmodeButton);
 
         Start_EmodeButton = new QPushButton(ElectrodeMode);
         Start_EmodeButton->setObjectName(QStringLiteral("Start_EmodeButton"));
+        Start_EmodeButton->setStyleSheet(QStringLiteral("background: rgb(71, 200, 51)"));
 
         verticalLayout_10->addWidget(Start_EmodeButton);
+
+        verticalLayout_7 = new QVBoxLayout();
+        verticalLayout_7->setSpacing(6);
+        verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        turnOn_EmodeButton = new QCheckBox(ElectrodeMode);
+        turnOn_EmodeButton->setObjectName(QStringLiteral("turnOn_EmodeButton"));
+
+        horizontalLayout_6->addWidget(turnOn_EmodeButton);
+
+        turnOff_EmodeButton = new QCheckBox(ElectrodeMode);
+        turnOff_EmodeButton->setObjectName(QStringLiteral("turnOff_EmodeButton"));
+
+        horizontalLayout_6->addWidget(turnOff_EmodeButton);
+
+
+        verticalLayout_7->addLayout(horizontalLayout_6);
+
+        RealTimeActuationBox = new QCheckBox(ElectrodeMode);
+        RealTimeActuationBox->setObjectName(QStringLiteral("RealTimeActuationBox"));
+
+        verticalLayout_7->addWidget(RealTimeActuationBox);
+
+
+        verticalLayout_10->addLayout(verticalLayout_7);
 
 
         verticalLayout_11->addLayout(verticalLayout_10);
@@ -470,7 +474,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        ModeButtonTab->setCurrentIndex(0);
+        ModeButtonTab->setCurrentIndex(1);
         CancelButton->setDefault(false);
         ModeTableTab->setCurrentIndex(0);
 
@@ -522,12 +526,20 @@ public:
         CancelButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
         CancelButton->setShortcut(QApplication::translate("MainWindow", "Esc", 0));
         ModeButtonTab->setTabText(ModeButtonTab->indexOf(DropletMode), QApplication::translate("MainWindow", "Droplet Mode", 0));
-        turnOn_EmodeButton->setText(QApplication::translate("MainWindow", "Turn ON Electrode", 0));
-        turnOff_EmodeButton->setText(QApplication::translate("MainWindow", "Turn OFF Electrode", 0));
+#ifndef QT_NO_TOOLTIP
+        Increment_EmodeButton->setToolTip(QApplication::translate("MainWindow", "Press spacebar to Increment", 0));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        Increment_EmodeButton->setStatusTip(QApplication::translate("MainWindow", "Press spacebar to Increment", 0));
+#endif // QT_NO_STATUSTIP
         Increment_EmodeButton->setText(QApplication::translate("MainWindow", "Increment", 0));
+        Increment_EmodeButton->setShortcut(QApplication::translate("MainWindow", "Space", 0));
         preview_EmodeButton->setText(QApplication::translate("MainWindow", "Preview", 0));
         CancelPreviwEmodeButton->setText(QApplication::translate("MainWindow", "Cancel Preview", 0));
         Start_EmodeButton->setText(QApplication::translate("MainWindow", "Start", 0));
+        turnOn_EmodeButton->setText(QApplication::translate("MainWindow", "Turn ON Electrode", 0));
+        turnOff_EmodeButton->setText(QApplication::translate("MainWindow", "Turn OFF Electrode", 0));
+        RealTimeActuationBox->setText(QApplication::translate("MainWindow", "Real-Time Actuation", 0));
         ModeButtonTab->setTabText(ModeButtonTab->indexOf(ElectrodeMode), QApplication::translate("MainWindow", "Electrode Mode", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Instruction Monitor", 0));
         label->setText(QApplication::translate("MainWindow", "Maximum Step:", 0));
