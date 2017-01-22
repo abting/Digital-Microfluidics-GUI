@@ -56,7 +56,6 @@ void PathHandler::setPathList()
 }
 
 void PathHandler::setPathListEmode(Table* tableEmode){
-    //QStringList elecPath;
     for (int j =1; j<tableEmode->getColumn();j++){
         QString pos = "";
         for(int i = 2; i<tableEmode->getRow(); i++){
@@ -97,23 +96,10 @@ void PathHandler::openPath(QMainWindow *layout){
     if (!file.open(QIODevice::ReadOnly))
         return;
     QTextStream inStream(&file);
-    //bool firstLine = true;
-    //int at_row=0;
     while(!inStream.atEnd()){
         QString line = inStream.readLine();
         pathList.append(line);
-        //QStringList list = line.split(",");
-//        if(firstLine){
-//          rows = list.at(0).toInt();
-//          columns = list.at(1).toInt();
-//            std::cout<<rows;
-//            std::cout<<columns;
-//            firstLine = false;
-//        }
-//        else{
-//        }
+
     }
    file.close();
-
-
 }

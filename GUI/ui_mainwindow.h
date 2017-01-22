@@ -19,12 +19,10 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QSplitter>
@@ -78,8 +76,6 @@ public:
     QSpacerItem *horizontalSpacer;
     QVBoxLayout *verticalLayout_10;
     QPushButton *Increment_EmodeButton;
-    QPushButton *SendSequence_EmodeButton;
-    QPushButton *OpenSequence_EmodeButton;
     QPushButton *preview_EmodeButton;
     QPushButton *Start_EmodeButton;
     QGroupBox *groupBox;
@@ -95,8 +91,6 @@ public:
     QLabel *label_2;
     QLabel *currentStepText;
     QSpacerItem *horizontalSpacer_2;
-    QLineEdit *lineEdit;
-    QSlider *dropSlider;
     QTableWidget *dropTable;
     QWidget *ElectrodeMode1;
     QVBoxLayout *verticalLayout_9;
@@ -107,8 +101,6 @@ public:
     QLabel *label_6;
     QLabel *currentStepText_Emode;
     QSpacerItem *horizontalSpacer_3;
-    QLineEdit *lineEdit_3;
-    QSlider *dropSlider_3;
     QTableWidget *dropTableEmode;
     QMenuBar *menuBar;
     QMenu *menuFile;
@@ -278,16 +270,6 @@ public:
 
         verticalLayout_10->addWidget(Increment_EmodeButton);
 
-        SendSequence_EmodeButton = new QPushButton(ElectrodeMode);
-        SendSequence_EmodeButton->setObjectName(QStringLiteral("SendSequence_EmodeButton"));
-
-        verticalLayout_10->addWidget(SendSequence_EmodeButton);
-
-        OpenSequence_EmodeButton = new QPushButton(ElectrodeMode);
-        OpenSequence_EmodeButton->setObjectName(QStringLiteral("OpenSequence_EmodeButton"));
-
-        verticalLayout_10->addWidget(OpenSequence_EmodeButton);
-
         preview_EmodeButton = new QPushButton(ElectrodeMode);
         preview_EmodeButton->setObjectName(QStringLiteral("preview_EmodeButton"));
 
@@ -364,18 +346,6 @@ public:
 
         horizontalLayout_5->addItem(horizontalSpacer_2);
 
-        lineEdit = new QLineEdit(DropletMode1);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-
-        horizontalLayout_5->addWidget(lineEdit);
-
-        dropSlider = new QSlider(DropletMode1);
-        dropSlider->setObjectName(QStringLiteral("dropSlider"));
-        dropSlider->setMaximum(0);
-        dropSlider->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_5->addWidget(dropSlider);
-
 
         verticalLayout_5->addLayout(horizontalLayout_5);
 
@@ -435,18 +405,6 @@ public:
 
         horizontalLayout_7->addItem(horizontalSpacer_3);
 
-        lineEdit_3 = new QLineEdit(ElectrodeMode1);
-        lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
-
-        horizontalLayout_7->addWidget(lineEdit_3);
-
-        dropSlider_3 = new QSlider(ElectrodeMode1);
-        dropSlider_3->setObjectName(QStringLiteral("dropSlider_3"));
-        dropSlider_3->setMaximum(0);
-        dropSlider_3->setOrientation(Qt::Horizontal);
-
-        horizontalLayout_7->addWidget(dropSlider_3);
-
 
         verticalLayout_8->addLayout(horizontalLayout_7);
 
@@ -502,7 +460,7 @@ public:
 
         ModeButtonTab->setCurrentIndex(1);
         CancelButton->setDefault(false);
-        ModeTableTab->setCurrentIndex(1);
+        ModeTableTab->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -554,8 +512,6 @@ public:
         turnOn_EmodeButton->setText(QApplication::translate("MainWindow", "Turn ON Electrode", 0));
         turnOff_EmodeButton->setText(QApplication::translate("MainWindow", "Turn OFF Electrode", 0));
         Increment_EmodeButton->setText(QApplication::translate("MainWindow", "Increment", 0));
-        SendSequence_EmodeButton->setText(QApplication::translate("MainWindow", "Save Sequence", 0));
-        OpenSequence_EmodeButton->setText(QApplication::translate("MainWindow", "Open Sequence", 0));
         preview_EmodeButton->setText(QApplication::translate("MainWindow", "Preview", 0));
         Start_EmodeButton->setText(QApplication::translate("MainWindow", "Start", 0));
         ModeButtonTab->setTabText(ModeButtonTab->indexOf(ElectrodeMode), QApplication::translate("MainWindow", "Electrode Mode", 0));

@@ -82,10 +82,6 @@ private slots:
 
     void on_Increment_EmodeButton_clicked();
 
-    void on_SendSequence_EmodeButton_clicked();
-
-    void on_OpenSequence_EmodeButton_clicked();
-
     void on_Start_EmodeButton_clicked();
 
     void on_turnOn_EmodeButton_clicked(bool checked);
@@ -107,6 +103,10 @@ private slots:
 
 
     void on_preview_EmodeButton_clicked();
+
+    void on_Save_Sequence_triggered();
+
+    void on_Open_Sequence_triggered();
 
 private:
     Ui::MainWindow *ui;

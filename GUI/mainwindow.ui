@@ -220,20 +220,6 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="SendSequence_EmodeButton">
-                <property name="text">
-                 <string>Save Sequence</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="OpenSequence_EmodeButton">
-                <property name="text">
-                 <string>Open Sequence</string>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QPushButton" name="preview_EmodeButton">
                 <property name="text">
                  <string>Preview</string>
@@ -272,7 +258,7 @@
     <item>
      <widget class="QTabWidget" name="ModeTableTab">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="DropletMode">
        <attribute name="title">
@@ -329,19 +315,6 @@
                </size>
               </property>
              </spacer>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit"/>
-            </item>
-            <item>
-             <widget class="QSlider" name="dropSlider">
-              <property name="maximum">
-               <number>0</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
             </item>
            </layout>
           </item>
@@ -426,19 +399,6 @@
                </size>
               </property>
              </spacer>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_3"/>
-            </item>
-            <item>
-             <widget class="QSlider" name="dropSlider_3">
-              <property name="maximum">
-               <number>0</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
             </item>
            </layout>
           </item>

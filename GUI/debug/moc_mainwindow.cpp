@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[40];
-    char stringdata0[807];
+    char stringdata0[789];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -55,20 +55,20 @@ QT_MOC_LITERAL(22, 375, 10), // "timeChange"
 QT_MOC_LITERAL(23, 386, 10), // "addToDList"
 QT_MOC_LITERAL(24, 397, 22), // "on_BeginButton_clicked"
 QT_MOC_LITERAL(25, 420, 32), // "on_Increment_EmodeButton_clicked"
-QT_MOC_LITERAL(26, 453, 35), // "on_SendSequence_EmodeButton_c..."
-QT_MOC_LITERAL(27, 489, 35), // "on_OpenSequence_EmodeButton_c..."
-QT_MOC_LITERAL(28, 525, 28), // "on_Start_EmodeButton_clicked"
-QT_MOC_LITERAL(29, 554, 29), // "on_turnOn_EmodeButton_clicked"
-QT_MOC_LITERAL(30, 584, 7), // "checked"
-QT_MOC_LITERAL(31, 592, 30), // "on_turnOff_EmodeButton_clicked"
-QT_MOC_LITERAL(32, 623, 14), // "DisableSignals"
-QT_MOC_LITERAL(33, 638, 30), // "on_ModeButtonTab_tabBarClicked"
-QT_MOC_LITERAL(34, 669, 5), // "index"
-QT_MOC_LITERAL(35, 675, 29), // "on_ModeTableTab_tabBarClicked"
-QT_MOC_LITERAL(36, 705, 29), // "on_dropTimeEmode_valueChanged"
-QT_MOC_LITERAL(37, 735, 18), // "on_addDrop_clicked"
-QT_MOC_LITERAL(38, 754, 21), // "on_removedrop_clicked"
-QT_MOC_LITERAL(39, 776, 30) // "on_preview_EmodeButton_clicked"
+QT_MOC_LITERAL(26, 453, 28), // "on_Start_EmodeButton_clicked"
+QT_MOC_LITERAL(27, 482, 29), // "on_turnOn_EmodeButton_clicked"
+QT_MOC_LITERAL(28, 512, 7), // "checked"
+QT_MOC_LITERAL(29, 520, 30), // "on_turnOff_EmodeButton_clicked"
+QT_MOC_LITERAL(30, 551, 14), // "DisableSignals"
+QT_MOC_LITERAL(31, 566, 30), // "on_ModeButtonTab_tabBarClicked"
+QT_MOC_LITERAL(32, 597, 5), // "index"
+QT_MOC_LITERAL(33, 603, 29), // "on_ModeTableTab_tabBarClicked"
+QT_MOC_LITERAL(34, 633, 29), // "on_dropTimeEmode_valueChanged"
+QT_MOC_LITERAL(35, 663, 18), // "on_addDrop_clicked"
+QT_MOC_LITERAL(36, 682, 21), // "on_removedrop_clicked"
+QT_MOC_LITERAL(37, 704, 30), // "on_preview_EmodeButton_clicked"
+QT_MOC_LITERAL(38, 735, 26), // "on_Save_Sequence_triggered"
+QT_MOC_LITERAL(39, 762, 26) // "on_Open_Sequence_triggered"
 
     },
     "MainWindow\0ProcessClick\0\0ProcessEvents\0"
@@ -83,8 +83,6 @@ QT_MOC_LITERAL(39, 776, 30) // "on_preview_EmodeButton_clicked"
     "selectColumn\0removeDropFromTable\0drop\0"
     "timeChange\0addToDList\0on_BeginButton_clicked\0"
     "on_Increment_EmodeButton_clicked\0"
-    "on_SendSequence_EmodeButton_clicked\0"
-    "on_OpenSequence_EmodeButton_clicked\0"
     "on_Start_EmodeButton_clicked\0"
     "on_turnOn_EmodeButton_clicked\0checked\0"
     "on_turnOff_EmodeButton_clicked\0"
@@ -92,7 +90,9 @@ QT_MOC_LITERAL(39, 776, 30) // "on_preview_EmodeButton_clicked"
     "index\0on_ModeTableTab_tabBarClicked\0"
     "on_dropTimeEmode_valueChanged\0"
     "on_addDrop_clicked\0on_removedrop_clicked\0"
-    "on_preview_EmodeButton_clicked"
+    "on_preview_EmodeButton_clicked\0"
+    "on_Save_Sequence_triggered\0"
+    "on_Open_Sequence_triggered"
 };
 #undef QT_MOC_LITERAL
 
@@ -132,16 +132,16 @@ static const uint qt_meta_data_MainWindow[] = {
       24,    0,  212,    2, 0x08 /* Private */,
       25,    0,  213,    2, 0x08 /* Private */,
       26,    0,  214,    2, 0x08 /* Private */,
-      27,    0,  215,    2, 0x08 /* Private */,
-      28,    0,  216,    2, 0x08 /* Private */,
-      29,    1,  217,    2, 0x08 /* Private */,
-      31,    1,  220,    2, 0x08 /* Private */,
-      32,    0,  223,    2, 0x08 /* Private */,
-      33,    1,  224,    2, 0x08 /* Private */,
-      35,    1,  227,    2, 0x08 /* Private */,
-      36,    1,  230,    2, 0x08 /* Private */,
-      37,    1,  233,    2, 0x08 /* Private */,
-      38,    1,  236,    2, 0x08 /* Private */,
+      27,    1,  215,    2, 0x08 /* Private */,
+      29,    1,  218,    2, 0x08 /* Private */,
+      30,    0,  221,    2, 0x08 /* Private */,
+      31,    1,  222,    2, 0x08 /* Private */,
+      33,    1,  225,    2, 0x08 /* Private */,
+      34,    1,  228,    2, 0x08 /* Private */,
+      35,    1,  231,    2, 0x08 /* Private */,
+      36,    1,  234,    2, 0x08 /* Private */,
+      37,    0,  237,    2, 0x08 /* Private */,
+      38,    0,  238,    2, 0x08 /* Private */,
       39,    0,  239,    2, 0x08 /* Private */,
 
  // slots: parameters
@@ -167,16 +167,16 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   28,
+    QMetaType::Void, QMetaType::Bool,   28,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   30,
-    QMetaType::Void, QMetaType::Bool,   30,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   34,
-    QMetaType::Void, QMetaType::Int,   34,
+    QMetaType::Void, QMetaType::Int,   32,
+    QMetaType::Void, QMetaType::Int,   32,
     QMetaType::Void, QMetaType::Int,   15,
-    QMetaType::Void, QMetaType::Bool,   30,
-    QMetaType::Void, QMetaType::Bool,   30,
+    QMetaType::Void, QMetaType::Bool,   28,
+    QMetaType::Void, QMetaType::Bool,   28,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -209,18 +209,18 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 18: _t->addToDList((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
         case 19: _t->on_BeginButton_clicked(); break;
         case 20: _t->on_Increment_EmodeButton_clicked(); break;
-        case 21: _t->on_SendSequence_EmodeButton_clicked(); break;
-        case 22: _t->on_OpenSequence_EmodeButton_clicked(); break;
-        case 23: _t->on_Start_EmodeButton_clicked(); break;
-        case 24: _t->on_turnOn_EmodeButton_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 25: _t->on_turnOff_EmodeButton_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 26: _t->DisableSignals(); break;
-        case 27: _t->on_ModeButtonTab_tabBarClicked((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 28: _t->on_ModeTableTab_tabBarClicked((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 29: _t->on_dropTimeEmode_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 30: _t->on_addDrop_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 31: _t->on_removedrop_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 32: _t->on_preview_EmodeButton_clicked(); break;
+        case 21: _t->on_Start_EmodeButton_clicked(); break;
+        case 22: _t->on_turnOn_EmodeButton_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 23: _t->on_turnOff_EmodeButton_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 24: _t->DisableSignals(); break;
+        case 25: _t->on_ModeButtonTab_tabBarClicked((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 26: _t->on_ModeTableTab_tabBarClicked((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 27: _t->on_dropTimeEmode_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 28: _t->on_addDrop_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 29: _t->on_removedrop_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 30: _t->on_preview_EmodeButton_clicked(); break;
+        case 31: _t->on_Save_Sequence_triggered(); break;
+        case 32: _t->on_Open_Sequence_triggered(); break;
         default: ;
         }
     }
