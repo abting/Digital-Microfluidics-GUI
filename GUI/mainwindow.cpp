@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     TimeSpinnerEmode = ui->dropTimeEmode;
     DropletTableEmode = ui->dropTableEmode; 
     CancelPreviewEmodeButton = ui->CancelPreviwEmodeButton;
+    RealTimeActuationButton = ui->RealTimeActuationBox;
 
     //Tab Widgets
     TabButton = ui->ModeButtonTab;
@@ -52,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     LayoutExists = false;
     turnOn = false;
     turnOff = false;
+    RealTimeActuate = false;
 
 
     //Hide and Show certain buttons
@@ -151,6 +153,9 @@ void MainWindow::ProcessClick(){
     else if (turnOff){
         electrode->setStyleSheet("background-color: grey");
         tableEmode->updateTableEmode("remove",electrode);
+    }
+    else if(RealTimeActuate){
+        arduino->SendSingleCommand("actuate", electrode->text());
     }
     else{                                              //if the user just want to move the droplet
         //TODO NEW
@@ -386,6 +391,8 @@ void MainWindow::on_PreviewButton_clicked()
     CancelPreviewButton->setEnabled(true);
     CancelPreviewButton->setVisible(true);
     Preview(tableDmode,time, true);
+    CancelPreviewButton->setEnabled(false);
+    CancelPreviewButton->setVisible(false);
 }
 
 void MainWindow::on_DispenceButton_clicked()
@@ -677,11 +684,13 @@ void MainWindow::DisableSignals(){
     DispenceMode = false;
     SplitMode = false;
     turnOn = false;
-    turnOff = false;
+    turnOff = false;   
+    RealTimeActuate = false;
     TurnOnButton->setChecked(false);
     TurnOffButton->setChecked(false);
     AddDroplet->setChecked(false);
     RemoveDroplet->setChecked(false);
+    RealTimeActuationButton->setChecked(false);
 
 }
 
@@ -689,6 +698,7 @@ void MainWindow::on_ModeButtonTab_tabBarClicked(int index)
 {
     //When changing tabs, clear the colors of the layout
     mylayout->ResetColors();
+    DisableSignals();
     if(index==0){
         TabTable->setCurrentIndex(0);
     }
@@ -702,6 +712,7 @@ void MainWindow::on_ModeButtonTab_tabBarClicked(int index)
 void MainWindow::on_ModeTableTab_tabBarClicked(int index)
 {
     mylayout->ResetColors();
+    DisableSignals();
     if(index==0){
         TabButton->setCurrentIndex(0);
     }
@@ -791,6 +802,8 @@ void MainWindow::on_preview_EmodeButton_clicked()
     CancelPreviewEmodeButton->setEnabled(true);
     CancelPreviewEmodeButton->setVisible(true);
     Preview(tableEmode,timeEmode, false);
+    CancelPreviewEmodeButton->setEnabled(false);
+    CancelPreviewEmodeButton->setVisible(false);
 }
 
 void MainWindow::on_Save_Sequence_triggered()
@@ -827,4 +840,13 @@ void MainWindow::on_CancelPreviwButton_clicked()
     CancelpreviewMode = true;
     CancelPreviewButton->setEnabled(false);
     CancelPreviewButton->setVisible(false);
+}
+
+void MainWindow::on_RealTimeActuationBox_clicked(bool checked)
+{
+    DisableSignals();
+    if(checked){
+        RealTimeActuationButton->setChecked(true);
+        RealTimeActuate = true;
+    }
 }
