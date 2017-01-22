@@ -51,33 +51,33 @@ double Droplet::getVolume(){
    return volume;
 }
 
+//Updates the droplet's information, it's index represents a time slot
+//It contains the droplet's position, electrode (that it is on) and status based on a given time
 void Droplet::updateInfo(QString pos, int time, Electrode* e, QString status){
 
-   if(time>=DropletInfo.length()){
-       Info temp;
-       temp.position = pos;
-       temp.time = time;
-       temp.elec = e;
-       temp.status = status;
+    //The time hasn't been accessed yet in the droplet's information list
+    //thus you need to fill in information up until the specified time
+
+    if(time>=DropletInfo.length()){
 
        Electrode* tempE;
        if(DropletInfo.length()>0){
             tempE = DropletInfo.at(DropletInfo.length()-1).elec;
        }
-
-       //TODO NEW
-
-       int i = DropletInfo.length();
-
        QString statusE;
+       //The droplet has just been created, but it's added at a later time
+       //Thus specify that at times leading up to the current time, it was absent
        if(DropletInfo.length() == 0){
            statusE = "absent";
            tempE = NULL;
-
        }
+       //The droplet has already been created, but it was been untouched for a while
        else{
            statusE = "remain";
        }
+
+       //Fill in the "untouched" time slots with information
+       int i = DropletInfo.length();
        while(i<time){
            Info temp1;
            temp1.position = "";
@@ -88,16 +88,24 @@ void Droplet::updateInfo(QString pos, int time, Electrode* e, QString status){
            i++;
        }
 
+       //Set the information to the specified time
+       Info temp;
+       temp.position = pos;
+       temp.time = time;
+       temp.elec = e;
+       temp.status = status;
        DropletInfo.append(temp);
    }
-   else{
 
-       if(DropletInfo[time].elec){          //If the elctrode is being changed, remove the droplet from it
-           DropletInfo[time].elec->removeDroplet();
-       }
-       DropletInfo[time].position = pos;
-       DropletInfo[time].elec = e;
-       DropletInfo[time].status = status;
+
+    //If this time has already been accessed and you're editing it
+    else{
+        if(DropletInfo[time].elec){
+            DropletInfo[time].elec->removeDroplet();
+        }
+        DropletInfo[time].position = pos;
+        DropletInfo[time].elec = e;
+        DropletInfo[time].status = status;
    }
 }
 
@@ -112,8 +120,6 @@ void Droplet::setdropletPath(Info inf){
 QList <Info> Droplet::getDropletInfo(){
    return DropletInfo;
 }
-
-//TODO NEW
 
 void Droplet::setParent(Electrode* par){
     parent = par;

@@ -14,6 +14,8 @@ void Table::CreateTable(QMainWindow* main)
 {
 
     //Setup Table
+    table->setColumnCount(3);
+    table->setRowCount(3);
     table->setColumnWidth(0,100);
     //for(int i = 1;i<20;i++){
         table->setColumnWidth(1,50);
@@ -187,6 +189,8 @@ void Table::updateTableEmode(QString type, Electrode* elec)
 void Table::InitializeTableEmode(QMainWindow* main)
 {
     //Setup Table
+    table->setColumnCount(2);
+    table->setRowCount(3);
     table->setColumnWidth(0,150);
     //for(int i = 1;i<20;i++){
         table->setColumnWidth(1,20);

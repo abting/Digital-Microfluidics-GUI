@@ -14,55 +14,55 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
     ui->setupUi(this);
 
-    ElectrodeLayout = ui->electrodeLayout;
-    SplitButton = ui->SplitButton;
+    ElectrodeLayout = ui->electrodeLayout;      //GridLayout
+
+    //Droplet Mode Widgets
     DispenceButton = ui->DispenceButton;
+    SplitButton = ui->SplitButton;
     PreviewButton = ui->PreviewButton ;
     StartButton = ui->StartButton;
-    InstructonMonitor = ui->InstructonMonitor;
-    CancelButton = ui->CancelButton;
     AddDroplet = ui->addDrop;
     RemoveDroplet = ui->removedrop;
+    InstructonMonitor = ui->InstructonMonitor;
     BeginButton = ui->BeginButton;
-
-    //TODO NEW
+    CancelButton = ui->CancelButton;
     DropletTable = ui->dropTable;
-    DropletTableEmode = ui->dropTableEmode;
     TimeSpinner = ui->dropTime;
-    TimeSpinnerEmode = ui->dropTimeEmode;
-    TimeSlider = ui->dropSlider;
 
+    //Electrode Mode Widgets
     IncrementButton = ui->Increment_EmodeButton;
     TurnOnButton = ui->turnOn_EmodeButton;
     TurnOffButton = ui->turnOff_EmodeButton;
     StartEmodeButton = ui->Start_EmodeButton;
+    TimeSpinnerEmode = ui->dropTimeEmode;
+    DropletTableEmode = ui->dropTableEmode;
 
+    //Tab Widgets
     TabButton = ui->ModeButtonTab;
     TabTable = ui->ModeTableTab;
-
     TabTable->setCurrentIndex(0);
     TabButton->setCurrentIndex(0);
-    InitializeTable();
 
 
-
-
-
+    //Action booleans
     DispenceMode = false;
     SplitMode = false;
     LayoutExists = false;
     turnOn = false;
     turnOff = false;
 
-    InitializeUI(false);
 
+    //Hide and Show certain buttons
     CancelButton->setEnabled(false);
     CancelButton->setVisible(false);
     BeginButton->setEnabled(false);
     BeginButton->setVisible(false);
-    //KIWI
     StartButton->setEnabled(true);
 
+
+    //Initialize Tables, Arduino and GridLayout
+//    InitializeTable();
+    InitializeUI(false);
     arduino = new Arduino();
     mylayout = new Layout(ElectrodeLayout);
 }
@@ -74,14 +74,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::InitializeUI(bool enable){
 
+    //Enable buttons once the gridlayout is set
     SplitButton->setEnabled(enable);
     PreviewButton->setEnabled(enable);
     DispenceButton->setEnabled(enable);
     InstructonMonitor->setEnabled(enable);
     AddDroplet->setEnabled(enable);
     RemoveDroplet->setEnabled(enable);
+    TabButton->setEnabled(enable);
+    TabTable->setEnabled(enable);
 
-    //TODO
+    InitializeTable();
+    listdrop.clear();
+
     time = new Time(tableDmode->getSlider());
     timeEmode = new Time(tableEmode->getSlider());
 }
@@ -140,10 +145,11 @@ void MainWindow::ProcessClick(){
         //TODO NEW
         time->setPreviousTime();
         time->increaseTime(TimeSpinner);
-        //QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
         mylayout->CheckSurroundingElectrodes(electrode,time->CurrentTime());
-        updateTable(electrode->getDroplet());
-        timeChange(8);   //MAY NOT NEED TRIGGER IS ALREADY HAPPENING
+        if(electrode->getDroplet()){
+            updateTable(electrode->getDroplet());
+        }
+        timeChange(8);
         selectColumn(tableDmode->getSlider()->value());
     }
 }
@@ -179,8 +185,6 @@ void MainWindow::getUserInput(int input){
 }
 
 void MainWindow::ProcessEvents(){
-
-    //Electrode *arrayOfElectrodes = clickhandler->getElectrodeArray();
     QList<Electrode*> listOfElectrodes = clickhandler->getElectrodeList();
 
     clickhandler->deleteLater();
@@ -198,8 +202,6 @@ void MainWindow::ProcessEvents(){
 
 void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
 
-
-
     CancelButton->setVisible(false);
     CancelButton->setEnabled(false);
     DispenceMode = false;
@@ -210,41 +212,38 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
 
     //if there is a droplet on the first electrode continute
     if(elecList.at(0)->getAvailability() == 0 ){
-    //if the electrodes are not empty at any poit, break
-            foreach(Electrode* elec, elecList){
-                if(elec->getAvailability() == 0 && elec->getDroplet() != reservoir){
-                    QMessageBox::warning(this,tr("Warning"), tr("The chosen dispencing path has additional droplets on it"));
-                    return;
+    //if the electrodes are not empty at any point, break
+        foreach(Electrode* elec, elecList){
+            if(elec->getAvailability() == 0 && elec->getDroplet() != reservoir){
+                QMessageBox::warning(this,tr("Warning"), tr("The chosen dispencing path has additional droplets on it"));
+                return;
+            }
+        }
+        for(int i=0; i<elecList.size()-1; i++){
+            last = elecList.at(i);
+            current = elecList.at(i+1);
+            int sharedNeighbor = 0;
+            //check through all the naighbors of each electrode and see if they are adjacent
+            foreach(Electrode* elec, current->getNeighbors()){
+                if(elec == last){
+                    sharedNeighbor++;
                 }
             }
-
-            for(int i=0; i<elecList.size()-1; i++){
-                last = elecList.at(i);
-                current = elecList.at(i+1);
-                int sharedNeighbor = 0;
-                //check through all the naighbors of each electrode and see if they are adjacent
-                foreach(Electrode* elec, current->getNeighbors()){
-                    if(elec == last){
-                        sharedNeighbor++;
-                    }
-                }
-                if(sharedNeighbor != 1){
+            if(sharedNeighbor != 1){
                 QMessageBox::warning(this,tr("Warning"), tr("The electrodes you have chosen are not adjacant to one another"));
-                    return;
-                }
-                sharedNeighbor = 0;
+                return;
             }
-
+            sharedNeighbor = 0;
+        }
         //at this point everything should be ok, else the function should have broken out of the loop
 
+        //Create the two first timeslots, actuate the reservoir, then add a droplet to the adjacent electrode (second user input)
         time->setPreviousTime();
         time->increaseTime(TimeSpinner);
         Droplet* initialDrop = elecList.at(0)->getDroplet();
         initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
         updateTable(initialDrop);
         timeChange(8);
-
-
         time->setPreviousTime();
         time->increaseTime(TimeSpinner);
         Droplet* drop = new Droplet(elecList.at(0)->getDroplet()->getName()+ "-D",elecList.at(0)->getDroplet()->getColor(),1111111,time->CurrentTime());
@@ -253,6 +252,8 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
         listdrop.append(drop);
         addDropToTable(drop);
         timeChange(8);
+
+        //Add the remaining electrodes to the path of the newly created droplet (subsequent user inputs)
         for(int i = 2; i<elecList.size();i++){
             time->setPreviousTime();
             time->increaseTime(TimeSpinner);
@@ -262,13 +263,14 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
             timeChange(8);
         }
 
+        //Update the reservoir to actuate simulatenously, this breaks off the two droplets
         initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
         updateTable(initialDrop);
         selectColumn(tableDmode->getSlider()->value());
         QMessageBox::warning(this,tr("DONE"), tr("DONE!"));
-
-    }else{
-      QMessageBox::warning(this,tr("Warning"), tr("There is no droplet on the first Electrode"));
+    }
+    else{
+        QMessageBox::warning(this,tr("Warning"), tr("There is no droplet on the first Electrode"));
     }
 }
 
@@ -303,8 +305,9 @@ void MainWindow::SplitDroplet(QList<Electrode*> elecList){
         }
 
         if(!fail){
-            time->increaseTime(TimeSpinner);
+
             //if all the surrounding electrodes are empty, create two new droplets
+            time->increaseTime(TimeSpinner);
             Droplet* split1 = new Droplet(temp->getName()+"-S1",temp->getColor(),temp->getVolume()/2, tableDmode->getSlider()->value());
             split1->updateInfo(elecList.at(1)->text(),time->CurrentTime(),elecList.at(1),"update");
             elecList.at(1)->setDroplet(split1);
@@ -317,12 +320,11 @@ void MainWindow::SplitDroplet(QList<Electrode*> elecList){
             listdrop.append(split2);
             addDropToTable(split2);
 
-            //remove the parent droplet
-            //KIWI
-
+            //Remove access to the droplet that was used to be split
             elecList.at(0)->getDroplet()->updateInfo("", time->CurrentTime(), elecList.at(0), "split");
             elecList.at(0)->removeDroplet();
             cout<<listdrop.size()<<endl;
+
             //finish splitting mode
             SplitMode = false;
         }
@@ -336,13 +338,15 @@ void MainWindow::on_StartButton_clicked()
 {
     //KIWI
     //if(arduino->isConnected()){
-        pathHandler = new PathHandler(listdrop);
+    //For display purposes only
+        pathHandler = new PathHandler(listdrop);      
         pathHandler->setPathList();
         if(pathHandler->getPathList().length()>0){
             for(int i = 0; i<pathHandler->getPathList().length(); i++){
-                ui->lineEdit->setText(pathHandler->getPathList().at(i));
+                InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
                 qApp->processEvents();
                 Sleep(700);
+                InstructonMonitor->clear();
             }
         }
         arduino->SendSequence(pathHandler);
@@ -477,21 +481,28 @@ void MainWindow::on_Open_Layout_triggered(){
 //TODO NEW
 void MainWindow::InitializeTable()
 {
-    //Setup Table
+    //Setup Tables
+    TimeSpinnerEmode->setMinimum(0);
+    TimeSpinner->setMinimum(0);
+    TimeSpinnerEmode->setValue(0);
+    TimeSpinner->setValue(0);
+
+    DropletTable->clear();
+    DropletTableEmode->clear();
+
     tableDmode = new Table(DropletTable);
     tableDmode->CreateTable(this);
     tableEmode = new Table(DropletTableEmode);
     tableEmode->InitializeTableEmode(this);
     ui->currentStepText->setText(QString::number(0));
     ui->currentStepText_Emode->setText(QString::number(0));
+    InstructonMonitor->setPlainText(QString::number(tableDmode->getSlider()->width()));
 }
 
 //TODO NEW
 void MainWindow::addDropToTable(Droplet *drop)
 {
-
     tableDmode->addDropToTable(drop,listdrop,time->CurrentTime());
-
 }
 
 void MainWindow::removeDropFromTable(Droplet *drop)
@@ -499,17 +510,16 @@ void MainWindow::removeDropFromTable(Droplet *drop)
     tableDmode->removeDropFromTable(drop);
 }
 
-//TODO NEW
 void MainWindow::updateTable(Droplet *drop)
 {
     tableDmode->updateTable(drop,time->CurrentTime());
 }
 
-//TODO NEW
 void MainWindow::on_dropTime_valueChanged(int arg1)
 {
     int origCol = tableDmode->getColumn();
     int increaseSize = 0;
+
     //Increase the size of the table according to the TimeSpinner
     if (arg1+2 >= tableDmode->getColumn()){         //Need to account for +2 offset in the columns
         tableDmode->setColumn(arg1+3);
@@ -517,21 +527,25 @@ void MainWindow::on_dropTime_valueChanged(int arg1)
             tableDmode->setColumnW(i,20);
             increaseSize +=20;
         }
+        //Increase Span of headers and Slider, increase size of Slider accordingly
         tableDmode->setSp(1,2,1,tableDmode->getColumn()-1);
         tableDmode->setSp(0,2,1,tableDmode->getColumn()-1);
         tableDmode->getSlider()->setMaximum(tableDmode->getColumn()-3);
-        tableDmode->getSlider()->setFixedWidth(tableDmode->getSlider()->width()+increaseSize);
+        //tableDmode->getSlider()->setFixedWidth(tableDmode->getSlider()->width()+increaseSize);
     }    
     TimeSpinner->setMinimum(arg1);
+    InstructonMonitor->setPlainText(QString::number(tableDmode->getSlider()->width()));
 }
 
-
-//TODO NEW
+//This is called when you're scrolling through time using the slider
+//It ensures that you set droplets at their specified time
 void MainWindow::selectColumn(int value)        //Value is the value of the tableslider
 {
     if(TabButton->currentIndex()==0){
         ui->currentStepText->setText(QString::number(value));
         foreach(Droplet* drop, listdrop){
+            //First check if the Time to be checked is contained in the droplet Information
+            //If it isn't then set Time to be checked to be it's last index
             int evaluatedTime = value;
             if(value<=drop->getDropletInfo().length()-1){
             }
@@ -540,6 +554,8 @@ void MainWindow::selectColumn(int value)        //Value is the value of the tabl
                     evaluatedTime = drop->getDropletInfo().length()-1;
                 }
             }
+            //If the droplet information contains an electrode at that given time, set the droplet to that electrode
+            //If it is supposed to be merged, absent or split at that given time, do not set the droplet
             foreach(Info inf, drop->getDropletInfo()){
                 if(inf.time == evaluatedTime){
                     if(inf.status!="merged" && inf.status != "absent" && inf.status!= "split"){
@@ -552,6 +568,7 @@ void MainWindow::selectColumn(int value)        //Value is the value of the tabl
     else if(TabButton->currentIndex()==1){
         ui->currentStepText_Emode->setText(QString::number(value));
         //QList <Electrode*> addElecs;
+        //Access the electrodes based on their numbers, set their color to blue indicating that they're turned on
         for(int i = 2; i<tableEmode->getRow();i++){
             if(tableEmode->getItem(i,tableEmode->getSlider()->value()+1)){
                 Electrode* el = mylayout->elecFromText(tableEmode->getItem(i,tableEmode->getSlider()->value()+1)->text());
@@ -562,6 +579,8 @@ void MainWindow::selectColumn(int value)        //Value is the value of the tabl
     }
 }
 
+//Remove droplets from their electrodes at the specified time
+//This is called when you're scrolling through time, it ensures that you remove droplets at previous times
 void MainWindow::timeChange(int value)
 {
     if(value >= 1 && value <= 8){
@@ -571,6 +590,7 @@ void MainWindow::timeChange(int value)
         if(TabButton->currentIndex() == 0){
             int evaluatedTime;
             //Remove droplets from all previous times
+            //If the droplet doesn't contain information at the specified time, set the evaluated time to be the last index
             foreach(Droplet* drop, listdrop){
                 if(time->getPreviousTime() > drop->getDropletInfo().length()-1){
                     evaluatedTime = drop->getDropletInfo().length()-1;
@@ -578,6 +598,7 @@ void MainWindow::timeChange(int value)
                 else{
                     evaluatedTime = time->getPreviousTime();
                 }
+                //If the has an associated electrode at that time, remove it from that electrode
                 foreach(Info inf, drop->getDropletInfo()){
                     if(inf.status!="merged" && inf.status!="absent" && inf.status!="split" && inf.time == evaluatedTime){
                        if(inf.elec->getDroplet()){
@@ -589,9 +610,10 @@ void MainWindow::timeChange(int value)
         }
         else if (TabButton->currentIndex() == 1){
             //QList <Electrode*> removeElecs;
+            //If the has an associated electrode at that time, set that electrode to grey (turned off)
             for(int i = 2; i<tableEmode->getRow();i++){
-                if(tableEmode->getItem(i,timeEmode->getPreviousTime()+1)){              //Need to account for +1 offset in the table
-                    Electrode* el = mylayout->elecFromText(tableEmode->getItem(i,timeEmode->getPreviousTime()+1)->text());
+                if(tableEmode->getItem(i,tableEmode->getSlider()->value()+1)){              //Need to account for +1 offset in the table
+                    Electrode* el = mylayout->elecFromText(tableEmode->getItem(i,tableEmode->getSlider()->value()+1)->text());
                     //removeElecs.append(el);
                     el->setStyleSheet("background-color:grey");
                 }
@@ -622,20 +644,7 @@ void MainWindow::on_Increment_EmodeButton_clicked()
 
 }
 
-void MainWindow::on_SendSequence_EmodeButton_clicked()
-{
 
-    pathHandler = new PathHandler(listdrop);
-    pathHandler->setPathList();
-    pathHandler->savePath(this);
-
-}
-
-void MainWindow::on_OpenSequence_EmodeButton_clicked()
-{
-    pathHandler = new PathHandler();
-    pathHandler->openPath(this);
-}
 
 void MainWindow::on_Start_EmodeButton_clicked()
 {
@@ -644,11 +653,13 @@ void MainWindow::on_Start_EmodeButton_clicked()
 //    //if(arduino->isConnected()){
     pathHandler = new PathHandler();
     pathHandler->setPathListEmode(tableEmode);
+    //For display purposes only
     if(pathHandler->getPathList().length()>0){
         for(int i = 0; i<pathHandler->getPathList().length(); i++){
-            ui->lineEdit_3->setText(pathHandler->getPathList().at(i));
+            InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
             qApp->processEvents();
             Sleep(700);
+            InstructonMonitor->clear();
         }
     }
 //    arduino->SendSequence(pathHandler);
@@ -693,6 +704,7 @@ void MainWindow::DisableSignals(){
 
 void MainWindow::on_ModeButtonTab_tabBarClicked(int index)
 {
+    //When changing tabs, clear the colors of the layout
     mylayout->ResetColors();
     if(index==0){
         TabTable->setCurrentIndex(0);
@@ -717,10 +729,9 @@ void MainWindow::on_ModeTableTab_tabBarClicked(int index)
     }
 }
 
-
-
 void MainWindow::on_dropTimeEmode_valueChanged(int arg1)
 {
+    //Identical to the other DropTime function => will eventually merge
     int origCol = tableEmode->getColumn();
     int increaseSize = 0;
     if (arg1+1 >= tableEmode->getColumn()){         //Need to account for +1 offset in the columns
@@ -756,16 +767,39 @@ void MainWindow::on_removedrop_clicked(bool checked)
 
 void MainWindow::on_preview_EmodeButton_clicked()
 {
+    //Similar to preview in Droplet Mode => Will eventually merge
     timeEmode->setPreviousTime();
     timeChange(8);
     tableEmode->getSlider()->setValue(0);
     //Start incrementing the TableSlider, add and remove droplets in the process
     for(int k = 0; k<=tableEmode->getSlider()->maximum();k++){
         timeEmode->setPreviousTime();
-        tableEmode->getSlider()->setValue(k);
         timeChange(8);
+        tableEmode->getSlider()->setValue(k);
+
         selectColumn(tableEmode->getSlider()->value());
         qApp->processEvents();
         Sleep(500);         //Specify the speed of preview
+    }
+}
+
+void MainWindow::on_Save_Sequence_triggered()
+{
+    if(TabButton->currentIndex()==0){
+        pathHandler = new PathHandler(listdrop);
+        pathHandler->setPathList();
+        pathHandler->savePath(this);
+    }
+    else if(TabButton->currentIndex()==1){
+    }
+}
+
+void MainWindow::on_Open_Sequence_triggered()
+{
+    if(TabButton->currentIndex()==0){
+        pathHandler = new PathHandler();
+        pathHandler->openPath(this);
+    }
+    else if(TabButton->currentIndex()==1){
     }
 }

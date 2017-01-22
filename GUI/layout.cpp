@@ -355,7 +355,7 @@ void Layout::setColumns(int _columns){
     columns = _columns;
 }
 
-
+//Return the electrode based on it's number, go through the gridlayout
 Electrode* Layout::elecFromText(QString elec){
     for (int i=0; i<rows;i++){
         for(int j=0; j<columns;j++){
@@ -372,6 +372,7 @@ Electrode* Layout::elecFromText(QString elec){
     return NULL;
 }
 
+//Sets all the colors to default grey (turned off or no droplets on an electrode)
 void Layout::ResetColors(){
     for (int i=0; i<rows;i++){
         for(int j=0; j<columns;j++){

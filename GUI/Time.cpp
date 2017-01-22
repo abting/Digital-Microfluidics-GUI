@@ -28,6 +28,13 @@ int Time::getPreviousTime()
 {
     return PreviousTime;
 }
+void Time::increaseTime(QSpinBox* TimeSpin)
+{
+    if(TimeSpin->value()<=TimeSlider->value()){
+        TimeSpin->setValue(TimeSpin->value()+1);
+    }
+    TimeSlider->setValue(TimeSlider->value()+1);
+}
 
 
 //QList<int> Time::returnTimeList()
@@ -44,13 +51,7 @@ int Time::getPreviousTime()
 
 //}
 
-void Time::increaseTime(QSpinBox* TimeSpin)
-{
-    if(TimeSpin->value()<=TimeSlider->value()){
-        TimeSpin->setValue(TimeSpin->value()+1);
-    }
-    TimeSlider->setValue(TimeSlider->value()+1);
-}
+
 
 
 
