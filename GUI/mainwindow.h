@@ -18,9 +18,6 @@
 #include <QSpinBox>
 #include <QTableWidget>
 
-
-//extern bool ow;
-
 namespace Ui {
 class MainWindow;
 }
@@ -45,8 +42,8 @@ public:
 
     QList<Droplet*> listdrop;
 
-
 private slots:
+
     void ProcessClick();
     //SLOT to handle clicked electrodes depending on the functionality required (split, dispence, move, etc)
     void ProcessEvents();
@@ -63,6 +60,7 @@ private slots:
     void on_Open_Layout_triggered();
     void on_addDrop_clicked();
     void on_removedrop_clicked();
+    void on_BeginButton_clicked();
 
     void InitializeTable();
     void on_dropTime_valueChanged(int arg1);
@@ -72,9 +70,6 @@ private slots:
     void removeDropFromTable(Droplet *drop);
     void timeChange(int);
     void addToDList(Droplet*);
-
-
-    void on_BeginButton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -107,7 +102,6 @@ private:
     QSpinBox *TimeSpinner;
     QSlider *TimeSlider;
     QSlider *TableSlider;
-
 };
 
 #endif // MAINWINDOW_H

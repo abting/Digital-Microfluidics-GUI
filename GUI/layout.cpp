@@ -176,7 +176,7 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
 
    //first check if the clicked electrode already has a droplet on it
    if(clicked_electrode->getAvailability() == 0){
-       //FIXME do nothing??or merge??
+       //TODO fixed?
        clicked_electrode->getDroplet()->updateInfo(clicked_electrode->text(), time,clicked_electrode, "remain");
 
    }

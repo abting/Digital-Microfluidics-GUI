@@ -4,8 +4,8 @@
 #include <QMessageBox>
 #include <mainwindow.h>
 
-LayoutDesign::LayoutDesign(QWidget *parent): QDialog(parent), ui(new Ui::LayoutDesign)
-{
+LayoutDesign::LayoutDesign(QWidget *parent): QDialog(parent), ui(new Ui::LayoutDesign){
+
     ui->setupUi(this);
 
     Designgrid = ui->DesignGrid;
@@ -39,8 +39,9 @@ LayoutDesign::LayoutDesign(QWidget *parent): QDialog(parent), ui(new Ui::LayoutD
     QMessageBox::warning(this,tr("GridDesign"), tr("Please make the shape of the DMF chip"));
 }
 
-LayoutDesign::~LayoutDesign()
-{
+LayoutDesign::~LayoutDesign(){
+    qDeleteAll(contactPads);
+    contactPads.clear();
     delete ui;
 }
 
@@ -66,7 +67,7 @@ void LayoutDesign::ConnectSignals(){
             QLayoutItem* item = Designgrid->itemAtPosition(i,j);
             QWidget* widget = item->widget();
             Electrode* electrode = dynamic_cast<Electrode*>(widget);
-            connect(electrode,SIGNAL(clicked()),this,SLOT(Edit()));
+            connect(electrode,SIGNAL(clicked()),this,SLOT(Edit()));           
         }
     }
 }
@@ -94,6 +95,7 @@ void LayoutDesign::Edit(){
     }
 }
 
+//add the contact pads to the surrounding frames
 void LayoutDesign::AddContactPads(){
 int topcount = 1;
 int botcount = 58;
@@ -108,6 +110,7 @@ int leftcount = 48;
             contactpad->setMinimumSize(30,30);
             connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
             TopFrame->addWidget(contactpad,i,j);
+            contactPads.append(contactpad);
             topcount++;
             }
         }
@@ -122,6 +125,7 @@ int leftcount = 48;
                 contactpad->setMinimumSize(30,30);
                 connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
                 BottomFrame->addWidget(contactpad,i,j);
+                contactPads.append(contactpad);
                 botcount++;
             }
         }
@@ -134,10 +138,12 @@ int leftcount = 48;
         contactpad->setMinimumSize(30,30);
         connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
         LeftFrame->addWidget(contactpad,i,0);
+        contactPads.append(contactpad);
         leftcount++;
    }
 }
 
+//match the electrode number clicked with the contact pad clicked
 void LayoutDesign::SetElectrodeNumber(){
     if(electrode){
         QPushButton *obj = qobject_cast<QPushButton*>(QObject::sender()); //get the refrence to the object that provoked this SLOT
@@ -160,8 +166,8 @@ void LayoutDesign::on_AcceptButton_clicked(){
     QMessageBox::warning(this,tr("ContactPad Numbering"), tr("Please connect the contact pads to the electrodes by clicking on the electrode and then the desired contact pad"));
 }
 
-void LayoutDesign::on_CreateButton_clicked()
-{
+void LayoutDesign::on_CreateButton_clicked(){
+
     if(checkDuplicates() && checkName() ){
         Done = true;
         QDialog::accept();
@@ -173,6 +179,7 @@ void LayoutDesign::on_CreateButton_clicked()
 }
 
 bool LayoutDesign::checkName(){
+
     for (int i=0; i<Designgrid->rowCount();i++){
         for(int j=0; j<Designgrid->columnCount();j++){
             QLayoutItem* item = Designgrid->itemAtPosition(i,j);

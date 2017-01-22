@@ -6,30 +6,29 @@ PathHandler::PathHandler()
 
 }
 
-//KIWI
-PathHandler::PathHandler(QList <Droplet*> dList)
-{
+PathHandler::PathHandler(QList <Droplet*> dList){
+
     foreach(Droplet* drop, dList){
         dropletList.append(drop);
     }
 
 }
 
-void PathHandler::setdropletList(QList <Droplet*> dropList)
-{
+void PathHandler::setdropletList(QList <Droplet*> dropList){
+
     foreach(Droplet* drop, dropList){
         dropletList.append(drop);
     }
 }
 
-QList <Droplet*> PathHandler::getdropletList()
-{
+QList <Droplet*> PathHandler::getdropletList(){
+
     return dropletList;
 }
 
 
-void PathHandler::setPathList()
-{
+void PathHandler::setPathList(){
+
     if(dropletList.isEmpty()){
 
     }
@@ -46,7 +45,7 @@ void PathHandler::setPathList()
         }
     }
 }
-QStringList PathHandler::getPathList()
-{
+
+QStringList PathHandler::getPathList(){
     return pathList;
 }

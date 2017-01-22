@@ -1,17 +1,15 @@
 #include "table.h"
 
-Table::Table()
-{
+Table::Table(){
 
 }
-Table::Table(QTableWidget* dTable )
-{
+
+Table::Table(QTableWidget* dTable ){
 
     table = dTable;
 }
 
-void Table::CreateTable(QMainWindow* main)
-{
+void Table::CreateTable(QMainWindow* main){
 
     //Setup Table
     table->setColumnWidth(0,100);
@@ -64,8 +62,8 @@ void Table::addDropToTable(Droplet *drop, QList <Droplet*> listD, int tTime) //t
     table->item(table->rowCount()-1,tTime+2)->setBackgroundColor(drop->getColor());
 }
 
-void Table::removeDropFromTable(Droplet *drop)
-{
+void Table::removeDropFromTable(Droplet *drop){
+
     for(int i = 2; i<table->rowCount();i++){
         if(drop->getName() == table->item(i,0)->text()){
             table->removeRow(i);
@@ -78,8 +76,8 @@ void Table::removeDropFromTable(Droplet *drop)
 }
 
 
-void Table::updateTable(Droplet *drop, int tTime)
-{
+void Table::updateTable(Droplet *drop, int tTime){
+
     if(drop){
         int rowNum = 0;
         //Find the row that corresponds to that specified droplet
@@ -142,8 +140,8 @@ void Table::setItem(int r, int c, QTableWidgetItem* it){
 }
 
 
-void Table::updateTableEmode(QString type, Electrode* elec)
-{
+void Table::updateTableEmode(QString type, Electrode* elec){
+
     if(type=="add"){
         bool addRow = true;
         for(int i = 2; i<table->rowCount(); i++){
@@ -184,8 +182,8 @@ void Table::updateTableEmode(QString type, Electrode* elec)
     }
 }
 
-void Table::InitializeTableEmode(QMainWindow* main)
-{
+void Table::InitializeTableEmode(QMainWindow* main){
+
     //Setup Table
     table->setColumnWidth(0,150);
     //for(int i = 1;i<20;i++){

@@ -42,6 +42,7 @@ private slots:
 
 private:
     Ui::LayoutDesign *ui;
+    QList<Electrode*> contactPads;
 
     bool EditMode;
     Layout *mylayout;

@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
 MainWindow::~MainWindow(){
     delete ui;
+    //TODO delete all pointers and qlists
 }
 
 void MainWindow::InitializeUI(bool enable){
@@ -226,7 +227,7 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
 //        initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
 //        updateTable(initialDrop);
 //        selectColumn(TableSlider->value());
-//        QMessageBox::warning(this,tr("DONE"), tr("DONE!"));
+        QMessageBox::warning(this,tr("DONE"), tr("DONE!"));
 
     }else{
       QMessageBox::warning(this,tr("Warning"), tr("There is no droplet on the first Electrode"));
@@ -303,8 +304,8 @@ void MainWindow::SplitDroplet(QList<Electrode*> elecList){
     }
 }
 
-void MainWindow::on_StartButton_clicked()
-{
+void MainWindow::on_StartButton_clicked(){
+
         pathHandler = new PathHandler(listdrop);
         pathHandler->setPathList();
         if(pathHandler->getPathList().length()>0){
