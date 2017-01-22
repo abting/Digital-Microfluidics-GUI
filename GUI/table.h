@@ -13,7 +13,7 @@ public:
     void CreateTable(QMainWindow*);
     void addDropToTable(Droplet*, QList <Droplet*>, int);
     void removeDropFromTable(Droplet*);
-    void updateTable(Droplet *, int);
+    void updateTable(Electrode *, int);
     QSlider* getSlider();
     int getColumn();
     int getRow();

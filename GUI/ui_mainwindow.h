@@ -61,6 +61,7 @@ public:
     QPushButton *SplitButton;
     QHBoxLayout *horizontalLayout_4;
     QPushButton *PreviewButton;
+    QPushButton *CancelPreviwButton;
     QHBoxLayout *horizontalLayout;
     QPushButton *StartButton;
     QCheckBox *addDrop;
@@ -77,6 +78,7 @@ public:
     QVBoxLayout *verticalLayout_10;
     QPushButton *Increment_EmodeButton;
     QPushButton *preview_EmodeButton;
+    QPushButton *CancelPreviwEmodeButton;
     QPushButton *Start_EmodeButton;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_3;
@@ -193,6 +195,11 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_4);
 
+        CancelPreviwButton = new QPushButton(DropletMode);
+        CancelPreviwButton->setObjectName(QStringLiteral("CancelPreviwButton"));
+
+        verticalLayout->addWidget(CancelPreviwButton);
+
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -274,6 +281,11 @@ public:
         preview_EmodeButton->setObjectName(QStringLiteral("preview_EmodeButton"));
 
         verticalLayout_10->addWidget(preview_EmodeButton);
+
+        CancelPreviwEmodeButton = new QPushButton(ElectrodeMode);
+        CancelPreviwEmodeButton->setObjectName(QStringLiteral("CancelPreviwEmodeButton"));
+
+        verticalLayout_10->addWidget(CancelPreviwEmodeButton);
 
         Start_EmodeButton = new QPushButton(ElectrodeMode);
         Start_EmodeButton->setObjectName(QStringLiteral("Start_EmodeButton"));
@@ -458,7 +470,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        ModeButtonTab->setCurrentIndex(1);
+        ModeButtonTab->setCurrentIndex(0);
         CancelButton->setDefault(false);
         ModeTableTab->setCurrentIndex(0);
 
@@ -493,6 +505,7 @@ public:
         PreviewButton->setStatusTip(QApplication::translate("MainWindow", "Preview current sequence", 0));
 #endif // QT_NO_STATUSTIP
         PreviewButton->setText(QApplication::translate("MainWindow", "Preview", 0));
+        CancelPreviwButton->setText(QApplication::translate("MainWindow", "Cancel Preview", 0));
 #ifndef QT_NO_STATUSTIP
         StartButton->setStatusTip(QApplication::translate("MainWindow", "Send the path sequence to Arduino", 0));
 #endif // QT_NO_STATUSTIP
@@ -513,6 +526,7 @@ public:
         turnOff_EmodeButton->setText(QApplication::translate("MainWindow", "Turn OFF Electrode", 0));
         Increment_EmodeButton->setText(QApplication::translate("MainWindow", "Increment", 0));
         preview_EmodeButton->setText(QApplication::translate("MainWindow", "Preview", 0));
+        CancelPreviwEmodeButton->setText(QApplication::translate("MainWindow", "Cancel Preview", 0));
         Start_EmodeButton->setText(QApplication::translate("MainWindow", "Start", 0));
         ModeButtonTab->setTabText(ModeButtonTab->indexOf(ElectrodeMode), QApplication::translate("MainWindow", "Electrode Mode", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Instruction Monitor", 0));

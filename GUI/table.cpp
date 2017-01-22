@@ -80,9 +80,12 @@ void Table::removeDropFromTable(Droplet *drop)
 }
 
 
-void Table::updateTable(Droplet *drop, int tTime)
+void Table::updateTable(Electrode *elec, int tTime)
 {
-    if(drop){
+
+
+    if(elec->getDroplet()){
+        Droplet *drop = elec->getDroplet();
         int rowNum = 0;
         //Find the row that corresponds to that specified droplet
         for(int i=2;i<table->rowCount();i++){
