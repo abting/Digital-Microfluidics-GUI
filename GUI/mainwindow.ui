@@ -50,7 +50,7 @@
         <item>
          <widget class="QTabWidget" name="ModeButtonTab">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="DropletMode">
            <attribute name="title">
@@ -190,7 +190,7 @@
               <item>
                <widget class="QPushButton" name="Increment_EmodeButton">
                 <property name="toolTip">
-                 <string>Press spacebar to Increment</string>
+                 <string/>
                 </property>
                 <property name="statusTip">
                  <string>Press spacebar to Increment</string>
