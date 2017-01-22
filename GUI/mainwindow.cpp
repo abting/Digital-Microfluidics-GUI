@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     CancelButton = ui->CancelButton;
     DropletTable = ui->dropTable;
     TimeSpinner = ui->dropTime;
+    CancelPreviewButton = ui->CancelPreviwButton;
 
     //Electrode Mode Widgets
     IncrementButton = ui->Increment_EmodeButton;
@@ -35,7 +36,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     TurnOffButton = ui->turnOff_EmodeButton;
     StartEmodeButton = ui->Start_EmodeButton;
     TimeSpinnerEmode = ui->dropTimeEmode;
-    DropletTableEmode = ui->dropTableEmode;
+    DropletTableEmode = ui->dropTableEmode; 
+    CancelPreviewEmodeButton = ui->CancelPreviwEmodeButton;
 
     //Tab Widgets
     TabButton = ui->ModeButtonTab;
@@ -54,7 +56,11 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
     //Hide and Show certain buttons
     CancelButton->setEnabled(false);
-    CancelButton->setVisible(false);
+    CancelButton->setVisible(false);   
+    CancelPreviewButton->setEnabled(false);
+    CancelPreviewButton->setVisible(false);
+    CancelPreviewEmodeButton->setEnabled(false);
+    CancelPreviewEmodeButton->setVisible(false);
     BeginButton->setEnabled(false);
     BeginButton->setVisible(false);
     StartButton->setEnabled(true);
@@ -85,6 +91,9 @@ void MainWindow::InitializeUI(bool enable){
     TabTable->setEnabled(enable);
 
     InitializeTable();
+    if(listdrop.length()>0){
+        qDeleteAll(listdrop.begin(), listdrop.end());
+    }
     listdrop.clear();
 
     time = new Time(tableDmode->getSlider());
@@ -126,9 +135,11 @@ void MainWindow::ProcessClick(){
     }
     else if(RemoveDroplet->isChecked()){           //if the "Remove droplet" option is selected
         if(!(electrode->isEmpty())){
-            listdrop.removeOne(electrode->getDroplet());
-            removeDropFromTable(electrode->getDroplet());
+            Droplet* removeDrop = electrode->getDroplet();
+            listdrop.removeOne(removeDrop);
+            removeDropFromTable(removeDrop);
             electrode->removeDroplet();
+            delete removeDrop;
         }
     }
     else if(SplitMode){}
@@ -147,7 +158,7 @@ void MainWindow::ProcessClick(){
         time->increaseTime(TimeSpinner);
         mylayout->CheckSurroundingElectrodes(electrode,time->CurrentTime());
         if(electrode->getDroplet()){
-            updateTable(electrode->getDroplet());
+            updateTable(electrode);
         }
         timeChange(8);
         selectColumn(tableDmode->getSlider()->value());
@@ -242,11 +253,11 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
         time->increaseTime(TimeSpinner);
         Droplet* initialDrop = elecList.at(0)->getDroplet();
         initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
-        updateTable(initialDrop);
+        updateTable(elecList.at(0));
         timeChange(8);
         time->setPreviousTime();
         time->increaseTime(TimeSpinner);
-        Droplet* drop = new Droplet(elecList.at(0)->getDroplet()->getName()+ "-D",elecList.at(0)->getDroplet()->getColor(),1111111,time->CurrentTime());
+        Droplet* drop = new Droplet(elecList.at(0)->getDroplet()->getName()+ "-D",elecList.at(0)->getDroplet()->getColor(),1,time->CurrentTime());
         drop->updateInfo(elecList.at(1)->text(),time->CurrentTime(),elecList.at(1),"update");
         elecList.at(1)->setDroplet(drop);
         listdrop.append(drop);
@@ -259,13 +270,15 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
             time->increaseTime(TimeSpinner);
             elecList.at(i)->setDroplet(drop);
             drop->updateInfo(elecList.at(i)->text(),time->CurrentTime(),elecList.at(i),"update");
-            updateTable(elecList.at(i)->getDroplet());
+            updateTable(elecList.at(i));
             timeChange(8);
         }
 
         //Update the reservoir to actuate simulatenously, this breaks off the two droplets
+
+        elecList.at(0)->setDroplet(initialDrop);
         initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
-        updateTable(initialDrop);
+        updateTable(elecList.at(0));
         selectColumn(tableDmode->getSlider()->value());
         QMessageBox::warning(this,tr("DONE"), tr("DONE!"));
     }
@@ -370,21 +383,9 @@ void MainWindow::on_SplitButton_clicked()
 
 void MainWindow::on_PreviewButton_clicked()
 {
-    //TODO implement
-    //First bring the slider back to 0, remove the droplets at the last slider position
-    time->setPreviousTime();
-    timeChange(8);
-    tableDmode->getSlider()->setValue(0);
-
-    //Start incrementing the TableSlider, add and remove droplets in the process
-    for(int k = 0; k<=tableDmode->getSlider()->maximum();k++){
-        time->setPreviousTime();
-        tableDmode->getSlider()->setValue(k);
-        timeChange(8);
-        selectColumn(tableDmode->getSlider()->value());
-        qApp->processEvents();
-        Sleep(500);         //Specify the speed of preview
-    }
+    CancelPreviewButton->setEnabled(true);
+    CancelPreviewButton->setVisible(true);
+    Preview(tableDmode,time, true);
 }
 
 void MainWindow::on_DispenceButton_clicked()
@@ -496,7 +497,6 @@ void MainWindow::InitializeTable()
     tableEmode->InitializeTableEmode(this);
     ui->currentStepText->setText(QString::number(0));
     ui->currentStepText_Emode->setText(QString::number(0));
-    InstructonMonitor->setPlainText(QString::number(tableDmode->getSlider()->width()));
 }
 
 //TODO NEW
@@ -510,31 +510,14 @@ void MainWindow::removeDropFromTable(Droplet *drop)
     tableDmode->removeDropFromTable(drop);
 }
 
-void MainWindow::updateTable(Droplet *drop)
+void MainWindow::updateTable(Electrode *elec)
 {
-    tableDmode->updateTable(drop,time->CurrentTime());
+    tableDmode->updateTable(elec,time->CurrentTime());
 }
 
 void MainWindow::on_dropTime_valueChanged(int arg1)
 {
-    int origCol = tableDmode->getColumn();
-    int increaseSize = 0;
-
-    //Increase the size of the table according to the TimeSpinner
-    if (arg1+2 >= tableDmode->getColumn()){         //Need to account for +2 offset in the columns
-        tableDmode->setColumn(arg1+3);
-        for (int i=origCol;i<tableDmode->getColumn();i++){
-            tableDmode->setColumnW(i,20);
-            increaseSize +=20;
-        }
-        //Increase Span of headers and Slider, increase size of Slider accordingly
-        tableDmode->setSp(1,2,1,tableDmode->getColumn()-1);
-        tableDmode->setSp(0,2,1,tableDmode->getColumn()-1);
-        tableDmode->getSlider()->setMaximum(tableDmode->getColumn()-3);
-        //tableDmode->getSlider()->setFixedWidth(tableDmode->getSlider()->width()+increaseSize);
-    }    
-    TimeSpinner->setMinimum(arg1);
-    InstructonMonitor->setPlainText(QString::number(tableDmode->getSlider()->width()));
+    SpinboxValueChanged(arg1, tableDmode, TimeSpinner, 2);
 }
 
 //This is called when you're scrolling through time using the slider
@@ -729,23 +712,28 @@ void MainWindow::on_ModeTableTab_tabBarClicked(int index)
     }
 }
 
-void MainWindow::on_dropTimeEmode_valueChanged(int arg1)
-{
-    //Identical to the other DropTime function => will eventually merge
-    int origCol = tableEmode->getColumn();
+void MainWindow::SpinboxValueChanged(int value, Table* table,QSpinBox* timespin, int offset){
+
+    //Increase the size of the table according to the TimeSpinner
+    int origCol = table->getColumn();
     int increaseSize = 0;
-    if (arg1+1 >= tableEmode->getColumn()){         //Need to account for +1 offset in the columns
-        tableEmode->setColumn(arg1+2);
-        for (int i=origCol;i<tableEmode->getColumn();i++){
-            tableEmode->setColumnW(i,20);
+    if (value+offset >= table->getColumn()){         //Need to account for +1 offset in the columns
+        table->setColumn(value+(offset+1));
+        for (int i=origCol;i<table->getColumn();i++){
+            table->setColumnW(i,20);
             increaseSize +=20;
         }
-        tableEmode->setSp(1,1,1,tableEmode->getColumn()-1);
-        tableEmode->setSp(0,1,1,tableEmode->getColumn()-1);
-        tableEmode->getSlider()->setMaximum(tableEmode->getColumn()-2);
-        tableEmode->getSlider()->setFixedWidth(tableEmode->getSlider()->width()+increaseSize);
+        //Increase Span of headers and Slider, increase size of Slider accordingly
+        table->setSp(1,offset,1,table->getColumn()-1);
+        table->setSp(0,offset,1,table->getColumn()-1);
+        table->getSlider()->setMaximum(table->getColumn()-(offset+1));
     }
-    TimeSpinnerEmode->setMinimum(arg1);
+    timespin->setMinimum(value);
+}
+
+void MainWindow::on_dropTimeEmode_valueChanged(int arg1)
+{
+    SpinboxValueChanged(arg1, tableEmode, TimeSpinnerEmode, 1);
 }
 
 void MainWindow::on_addDrop_clicked(bool checked)
@@ -764,23 +752,45 @@ void MainWindow::on_removedrop_clicked(bool checked)
     }
 }
 
-
-void MainWindow::on_preview_EmodeButton_clicked()
+void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
 {
-    //Similar to preview in Droplet Mode => Will eventually merge
-    timeEmode->setPreviousTime();
-    timeChange(8);
-    tableEmode->getSlider()->setValue(0);
-    //Start incrementing the TableSlider, add and remove droplets in the process
-    for(int k = 0; k<=tableEmode->getSlider()->maximum();k++){
-        timeEmode->setPreviousTime();
-        timeChange(8);
-        tableEmode->getSlider()->setValue(k);
 
-        selectColumn(tableEmode->getSlider()->value());
+    CancelpreviewEMode = false;
+    CancelpreviewMode = false;
+    //First bring the slider back to 0, remove the droplets at the last slider position
+    timemode->setPreviousTime();
+    timeChange(8);
+    tablemode->getSlider()->setValue(0);
+
+    //Start incrementing the TableSlider, add and remove droplets in the process
+    for(int k = 0; k<=tablemode->getSlider()->maximum();k++){
+        timemode->setPreviousTime();
+        if(!Dmode){
+            timeChange(8);
+            if(CancelpreviewEMode){
+                return;
+            }
+        }
+        tablemode->getSlider()->setValue(k);
+        if(Dmode){
+            timeChange(8);
+            if(CancelpreviewMode){
+                return;
+            }
+        }
+        selectColumn(tablemode->getSlider()->value());
         qApp->processEvents();
         Sleep(500);         //Specify the speed of preview
     }
+    emit Done();
+}
+
+
+void MainWindow::on_preview_EmodeButton_clicked()
+{
+    CancelPreviewEmodeButton->setEnabled(true);
+    CancelPreviewEmodeButton->setVisible(true);
+    Preview(tableEmode,timeEmode, false);
 }
 
 void MainWindow::on_Save_Sequence_triggered()
@@ -802,4 +812,19 @@ void MainWindow::on_Open_Sequence_triggered()
     }
     else if(TabButton->currentIndex()==1){
     }
+}
+
+
+void MainWindow::on_CancelPreviwEmodeButton_clicked()
+{
+    CancelpreviewEMode = true;
+    CancelPreviewEmodeButton->setEnabled(false);
+    CancelPreviewEmodeButton->setVisible(false);
+}
+
+void MainWindow::on_CancelPreviwButton_clicked()
+{
+    CancelpreviewMode = true;
+    CancelPreviewButton->setEnabled(false);
+    CancelPreviewButton->setVisible(false);
 }

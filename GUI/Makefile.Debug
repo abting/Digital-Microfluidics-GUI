@@ -397,6 +397,20 @@ debug/moc_mainwindow.cpp: electrode.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		table.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		Arduino.h \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/QSerialPort \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/qserialport.h \
@@ -407,22 +421,9 @@ debug/moc_mainwindow.cpp: electrode.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qcheckbox.h \
 		Time.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSlider \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSpinBox \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		Table.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget \
 		mainwindow.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/kaleem/Desktop/Digital-Microfluidics-GUI/GUI -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtSerialPort -IC:/Qt/5.6/mingw49_32/include/QtCore -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward mainwindow.h -o debug\moc_mainwindow.cpp
@@ -1481,6 +1482,22 @@ debug/moc_Arduino.cpp: C:/Qt/5.6/mingw49_32/include/QtSerialPort/QSerialPort \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		table.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qframe.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		Arduino.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/kaleem/Desktop/Digital-Microfluidics-GUI/GUI -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtSerialPort -IC:/Qt/5.6/mingw49_32/include/QtCore -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward Arduino.h -o debug\moc_Arduino.cpp
 
@@ -1856,6 +1873,8 @@ debug/moc_DropletSelector.cpp: C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
 		DropletSelector.h
 	C:\Qt\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/kaleem/Desktop/Digital-Microfluidics-GUI/GUI -IC:/Qt/5.6/mingw49_32/include -IC:/Qt/5.6/mingw49_32/include/QtWidgets -IC:/Qt/5.6/mingw49_32/include/QtGui -IC:/Qt/5.6/mingw49_32/include/QtANGLE -IC:/Qt/5.6/mingw49_32/include/QtSerialPort -IC:/Qt/5.6/mingw49_32/include/QtCore -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward DropletSelector.h -o debug\moc_DropletSelector.cpp
 
@@ -2135,6 +2154,20 @@ debug/main.o: main.cpp mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		table.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		Arduino.h \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/QSerialPort \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/qserialport.h \
@@ -2145,22 +2178,9 @@ debug/main.o: main.cpp mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qcheckbox.h \
 		Time.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSlider \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSpinBox \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		Table.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
@@ -2416,6 +2436,20 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		table.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		Arduino.h \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/QSerialPort \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/qserialport.h \
@@ -2426,22 +2460,9 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qcheckbox.h \
 		Time.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSlider \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSpinBox \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		Table.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget \
 		ui_mainwindow.h \
 		NewLayout.h \
@@ -3161,7 +3182,23 @@ debug/PathHandler.o: PathHandler.cpp PathHandler.h \
 		droplet.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qfiledialog.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		table.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qframe.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\PathHandler.o PathHandler.cpp
 
 debug/NewLayout.o: NewLayout.cpp NewLayout.h \
@@ -3749,7 +3786,23 @@ debug/Arduino.o: Arduino.cpp Arduino.h \
 		droplet.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qfiledialog.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdialog.h \
+		table.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qframe.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\Arduino.o Arduino.cpp
 
 debug/LayoutDesign.o: LayoutDesign.cpp LayoutDesign.h \
@@ -4007,6 +4060,20 @@ debug/LayoutDesign.o: LayoutDesign.cpp LayoutDesign.h \
 		PathHandler.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qfiledialog.h \
+		table.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		Arduino.h \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/QSerialPort \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/qserialport.h \
@@ -4017,22 +4084,9 @@ debug/LayoutDesign.o: LayoutDesign.cpp LayoutDesign.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qcheckbox.h \
 		Time.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSlider \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSpinBox \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
 		Table.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\LayoutDesign.o LayoutDesign.cpp
 
@@ -4289,6 +4343,7 @@ debug/Droplet.o: Droplet.cpp Droplet.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMessageBox \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\Droplet.o Droplet.cpp
 
@@ -4421,6 +4476,8 @@ debug/DropletSelector.o: DropletSelector.cpp DropletSelector.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
 		ui_DropletSelector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\DropletSelector.o DropletSelector.cpp
 

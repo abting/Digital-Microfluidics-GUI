@@ -71,7 +71,7 @@ private slots:
     void InitializeTable();
     void on_dropTime_valueChanged(int arg1);
     void addDropToTable(Droplet*);
-    void updateTable(Droplet*);
+    void updateTable(Electrode*);
     void selectColumn(int);
     void removeDropFromTable(Droplet *drop);
     void timeChange(int);
@@ -108,6 +108,18 @@ private slots:
 
     void on_Open_Sequence_triggered();
 
+    void SpinboxValueChanged(int, Table*,QSpinBox*, int);
+
+    void Preview(Table*, Time*, bool);
+
+    void on_CancelPreviwEmodeButton_clicked();
+
+    void on_CancelPreviwButton_clicked();
+
+signals:
+    //Emited when the thread should be deleted
+    void Done();
+
 private:
     Ui::MainWindow *ui;
 
@@ -128,6 +140,8 @@ private:
     bool LayoutExists;
     bool turnOn;
     bool turnOff;
+    bool CancelpreviewMode;
+    bool CancelpreviewEMode;
 
     //Widgets
     QGridLayout *ElectrodeLayout;
@@ -139,14 +153,16 @@ private:
     QPushButton *CancelButton;
     QCheckBox *AddDroplet;
     QCheckBox *RemoveDroplet;
-    QPushButton *BeginButton;
+    QPushButton *BeginButton;   
+    QPushButton *CancelPreviewButton;
 
     QCheckBox *TurnOnButton;
     QCheckBox *TurnOffButton;
     QPushButton *IncrementButton;
     QPushButton *StartEmodeButton;
     QTabWidget *TabButton;
-    QTabWidget *TabTable;
+    QTabWidget *TabTable; 
+    QPushButton *CancelPreviewEmodeButton;
 
     //TODO NEW
     QTableWidget *DropletTable;
