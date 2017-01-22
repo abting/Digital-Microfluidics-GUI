@@ -49,12 +49,10 @@ void Electrode::removeDroplet(){
 
 }
 
-
-//BANANA
 void Electrode::addNeighbor(Electrode* neighbor){
     neighbours.append(neighbor);
 }
-//BANANA
+
 QList<Electrode*> Electrode::getNeighbors(){
     return neighbours;
 }

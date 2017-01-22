@@ -8,8 +8,6 @@
 #include <Droplet.h>
 #include <windows.h>
 
-
-
 MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindow){
 
     ui->setupUi(this);
@@ -41,15 +39,14 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     CancelButton->setVisible(false);
     BeginButton->setEnabled(false);
     BeginButton->setVisible(false);
-    //KIWI
+
     StartButton->setEnabled(true);
 
     arduino = new Arduino();
     mylayout = new Layout(ElectrodeLayout);
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }
 
@@ -152,9 +149,6 @@ void MainWindow::ProcessEvents(){
 
     QList<Electrode*> listOfElectrodes = clickhandler->getElectrodeList();
 
-    clickhandler->deleteLater();
-    thread->deleteLater();
-
     if(DispenceMode){
         DispenceButton->setEnabled(true);
         DispenceDroplet(listOfElectrodes);
@@ -169,6 +163,8 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
 
     CancelButton->setVisible(false);
     CancelButton->setEnabled(false);
+    SplitButton->setEnabled(true);
+    DispenceButton->setEnabled(true);
     DispenceMode = false;
 
     Electrode *last;
@@ -210,7 +206,6 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
 //        updateTable(initialDrop);
 //        timeChange(8);
 
-
 //        time->setPreviousTime();
 //        time->increaseTime(TimeSpinner);
 //        Droplet* drop = new Droplet(elecList.at(0)->getDroplet()->getName()+ "-D",elecList.at(0)->getDroplet()->getColor(),1111111,time->CurrentTime());
@@ -238,60 +233,70 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
     }
 }
 
-//BANANA
 //list with 3 Elements, first being the electrode with the droplet followed by two adjacent electrodes
 void MainWindow::SplitDroplet(QList<Electrode*> elecList){
 
     CancelButton->setVisible(false);
     CancelButton->setEnabled(false);
+    SplitButton->setEnabled(true);
+    DispenceButton->setEnabled(true);
+    SplitMode = false;
 
-    Droplet* temp;
+    Electrode* parent = elecList.at(0);
+    int sharedNeighbor = 0;
     //if there is a droplet on the first electrode
-    if(elecList.at(0)->getAvailability() == 0){
-        temp = elecList.at(0)->getDroplet();
-        bool fail = false;
+    if(parent->getAvailability() == 0){
+      Droplet* temp = parent->getDroplet();
 
         foreach(Electrode* elec, elecList.at(1)->getNeighbors()){
+            if(elec == parent){
+                sharedNeighbor++;
+            }
             if(elec->getAvailability() == 0 ){
                 if(elec->getDroplet() != temp){
                     QMessageBox::warning(this,tr("Warning"), tr("split failed, there are more droplets around"));
-                    fail = true;
+                    return;
                 }
             }
         }
+        if(sharedNeighbor != 1){
+            QMessageBox::warning(this,tr("Warning"), tr("Electrode 1 is not adajecnt to the parent droplet"));
+            return;
+        }
+        sharedNeighbor =0;
         foreach(Electrode* elec, elecList.at(2)->getNeighbors()){
+            if(elec == parent){
+                sharedNeighbor++;
+            }
             if(elec->getAvailability() == 0 ){
                 if(elec->getDroplet() != temp ){
                     QMessageBox::warning(this,tr("Warning"), tr("split failed, there are more droplets around"));
-                    fail = true;
+                    return;
                 }
             }
         }
-
-        if(!fail){
-            time->increaseTime(TimeSpinner);
-            //if all the surrounding electrodes are empty, create two new droplets
-            Droplet* split1 = new Droplet(temp->getName()+"-S1",temp->getColor(),temp->getVolume()/2, tab->getSlider()->value());
-            split1->updateInfo(elecList.at(1)->text(),time->CurrentTime(),elecList.at(1),"update");
-            elecList.at(1)->setDroplet(split1);
-            listdrop.append(split1);
-            addDropToTable(split1);
-
-            Droplet* split2 = new Droplet(temp->getName()+"-S2",temp->getColor(),temp->getVolume()/2, tab->getSlider()->value());
-            split2->updateInfo(elecList.at(2)->text(),time->CurrentTime(),elecList.at(2),"update");
-            elecList.at(2)->setDroplet(split2);
-            listdrop.append(split2);
-            addDropToTable(split2);
-
-            //remove the parent droplet
-            //KIWI
-
-            elecList.at(0)->getDroplet()->updateInfo("", time->CurrentTime(), elecList.at(0), "split");
-            elecList.at(0)->removeDroplet();
-            cout<<listdrop.size()<<endl;
-            //finish splitting mode
-            SplitMode = false;
+        if(sharedNeighbor != 1){
+            QMessageBox::warning(this,tr("Warning"), tr("Electrode 2 is not adajecnt to the parent droplet"));
+            return;
         }
+
+        time->increaseTime(TimeSpinner);
+        //if all the surrounding electrodes are empty, create two new droplets
+        Droplet* split1 = new Droplet(temp->getName()+"-S1",temp->getColor(),temp->getVolume()/2, tab->getSlider()->value());
+        split1->updateInfo(elecList.at(1)->text(),time->CurrentTime(),elecList.at(1),"update");
+        elecList.at(1)->setDroplet(split1);
+        listdrop.append(split1);
+        addDropToTable(split1);
+
+        Droplet* split2 = new Droplet(temp->getName()+"-S2",temp->getColor(),temp->getVolume()/2, tab->getSlider()->value());
+        split2->updateInfo(elecList.at(2)->text(),time->CurrentTime(),elecList.at(2),"update");
+        elecList.at(2)->setDroplet(split2);
+        listdrop.append(split2);
+        addDropToTable(split2);
+
+        parent->getDroplet()->updateInfo("", time->CurrentTime(), parent, "split");
+        parent->removeDroplet();
+        cout<<listdrop.size()<<endl;
     }
     else{
         QMessageBox::warning(this,tr("Warning"), tr("No droplet was selected!"));
@@ -323,14 +328,11 @@ void MainWindow::on_BeginButton_clicked(){
 
 void MainWindow::on_SplitButton_clicked()
 {
-    if(clickhandler){
-        clickhandler->deleteLater();
-        thread->deleteLater();
-    }
     CancelButton->setVisible(true);
     CancelButton->setEnabled(true);
+    DispenceButton->setEnabled(false);
     SplitMode = true;
-    getUserInput(3);
+    getUserInput(3);   
 }
 
 void MainWindow::on_PreviewButton_clicked()
@@ -353,22 +355,26 @@ void MainWindow::on_PreviewButton_clicked()
 
 void MainWindow::on_DispenceButton_clicked()
 {
-    if(clickhandler){
-        clickhandler->deleteLater();
-        thread->deleteLater();
-    }
     BeginButton->setEnabled(true);
     BeginButton->setVisible(true);
     CancelButton->setVisible(true);
     CancelButton->setEnabled(true);
+    SplitButton->setEnabled(false);
     DispenceMode = true;
     getUserInput(1000);
 }
 
 void MainWindow::on_CancelButton_clicked()
 {
+
     clickhandler->deleteLater();
     thread->deleteLater();
+    delete clickhandler;
+
+    SplitMode = false;
+    DispenceMode = false;
+    SplitButton->setEnabled(true);
+    DispenceButton->setEnabled(true);
     CancelButton->setVisible(false);
     CancelButton->setEnabled(false);
     BeginButton->setEnabled(false);
@@ -377,16 +383,10 @@ void MainWindow::on_CancelButton_clicked()
 
 void MainWindow::on_addDrop_clicked(){
     RemoveDeroplet->setChecked(false);
-    if(clickhandler){
-        CancelButton->clicked(true);
-    }
 }
 
 void MainWindow::on_removedrop_clicked(){
     AddDroplet->setChecked(false);
-    if(clickhandler){
-        CancelButton->clicked(true);
-    }
 }
 
 void MainWindow::on_New_Layout_triggered(){
@@ -451,14 +451,6 @@ void MainWindow::on_Open_Layout_triggered(){
     }
 }
 
-void MainWindow::InitializeTable()
-{
-    //Setup Table
-    tab = new Table(DropletTable);
-    tab->CreateTable(this);
-    ui->currentStepText->setText(QString::number(0));
-}
-
 void MainWindow::addDropToTable(Droplet *drop){
 
     tab->addDropToTable(drop,listdrop,time->CurrentTime());
@@ -467,6 +459,14 @@ void MainWindow::addDropToTable(Droplet *drop){
 void MainWindow::removeDropFromTable(Droplet *drop){
 
     tab->removeDropFromTable(drop);
+}
+
+void MainWindow::InitializeTable()
+{
+    //Setup Table
+    tab = new Table(DropletTable);
+    tab->CreateTable(this);
+    ui->currentStepText->setText(QString::number(0));
 }
 
 void MainWindow::updateTable(Droplet *drop)

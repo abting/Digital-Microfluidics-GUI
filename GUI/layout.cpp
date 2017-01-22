@@ -6,12 +6,12 @@
 #include <QMessageBox>
 #include "Droplet.h"
 
-
-
 Layout::Layout(QObject *parent): QObject(parent){
 }
+
 Layout::~Layout(){
 }
+
 Layout::Layout(QGridLayout *_gridlayout,int _rows, int _columns)
 {
     rows= _rows;
@@ -245,7 +245,7 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
        }
        //if  there is more than one droplet nearby merge them as a new droplet
        else{
-           Droplet *newdrop = new Droplet("new","red",0, time);
+           Droplet *newdrop = new Droplet("Merged","red",0, time);
            newdrop->updateInfo(clicked_electrode->text(), time, clicked_electrode, "update");
 
           double vol =0;
@@ -265,10 +265,6 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
     }
 }
 
-
-
-
-//BANANA
 void Layout::Neighbors(){
 
     Electrode *temp;
@@ -326,8 +322,6 @@ void Layout::Neighbors(){
     }
 
 }
-
-
 
 int Layout::getRows(){
     return rows;

@@ -25,7 +25,6 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
@@ -76,7 +75,6 @@ public:
     QTabWidget *tabWidget;
     QWidget *tabWidgetPage1;
     QVBoxLayout *verticalLayout_6;
-    QSpacerItem *verticalSpacer;
     QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label;
@@ -97,7 +95,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1095, 692);
+        MainWindow->resize(1116, 664);
         New_Layout = new QAction(MainWindow);
         New_Layout->setObjectName(QStringLiteral("New_Layout"));
         Save_Layout = new QAction(MainWindow);
@@ -247,10 +245,6 @@ public:
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setContentsMargins(11, 11, 11, 11);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_6->addItem(verticalSpacer);
-
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
@@ -318,7 +312,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1095, 21));
+        menuBar->setGeometry(QRect(0, 0, 1116, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuSequencing = new QMenu(menuBar);
