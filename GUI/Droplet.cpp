@@ -102,7 +102,8 @@ void Droplet::updateInfo(QString pos, int time, Electrode* e, QString status){
     else{
         if(DropletInfo[time].elec){
             DropletInfo[time].elec->removeDroplet();
-        }
+        }      
+        DropletInfo[time].time = time;
         DropletInfo[time].position = pos;
         DropletInfo[time].elec = e;
         DropletInfo[time].status = status;
