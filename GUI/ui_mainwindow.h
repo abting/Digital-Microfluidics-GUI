@@ -474,11 +474,7 @@ public:
 
         retranslateUi(MainWindow);
 
-<<<<<<< HEAD
         ModeButtonTab->setCurrentIndex(0);
-=======
-        ModeButtonTab->setCurrentIndex(1);
->>>>>>> 3d37eb5eb3f20a9fd41b875c49b27eed33e4aaf3
         CancelButton->setDefault(false);
         ModeTableTab->setCurrentIndex(0);
 
@@ -531,11 +527,7 @@ public:
         CancelButton->setShortcut(QApplication::translate("MainWindow", "Esc", 0));
         ModeButtonTab->setTabText(ModeButtonTab->indexOf(DropletMode), QApplication::translate("MainWindow", "Droplet Mode", 0));
 #ifndef QT_NO_TOOLTIP
-<<<<<<< HEAD
         Increment_EmodeButton->setToolTip(QString());
-=======
-        Increment_EmodeButton->setToolTip(QApplication::translate("MainWindow", "Press spacebar to Increment", 0));
->>>>>>> 3d37eb5eb3f20a9fd41b875c49b27eed33e4aaf3
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_STATUSTIP
         Increment_EmodeButton->setStatusTip(QApplication::translate("MainWindow", "Press spacebar to Increment", 0));
