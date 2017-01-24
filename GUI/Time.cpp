@@ -1,14 +1,15 @@
 #include "Time.h"
 
-Time::Time()
-{
-   time.clear();   //clear the list
-   time << 0;      //start the timer at ZERO (the first element of the QList is the integer ZERO)
-}
 
+Time::Time(QObject *parent): QObject(parent){
+}
+Time::~Time(){
+
+}
 Time::Time(QSlider* slider)
 {
 
+   timeD = 0;
    time.clear();   //clear the list
    time << 0;      //start the timer at ZERO (the first element of the QList is the integer ZERO)
    TimeSlider = slider;
@@ -36,6 +37,12 @@ void Time::increaseTime(QSpinBox* TimeSpin)
     TimeSlider->setValue(TimeSlider->value()+1);
 }
 
+void Time::timeDelay(){
+    timeD += 1;
+    QThread::msleep(500);
+    QString a =QString::number(timeD);
+    emit timeD1(a);
+}
 
 //QList<int> Time::returnTimeList()
 //{

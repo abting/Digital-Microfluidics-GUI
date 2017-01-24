@@ -20,4 +20,5 @@ INPUT(
 ./release\moc_Arduino.o
 ./release\moc_LayoutDesign.o
 ./release\moc_DropletSelector.o
+./release\moc_Time.o
 );

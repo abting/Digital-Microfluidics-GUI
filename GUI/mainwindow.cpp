@@ -360,14 +360,18 @@ void MainWindow::on_StartButton_clicked()
         pathHandler = new PathHandler(listdrop);      
         pathHandler->setPathList();
         if(pathHandler->getPathList().length()>0){
-            for(int i = 0; i<pathHandler->getPathList().length(); i++){
-                InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
-                qApp->processEvents();
-                Sleep(700);
-                InstructonMonitor->clear();
-            }
+//            for(int i = 0; i<pathHandler->getPathList().length(); i++){
+//                InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
+//                qApp->processEvents();
+//                Sleep(700);
+//                InstructonMonitor->clear();
+//            }
         }
+        QThread* threadArduino = new QThread;
+        arduino->moveToThread(threadArduino);
+        threadArduino->start();
         arduino->SendSequence(pathHandler);
+        threadArduino->deleteLater();
     //  }
     /*
     else{
@@ -390,6 +394,7 @@ void MainWindow::on_PreviewButton_clicked()
 {
     CancelPreviewButton->setEnabled(true);
     CancelPreviewButton->setVisible(true);
+
     Preview(tableDmode,time, true);
     CancelPreviewButton->setEnabled(false);
     CancelPreviewButton->setVisible(false);
@@ -644,15 +649,19 @@ void MainWindow::on_Start_EmodeButton_clicked()
     pathHandler = new PathHandler();
     pathHandler->setPathListEmode(tableEmode);
     //For display purposes only
-    if(pathHandler->getPathList().length()>0){
-        for(int i = 0; i<pathHandler->getPathList().length(); i++){
-            InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
-            qApp->processEvents();
-            Sleep(700);
-            InstructonMonitor->clear();
-        }
-    }
-//    arduino->SendSequence(pathHandler);
+//    if(pathHandler->getPathList().length()>0){
+//        for(int i = 0; i<pathHandler->getPathList().length(); i++){
+//            InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
+//            qApp->processEvents();
+//            Sleep(700);
+//            InstructonMonitor->clear();
+//        }
+//    }
+    QThread* threadArduino = new QThread;
+    arduino->moveToThread(threadArduino);
+    threadArduino->start();
+    arduino->SendSequence(pathHandler);
+    threadArduino->deleteLater();
 //    //  }
 //    /*
 //    else{
@@ -764,21 +773,35 @@ void MainWindow::on_removedrop_clicked(bool checked)
 }
 
 void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
-{
-
+{    
     CancelpreviewEMode = false;
     CancelpreviewMode = false;
+
+    Time* preview = new Time(tablemode->getSlider());
+    QThread* threadPreview = new QThread;
+    QLabel* l = new QLabel();
+    preview->moveToThread(threadPreview);
+    connect(this, SIGNAL(increment()), preview, SLOT(timeDelay()));
+    connect(preview, SIGNAL(timeD1(QString)), l, SLOT(setText(QString)));
+    connect(threadPreview, SIGNAL(finished()), threadPreview, SLOT(deleteLater()));
+    threadPreview->start();
+
     //First bring the slider back to 0, remove the droplets at the last slider position
     timemode->setPreviousTime();
     timeChange(8);
     tablemode->getSlider()->setValue(0);
 
     //Start incrementing the TableSlider, add and remove droplets in the process
-    for(int k = 0; k<=tablemode->getSlider()->maximum();k++){
+    //for(int k = 0; k<=tablemode->getSlider()->maximum();k++){
+    int k = 0;
+
+    while(k<=tablemode->getSlider()->maximum()){
         timemode->setPreviousTime();
         if(!Dmode){
             timeChange(8);
             if(CancelpreviewEMode){
+                threadPreview->deleteLater();
+                delete l;
                 return;
             }
         }
@@ -786,14 +809,18 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
         if(Dmode){
             timeChange(8);
             if(CancelpreviewMode){
+                threadPreview->deleteLater();
+                delete l;
                 return;
             }
         }
         selectColumn(tablemode->getSlider()->value());
+        emit increment();
         qApp->processEvents();
-        Sleep(500);         //Specify the speed of preview
+        k = l->text().toInt();
     }
-    emit Done();
+    threadPreview->deleteLater();
+    delete l;
 }
 
 
@@ -850,3 +877,4 @@ void MainWindow::on_RealTimeActuationBox_clicked(bool checked)
         RealTimeActuate = true;
     }
 }
+

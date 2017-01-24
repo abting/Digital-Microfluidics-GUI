@@ -175,6 +175,9 @@ private:
     QSpinBox *TimeSpinnerEmode;
     QSlider *TimeSlider;
 
+signals:
+    void increment();
+
 };
 
 #endif // MAINWINDOW_H

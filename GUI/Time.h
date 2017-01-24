@@ -5,15 +5,22 @@
 #include <Droplet.h>
 #include <QSlider>
 #include <QSpinBox>
+#include <QObject>
 
-class Time
+class Time : public QObject
 {
+    Q_OBJECT
+
 public:
-   Time();
+
+
+   explicit Time(QObject *parent = 0);
+   ~Time();
    Time(QSlider*);
    void setPreviousTime();
    int getPreviousTime();
    int CurrentTime();
+   int timeD;
    void increaseTime(QSpinBox* );   //increase time (just increase the index)
 
 
@@ -24,11 +31,19 @@ public:
 
    QList <int> time;                    //list of total times
 
+signals:
+    void timeD1(QString);
+
+public slots:
+   void timeDelay();
 
 private:
 
    int PreviousTime;
    QSlider *TimeSlider;
+
+
+
 
 
 };

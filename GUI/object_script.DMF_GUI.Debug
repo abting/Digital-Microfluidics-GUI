@@ -20,4 +20,5 @@ INPUT(
 ./debug\moc_Arduino.o
 ./debug\moc_LayoutDesign.o
 ./debug\moc_DropletSelector.o
+./debug\moc_Time.o
 );
