@@ -14,7 +14,6 @@ PathHandler::PathHandler(QStringList pList)
 
 }
 
-//KIWI
 PathHandler::PathHandler(QList <Droplet*> dList)
 {
     foreach(Droplet* drop, dList){

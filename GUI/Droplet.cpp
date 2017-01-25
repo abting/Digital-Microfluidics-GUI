@@ -100,9 +100,15 @@ void Droplet::updateInfo(QString pos, int time, Electrode* e, QString status){
 
     //If this time has already been accessed and you're editing it
     else{
-        if(DropletInfo[time].elec){
+//        if(DropletInfo[time].elec->getDroplet() == NULL){
+//            DropletInfo[time].elec->setDroplet(this);
+//        }
+        if(DropletInfo[time].elec->getDroplet() != NULL){
+            //DropletInfo[time].elec->getDroplet()->getDropletInfo()[time].position = "absent";
             DropletInfo[time].elec->removeDroplet();
-        }      
+        }
+
+
         DropletInfo[time].time = time;
         DropletInfo[time].position = pos;
         DropletInfo[time].elec = e;

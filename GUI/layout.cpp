@@ -239,7 +239,9 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
 
             clicked_electrode->setDroplet(occupied_electrodes.at(0)->getDroplet());
             //TODO NEW
-            clicked_electrode->getDroplet()->updateInfo(clicked_electrode->text(), time, clicked_electrode, "update");
+            //if(clicked_electrode->getDroplet()!=NULL){
+                clicked_electrode->getDroplet()->updateInfo(clicked_electrode->text(), time, clicked_electrode, "update");
+            //}
             if(occupied_electrodes.at(0)->getDroplet()){
                 occupied_electrodes.at(0)->removeDroplet();
             }
@@ -251,10 +253,7 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
 
           double vol =0;
            foreach(Electrode *elec,occupied_electrodes){
-
              vol += elec->getDroplet()->getVolume();
-             //TODO NEW
-             //KIWI
              elec->getDroplet()->updateInfo("",time,elec,"merged");
              if(elec->getDroplet()){
                  elec->removeDroplet();
@@ -262,18 +261,11 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
            }
            newdrop->setVolume(vol);
            clicked_electrode->setDroplet(newdrop);
-
            emit Lsignal(newdrop);
-
-           //TODO NEW
        }
   }
 }
 
-
-
-
-//BANANA
 void Layout::Neighbors(){
 
     Electrode *temp;
@@ -331,8 +323,6 @@ void Layout::Neighbors(){
     }
 
 }
-
-
 
 int Layout::getRows(){
     return rows;

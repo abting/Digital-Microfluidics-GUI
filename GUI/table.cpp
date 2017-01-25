@@ -6,7 +6,6 @@ Table::Table()
 }
 Table::Table(QTableWidget* dTable )
 {
-
     table = dTable;
 }
 

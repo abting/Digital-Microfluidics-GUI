@@ -37,6 +37,7 @@ void Time::increaseTime(QSpinBox* TimeSpin)
     TimeSlider->setValue(TimeSlider->value()+1);
 }
 
+//For Sleep function in preview
 void Time::timeDelay(){
     timeD += 1;
     QThread::msleep(500);

@@ -44,7 +44,7 @@ void Electrode::setDroplet(Droplet *drop){
 void Electrode::removeDroplet(){
     this->setStyleSheet("background-color: grey");
     availability = 1;
-    droplet->setParent(NULL);
+    //droplet->setParent(NULL);
     droplet = NULL;
 
 }

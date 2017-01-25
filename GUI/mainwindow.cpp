@@ -68,8 +68,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     StartButton->setEnabled(true);
 
 
-    //Initialize Tables, Arduino and GridLayout
-//    InitializeTable();
+    //Initialize Arduino and GridLayout
     InitializeUI(false);
     arduino = new Arduino();
     mylayout = new Layout(ElectrodeLayout);
@@ -92,6 +91,7 @@ void MainWindow::InitializeUI(bool enable){
     TabButton->setEnabled(enable);
     TabTable->setEnabled(enable);
 
+    //Initiliaze Table and reset function if layout is already created
     InitializeTable();
     if(listdrop.length()>0){
         qDeleteAll(listdrop.begin(), listdrop.end());
@@ -119,7 +119,6 @@ void MainWindow::connectSignals(){
 }
 
 void MainWindow::ProcessClick(){
-    //TODO add to path
     Electrode *electrode = qobject_cast<Electrode*>(QObject::sender());
 
     if(AddDroplet->isChecked()){                    //if "add droplet" option is selected
@@ -129,7 +128,6 @@ void MainWindow::ProcessClick(){
                 electrode->setDroplet(NewDroplet);
                 electrode->setToolTip("Name: " + NewDroplet->getName() + "\nVolume: " + QString::number(NewDroplet->getVolume()));
                 electrode->getDroplet()->updateInfo(electrode->text(), tableDmode->getSlider()->value(), electrode, "update");
-                //TODO NEW
                 listdrop.append(NewDroplet);
                 addDropToTable(NewDroplet);
             }
@@ -158,7 +156,6 @@ void MainWindow::ProcessClick(){
         arduino->SendSingleCommand("actuate", electrode->text());
     }
     else{                                              //if the user just want to move the droplet
-        //TODO NEW
         time->setPreviousTime();
         time->increaseTime(TimeSpinner);
         mylayout->CheckSurroundingElectrodes(electrode,time->CurrentTime());
@@ -292,7 +289,6 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
     }
 }
 
-//BANANA
 //list with 3 Elements, first being the electrode with the droplet followed by two adjacent electrodes
 void MainWindow::SplitDroplet(QList<Electrode*> elecList){
 
@@ -354,31 +350,30 @@ void MainWindow::SplitDroplet(QList<Electrode*> elecList){
 
 void MainWindow::on_StartButton_clicked()
 {
-    //KIWI
-    //if(arduino->isConnected()){
+    if(arduino->isConnected()){
     //For display purposes only
         pathHandler = new PathHandler(listdrop);      
         pathHandler->setPathList();
-        if(pathHandler->getPathList().length()>0){
+//        if(pathHandler->getPathList().length()>0){
 //            for(int i = 0; i<pathHandler->getPathList().length(); i++){
 //                InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
 //                qApp->processEvents();
 //                Sleep(700);
 //                InstructonMonitor->clear();
 //            }
-        }
-        QThread* threadArduino = new QThread;
-        arduino->moveToThread(threadArduino);
-        threadArduino->start();
+//        }
+//        QThread* threadArduino = new QThread;
+//        arduino->moveToThread(threadArduino);
+//        threadArduino->start();
         arduino->SendSequence(pathHandler);
-        threadArduino->deleteLater();
-    //  }
-    /*
+//        threadArduino->deleteLater();
+    }
+
     else{
         StartButton->setEnabled(false);
         QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
     }
-    */
+
 }
 
 void MainWindow::on_SplitButton_clicked()
@@ -394,7 +389,6 @@ void MainWindow::on_PreviewButton_clicked()
 {
     CancelPreviewButton->setEnabled(true);
     CancelPreviewButton->setVisible(true);
-
     Preview(tableDmode,time, true);
     CancelPreviewButton->setEnabled(false);
     CancelPreviewButton->setVisible(false);
@@ -426,7 +420,6 @@ void MainWindow::on_New_Layout_triggered(){
 
     mylayout = new Layout(ElectrodeLayout,row,column);
     mylayout->InsertDesign(layoutdesign->returnDesign());
-    //BANANA
     mylayout->Neighbors();
 
     connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
@@ -475,8 +468,6 @@ void MainWindow::on_Open_Layout_triggered(){
     if(ElectrodeLayout->count() != 0){
 
         LayoutExists = true;
-
-        //BANANA
         mylayout->Neighbors();
 
         AddDroplet->setEnabled(true);
@@ -485,13 +476,9 @@ void MainWindow::on_Open_Layout_triggered(){
         connectSignals();
         connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
         connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addToDList(Droplet*)));
-
-
     }
 }
 
-
-//TODO NEW
 void MainWindow::InitializeTable()
 {
     //Setup Tables
@@ -511,7 +498,6 @@ void MainWindow::InitializeTable()
     ui->currentStepText_Emode->setText(QString::number(0));
 }
 
-//TODO NEW
 void MainWindow::addDropToTable(Droplet *drop)
 {
     tableDmode->addDropToTable(drop,listdrop,time->CurrentTime());
@@ -636,7 +622,6 @@ void MainWindow::on_Increment_EmodeButton_clicked()
     timeEmode->setPreviousTime();
     timeChange(8);
     timeEmode->increaseTime(TimeSpinnerEmode);
-
 }
 
 
@@ -644,31 +629,28 @@ void MainWindow::on_Increment_EmodeButton_clicked()
 void MainWindow::on_Start_EmodeButton_clicked()
 {
 
-//    //KIWI
-//    //if(arduino->isConnected()){
-    pathHandler = new PathHandler();
-    pathHandler->setPathListEmode(tableEmode);
-    //For display purposes only
-//    if(pathHandler->getPathList().length()>0){
-//        for(int i = 0; i<pathHandler->getPathList().length(); i++){
-//            InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
-//            qApp->processEvents();
-//            Sleep(700);
-//            InstructonMonitor->clear();
-//        }
-//    }
-    QThread* threadArduino = new QThread;
-    arduino->moveToThread(threadArduino);
-    threadArduino->start();
-    arduino->SendSequence(pathHandler);
-    threadArduino->deleteLater();
-//    //  }
-//    /*
-//    else{
-//        StartButton->setEnabled(false);
-//        QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
-//    }
-//    */
+    if(arduino->isConnected()){
+        pathHandler = new PathHandler();
+        pathHandler->setPathListEmode(tableEmode);
+        //For display purposes only
+//      if(pathHandler->getPathList().length()>0){
+//          for(int i = 0; i<pathHandler->getPathList().length(); i++){
+//              InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
+//              qApp->processEvents();
+//              Sleep(700);
+//              InstructonMonitor->clear();
+//          }
+//      }
+//      QThread* threadArduino = new QThread;
+//      arduino->moveToThread(threadArduino);
+//      threadArduino->start();
+        arduino->SendSequence(pathHandler);
+//      threadArduino->deleteLater();
+    }
+    else{
+        StartButton->setEnabled(false);
+        QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
+    }
 }
 
 void MainWindow::on_turnOn_EmodeButton_clicked(bool checked)
@@ -780,6 +762,7 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
     Time* preview = new Time(tablemode->getSlider());
     QThread* threadPreview = new QThread;
     QLabel* l = new QLabel();
+
     preview->moveToThread(threadPreview);
     connect(this, SIGNAL(increment()), preview, SLOT(timeDelay()));
     connect(preview, SIGNAL(timeD1(QString)), l, SLOT(setText(QString)));
@@ -801,7 +784,6 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
             timeChange(8);
             if(CancelpreviewEMode){
                 threadPreview->deleteLater();
-                delete l;
                 return;
             }
         }
@@ -810,7 +792,6 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
             timeChange(8);
             if(CancelpreviewMode){
                 threadPreview->deleteLater();
-                delete l;
                 return;
             }
         }
@@ -820,7 +801,6 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
         k = l->text().toInt();
     }
     threadPreview->deleteLater();
-    delete l;
 }
 
 
@@ -877,4 +857,3 @@ void MainWindow::on_RealTimeActuationBox_clicked(bool checked)
         RealTimeActuate = true;
     }
 }
-
