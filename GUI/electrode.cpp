@@ -39,6 +39,7 @@ void Electrode::setDroplet(Droplet *drop){
     availability = 0;
     this->setStyleSheet("background-color: " + drop->getColor());
     drop->setParent(this);
+    this->setToolTip("Name: " + drop->getName() + "\nVolume: " + QString::number(drop->getVolume()));
 }
 
 void Electrode::removeDroplet(){
@@ -46,6 +47,7 @@ void Electrode::removeDroplet(){
     availability = 1;
     //droplet->setParent(NULL);
     droplet = NULL;
+    this->setToolTip("");
 
 }
 

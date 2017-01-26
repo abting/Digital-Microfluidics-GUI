@@ -545,7 +545,7 @@ void MainWindow::selectColumn(int value)        //Value is the value of the tabl
             foreach(Info inf, drop->getDropletInfo()){
                 if(inf.time == evaluatedTime){
                     if(inf.status!="merged" && inf.status != "absent" && inf.status!= "split"){
-                            inf.elec->setDroplet(drop);
+                            inf.elec->setDroplet(drop);        
                    }
                 }
             }

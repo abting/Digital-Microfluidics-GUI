@@ -2709,36 +2709,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		Table.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTabWidget \
 		ui_mainwindow.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QVariant \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qguiapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qinputmethod.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QGroupBox \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qgroupbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHeaderView \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlabel.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenu \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenu.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMenuBar \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmenubar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSpacerItem \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSplitter \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qsplitter.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QStatusBar \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstatusbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QToolBar \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtoolbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QVBoxLayout \
 		NewLayout.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QDialog \
 		LayoutDesign.h \
@@ -3581,56 +3551,7 @@ debug/NewLayout.o: NewLayout.cpp NewLayout.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/qfiledevice.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qvector2d.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
-		ui_NewLayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QVariant \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qicon.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/qeventloop.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qguiapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qinputmethod.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qboxlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHeaderView \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qframe.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/qitemselectionmodel.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/qregularexpression.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlabel.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLineEdit \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlineedit.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qtextcursor.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qtextformat.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qpen.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qtextoption.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QVBoxLayout
+		ui_NewLayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/NewLayout.o NewLayout.cpp
 
 debug/ClickHandler.o: ClickHandler.cpp electrode.h \
@@ -4371,39 +4292,13 @@ debug/LayoutDesign.o: LayoutDesign.cpp LayoutDesign.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qpen.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		ui_LayoutDesign.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QVariant \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qguiapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qinputmethod.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHeaderView \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSpacerItem \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QVBoxLayout \
 		NewLayout.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMessageBox \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
 		mainwindow.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTextEdit \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtextedit.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/5.6/mingw49_32/include/QtGui/qtextdocument.h \
 		ClickHandler.h \
 		PathHandler.h \
@@ -4413,6 +4308,16 @@ debug/LayoutDesign.o: LayoutDesign.cpp LayoutDesign.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QTableWidget \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtablewidget.h \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtableview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
 		Arduino.h \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/QSerialPort \
 		C:/Qt/5.6/mingw49_32/include/QtSerialPort/qserialport.h \
@@ -4817,37 +4722,7 @@ debug/DropletSelector.o: DropletSelector.cpp DropletSelector.h \
 		C:/Qt/5.6/mingw49_32/include/QtCore/QString \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/QMessageBox \
 		C:/Qt/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
-		ui_DropletSelector.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/QVariant \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QAction \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qaction.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QApplication \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/qeventloop.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qguiapplication.h \
-		C:/Qt/5.6/mingw49_32/include/QtGui/qinputmethod.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qboxlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QHeaderView \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/5.6/mingw49_32/include/QtCore/qitemselectionmodel.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QLabel \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qlabel.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QPushButton \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QSpacerItem \
-		C:/Qt/5.6/mingw49_32/include/QtWidgets/QVBoxLayout
+		ui_DropletSelector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/DropletSelector.o DropletSelector.cpp
 
 debug/Time.o: Time.cpp Time.h \

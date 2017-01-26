@@ -294,21 +294,21 @@ void Layout::Neighbors(){
             }
             //check right of the current electrode
 
-            item = gridlayout->itemAtPosition(i,j+1);
+            item = gridlayout->itemAtPosition(i,j); //j+1
             if(item){
-                QWidget* widget1 = item->widget();
-                temp = dynamic_cast<Electrode*>(widget1);
+                widget = item->widget();
+                temp = dynamic_cast<Electrode*>(widget);
                 if(temp != NULL){
                     current->addNeighbor(temp);
               }
             }
             //check bottom of the current electrode
-            item = gridlayout->itemAtPosition(i+1,j);
+            item = gridlayout->itemAtPosition(i,j); //i+1
             if(item){
                 widget = item->widget();
                 temp = dynamic_cast<Electrode*>(widget);
                 if(temp != NULL){
-                    //current->addNeighbor(temp);
+                    current->addNeighbor(temp);
               }
             }
             //check left of the current electrode
