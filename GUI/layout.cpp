@@ -293,10 +293,11 @@ void Layout::Neighbors(){
               }
             }
             //check right of the current electrode
+
             item = gridlayout->itemAtPosition(i,j+1);
             if(item){
-                widget = item->widget();
-                temp = dynamic_cast<Electrode*>(widget);
+                QWidget* widget1 = item->widget();
+                temp = dynamic_cast<Electrode*>(widget1);
                 if(temp != NULL){
                     current->addNeighbor(temp);
               }
@@ -307,7 +308,7 @@ void Layout::Neighbors(){
                 widget = item->widget();
                 temp = dynamic_cast<Electrode*>(widget);
                 if(temp != NULL){
-                    current->addNeighbor(temp);
+                    //current->addNeighbor(temp);
               }
             }
             //check left of the current electrode
@@ -321,7 +322,6 @@ void Layout::Neighbors(){
             }
         }
     }
-
 }
 
 int Layout::getRows(){
@@ -369,5 +369,4 @@ void Layout::ResetColors(){
             }
         }
     }
-
 }

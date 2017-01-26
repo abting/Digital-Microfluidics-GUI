@@ -65,7 +65,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     CancelPreviewEmodeButton->setVisible(false);
     BeginButton->setEnabled(false);
     BeginButton->setVisible(false);
-    StartButton->setEnabled(true);
+    StartButton->setEnabled(false);
+    StartEmodeButton->setEnabled(false);
 
 
     //Initialize Arduino and GridLayout
@@ -420,14 +421,15 @@ void MainWindow::on_New_Layout_triggered(){
 
     mylayout = new Layout(ElectrodeLayout,row,column);
     mylayout->InsertDesign(layoutdesign->returnDesign());
-    mylayout->Neighbors();
+
 
     connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
     connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addToDList(Droplet*)));
 
-
     connectSignals();
     InitializeUI(true);
+
+    mylayout->Neighbors();
     }
 }
 
@@ -448,10 +450,12 @@ void MainWindow::on_Connect_triggered()
     if(arduino->isConnected()){
 
         StartButton->setEnabled(true);
+        StartEmodeButton->setEnabled(true);
         printToInstructionMonitor("Arduino Connected!");
     }else{
 
         StartButton->setEnabled(false);
+        StartEmodeButton->setEnabled(false);
         QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
     }
 }
@@ -468,7 +472,6 @@ void MainWindow::on_Open_Layout_triggered(){
     if(ElectrodeLayout->count() != 0){
 
         LayoutExists = true;
-        mylayout->Neighbors();
 
         AddDroplet->setEnabled(true);
         RemoveDroplet->setEnabled(true);
@@ -476,6 +479,8 @@ void MainWindow::on_Open_Layout_triggered(){
         connectSignals();
         connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
         connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addToDList(Droplet*)));
+
+        mylayout->Neighbors();
     }
 }
 
