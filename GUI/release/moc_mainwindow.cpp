@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[27];
-    char stringdata0[461];
+    QByteArrayData data[28];
+    char stringdata0[494];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,18 +44,19 @@ QT_MOC_LITERAL(11, 205, 24), // "on_Save_Layout_triggered"
 QT_MOC_LITERAL(12, 230, 24), // "on_Open_Layout_triggered"
 QT_MOC_LITERAL(13, 255, 18), // "on_addDrop_clicked"
 QT_MOC_LITERAL(14, 274, 21), // "on_removedrop_clicked"
-QT_MOC_LITERAL(15, 296, 15), // "InitializeTable"
-QT_MOC_LITERAL(16, 312, 24), // "on_dropTime_valueChanged"
-QT_MOC_LITERAL(17, 337, 4), // "arg1"
-QT_MOC_LITERAL(18, 342, 14), // "addDropToTable"
-QT_MOC_LITERAL(19, 357, 8), // "Droplet*"
-QT_MOC_LITERAL(20, 366, 11), // "updateTable"
-QT_MOC_LITERAL(21, 378, 12), // "selectColumn"
-QT_MOC_LITERAL(22, 391, 19), // "removeDropFromTable"
-QT_MOC_LITERAL(23, 411, 4), // "drop"
-QT_MOC_LITERAL(24, 416, 10), // "timeChange"
-QT_MOC_LITERAL(25, 427, 10), // "addToDList"
-QT_MOC_LITERAL(26, 438, 22) // "on_BeginButton_clicked"
+QT_MOC_LITERAL(15, 296, 22), // "on_BeginButton_clicked"
+QT_MOC_LITERAL(16, 319, 15), // "InitializeTable"
+QT_MOC_LITERAL(17, 335, 24), // "on_dropTime_valueChanged"
+QT_MOC_LITERAL(18, 360, 4), // "arg1"
+QT_MOC_LITERAL(19, 365, 14), // "addDropToTable"
+QT_MOC_LITERAL(20, 380, 8), // "Droplet*"
+QT_MOC_LITERAL(21, 389, 11), // "updateTable"
+QT_MOC_LITERAL(22, 401, 12), // "selectColumn"
+QT_MOC_LITERAL(23, 414, 19), // "removeDropFromTable"
+QT_MOC_LITERAL(24, 434, 4), // "drop"
+QT_MOC_LITERAL(25, 439, 10), // "timeChange"
+QT_MOC_LITERAL(26, 450, 10), // "addToDList"
+QT_MOC_LITERAL(27, 461, 32) // "on_actionSave_Droplets_triggered"
 
     },
     "MainWindow\0ProcessClick\0\0ProcessEvents\0"
@@ -65,11 +66,12 @@ QT_MOC_LITERAL(26, 438, 22) // "on_BeginButton_clicked"
     "on_CancelButton_clicked\0on_Connect_triggered\0"
     "on_Save_Layout_triggered\0"
     "on_Open_Layout_triggered\0on_addDrop_clicked\0"
-    "on_removedrop_clicked\0InitializeTable\0"
-    "on_dropTime_valueChanged\0arg1\0"
-    "addDropToTable\0Droplet*\0updateTable\0"
+    "on_removedrop_clicked\0on_BeginButton_clicked\0"
+    "InitializeTable\0on_dropTime_valueChanged\0"
+    "arg1\0addDropToTable\0Droplet*\0updateTable\0"
     "selectColumn\0removeDropFromTable\0drop\0"
-    "timeChange\0addToDList\0on_BeginButton_clicked"
+    "timeChange\0addToDList\0"
+    "on_actionSave_Droplets_triggered"
 };
 #undef QT_MOC_LITERAL
 
@@ -79,7 +81,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      22,   14, // methods
+      23,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -87,28 +89,29 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  124,    2, 0x08 /* Private */,
-       3,    0,  125,    2, 0x08 /* Private */,
-       4,    0,  126,    2, 0x08 /* Private */,
-       5,    0,  127,    2, 0x08 /* Private */,
-       6,    0,  128,    2, 0x08 /* Private */,
-       7,    0,  129,    2, 0x08 /* Private */,
-       8,    0,  130,    2, 0x08 /* Private */,
-       9,    0,  131,    2, 0x08 /* Private */,
-      10,    0,  132,    2, 0x08 /* Private */,
-      11,    0,  133,    2, 0x08 /* Private */,
-      12,    0,  134,    2, 0x08 /* Private */,
-      13,    0,  135,    2, 0x08 /* Private */,
-      14,    0,  136,    2, 0x08 /* Private */,
-      15,    0,  137,    2, 0x08 /* Private */,
-      16,    1,  138,    2, 0x08 /* Private */,
-      18,    1,  141,    2, 0x08 /* Private */,
-      20,    1,  144,    2, 0x08 /* Private */,
-      21,    1,  147,    2, 0x08 /* Private */,
-      22,    1,  150,    2, 0x08 /* Private */,
-      24,    1,  153,    2, 0x08 /* Private */,
-      25,    1,  156,    2, 0x08 /* Private */,
-      26,    0,  159,    2, 0x08 /* Private */,
+       1,    0,  129,    2, 0x08 /* Private */,
+       3,    0,  130,    2, 0x08 /* Private */,
+       4,    0,  131,    2, 0x08 /* Private */,
+       5,    0,  132,    2, 0x08 /* Private */,
+       6,    0,  133,    2, 0x08 /* Private */,
+       7,    0,  134,    2, 0x08 /* Private */,
+       8,    0,  135,    2, 0x08 /* Private */,
+       9,    0,  136,    2, 0x08 /* Private */,
+      10,    0,  137,    2, 0x08 /* Private */,
+      11,    0,  138,    2, 0x08 /* Private */,
+      12,    0,  139,    2, 0x08 /* Private */,
+      13,    0,  140,    2, 0x08 /* Private */,
+      14,    0,  141,    2, 0x08 /* Private */,
+      15,    0,  142,    2, 0x08 /* Private */,
+      16,    0,  143,    2, 0x08 /* Private */,
+      17,    1,  144,    2, 0x08 /* Private */,
+      19,    1,  147,    2, 0x08 /* Private */,
+      21,    1,  150,    2, 0x08 /* Private */,
+      22,    1,  153,    2, 0x08 /* Private */,
+      23,    1,  156,    2, 0x08 /* Private */,
+      25,    1,  159,    2, 0x08 /* Private */,
+      26,    1,  162,    2, 0x08 /* Private */,
+      27,    0,  165,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -125,13 +128,14 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   17,
-    QMetaType::Void, 0x80000000 | 19,    2,
-    QMetaType::Void, 0x80000000 | 19,    2,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   18,
+    QMetaType::Void, 0x80000000 | 20,    2,
+    QMetaType::Void, 0x80000000 | 20,    2,
     QMetaType::Void, QMetaType::Int,    2,
-    QMetaType::Void, 0x80000000 | 19,   23,
+    QMetaType::Void, 0x80000000 | 20,   24,
     QMetaType::Void, QMetaType::Int,    2,
-    QMetaType::Void, 0x80000000 | 19,    2,
+    QMetaType::Void, 0x80000000 | 20,    2,
     QMetaType::Void,
 
        0        // eod
@@ -156,15 +160,16 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->on_Open_Layout_triggered(); break;
         case 11: _t->on_addDrop_clicked(); break;
         case 12: _t->on_removedrop_clicked(); break;
-        case 13: _t->InitializeTable(); break;
-        case 14: _t->on_dropTime_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 15: _t->addDropToTable((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
-        case 16: _t->updateTable((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
-        case 17: _t->selectColumn((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 18: _t->removeDropFromTable((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
-        case 19: _t->timeChange((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 20: _t->addToDList((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
-        case 21: _t->on_BeginButton_clicked(); break;
+        case 13: _t->on_BeginButton_clicked(); break;
+        case 14: _t->InitializeTable(); break;
+        case 15: _t->on_dropTime_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 16: _t->addDropToTable((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
+        case 17: _t->updateTable((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
+        case 18: _t->selectColumn((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 19: _t->removeDropFromTable((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
+        case 20: _t->timeChange((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 21: _t->addToDList((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
+        case 22: _t->on_actionSave_Droplets_triggered(); break;
         default: ;
         }
     }
@@ -195,13 +200,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 22)
+        if (_id < 23)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 22;
+        _id -= 23;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 22)
+        if (_id < 23)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 22;
+        _id -= 23;
     }
     return _id;
 }

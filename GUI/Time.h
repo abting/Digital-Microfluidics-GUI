@@ -15,15 +15,7 @@ public:
    int getPreviousTime();
    int CurrentTime();
    void increaseTime(QSpinBox* );   //increase time (just increase the index)
-
-
-//   void undoLastEntry(Droplet *droplet);                //deletes last entry of QList time
-//   void deleteDropletPath(Droplet* droplet, int Index);   //deletes the rest of the Droplet path INCASE the user made an error
-//   QList <int> returnTimeList();
-
-
-   QList <int> time;                    //list of total times
-
+   QList <int> time;                //list of total times
 
 private:
 

@@ -71,6 +71,8 @@ private slots:
     void timeChange(int);
     void addToDList(Droplet*);
 
+    void on_actionSave_Droplets_triggered();
+
 private:
     Ui::MainWindow *ui;
 

@@ -160,6 +160,26 @@ void Layout::OpenLayout(QMainWindow *layout,QGridLayout *grid){
    file.close();
 }
 
+void Layout::saveDroplets(QMainWindow *layout,QList<Droplet*> list){
+
+    if(list.isEmpty()) return;
+
+    QString fileName = QFileDialog::getSaveFileName(layout,QObject::tr("Save File"),"","Text Files (*.txt)");
+    QFile file (fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+    QTextStream outStream(&file);
+
+    foreach(Droplet* drop,list){
+        outStream<<drop->getName()<<":"<<drop->getColor()<<","<<drop->getVolume()<<",";
+        foreach(Info info, drop->getDropletInfo()){
+            outStream<<QString::number(info.time)<<","<<info.position<<","<<info.status<<"-";
+        }
+        outStream<<"E"<<endl;
+    }
+    file.close();
+}
+
 //check right, bottom,left and top of the clicked electrode to see whether there is a
 //droplet nearby or not
 void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
@@ -280,7 +300,6 @@ void Layout::Neighbors(){
             if(item){
                 widget = item->widget();
                 current = dynamic_cast<Electrode*>(widget);
-            }
 
             //check top of the current electrode
             item = gridlayout->itemAtPosition(i-1,j);
@@ -316,11 +335,11 @@ void Layout::Neighbors(){
                 temp = dynamic_cast<Electrode*>(widget);
                 if(temp != NULL){
                     current->addNeighbor(temp);
-              }
+                  }
+               }
             }
         }
     }
-
 }
 
 int Layout::getRows(){

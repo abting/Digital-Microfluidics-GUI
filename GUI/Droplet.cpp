@@ -78,7 +78,7 @@ void Droplet::updateInfo(QString pos, int time, Electrode* e, QString status){
        }
        while(i<time){
            Info temp1;
-           temp1.position = "";
+           temp1.position = ""; //FIXME
            temp1.time = i;
            temp1.status = statusE;
            temp1.elec = tempE;

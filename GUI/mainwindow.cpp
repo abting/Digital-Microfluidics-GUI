@@ -543,3 +543,8 @@ void MainWindow::addToDList(Droplet* addD){
     listdrop.append(addD);
 }
 
+
+void MainWindow::on_actionSave_Droplets_triggered()
+{
+    mylayout->saveDroplets(this,listdrop);
+}

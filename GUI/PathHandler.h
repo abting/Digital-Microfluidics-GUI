@@ -14,6 +14,7 @@ struct PathInfo
 class PathHandler
 {
 public:
+
     PathHandler();
     PathHandler(QList <Droplet*>);
 
@@ -24,7 +25,6 @@ public:
     QList <Droplet*> getdropletList();
     void setPathList();
     QStringList getPathList();
-
 
     void savedropletpath(); //txt
     void opensavedpath();   //txt

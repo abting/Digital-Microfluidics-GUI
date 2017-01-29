@@ -31,6 +31,8 @@ public:
     void ClearLayout();                                 //method to clear the grid
     void SaveLayout(QMainWindow*);                      //method to save the current design as a .txt
     void OpenLayout(QMainWindow*,QGridLayout*);         //method to open a saved design
+    void saveDroplets(QMainWindow*,QList<Droplet*>);    //save the information about all droplets
+    QList<Droplet*> openDroplets(QMainWindow*);         //open and return the info about all droplets
     void FinalizeLayout();                              //method to hide and disable the electrodes not necessary, used after creating a design
     void InsertDesign(QGridLayout*);                    //method to recieve the desired design from the "LayoutDesign" class and copy it to the mainwindow
     void CheckSurroundingElectrodes(Electrode*, int time);        //method to check right, bottom, left and top of a given electrodde for available droplets to merge and move

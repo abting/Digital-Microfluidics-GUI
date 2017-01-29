@@ -110,7 +110,7 @@ int leftcount = 48;
             contactpad->setMinimumSize(30,30);
             connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
             TopFrame->addWidget(contactpad,i,j);
-            contactPads.append(contactpad);
+            //contactPads.append(contactpad);
             topcount++;
             }
         }
@@ -125,7 +125,7 @@ int leftcount = 48;
                 contactpad->setMinimumSize(30,30);
                 connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
                 BottomFrame->addWidget(contactpad,i,j);
-                contactPads.append(contactpad);
+                //contactPads.append(contactpad);
                 botcount++;
             }
         }
@@ -138,7 +138,7 @@ int leftcount = 48;
         contactpad->setMinimumSize(30,30);
         connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
         LeftFrame->addWidget(contactpad,i,0);
-        contactPads.append(contactpad);
+        //contactPads.append(contactpad);
         leftcount++;
    }
 }

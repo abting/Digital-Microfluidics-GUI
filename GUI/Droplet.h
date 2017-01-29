@@ -10,11 +10,10 @@ class Electrode;
 
 struct Info
 {
-   QString position;
    int time;
-   Electrode* elec;
-   Electrode* elecOn;
+   QString position; 
    QString status;
+   Electrode* elec;
 };
 
 class Droplet
@@ -48,6 +47,7 @@ public:
    void setLatestElectrode(Electrode*);
 
 private:
+
    QString Color;
    QString Name;
    double volume;      //uL

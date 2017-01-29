@@ -302,6 +302,7 @@
     <addaction name="New_Layout"/>
     <addaction name="Save_Layout"/>
     <addaction name="Open_Layout"/>
+    <addaction name="actionSave_Droplets"/>
    </widget>
    <widget class="QMenu" name="menuSequencing">
     <property name="title">
@@ -375,6 +376,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+C</string>
+   </property>
+  </action>
+  <action name="actionSave_Droplets">
+   <property name="text">
+    <string>Save Droplets</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>
