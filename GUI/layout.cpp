@@ -142,8 +142,6 @@ void Layout::OpenLayout(QMainWindow *layout,QGridLayout *grid){
         if(firstLine){
             rows = list.at(0).toInt();
             columns = list.at(1).toInt();
-            std::cout<<rows;
-            std::cout<<columns;
             firstLine = false;
         }
         else{
@@ -171,13 +169,45 @@ void Layout::saveDroplets(QMainWindow *layout,QList<Droplet*> list){
     QTextStream outStream(&file);
 
     foreach(Droplet* drop,list){
-        outStream<<drop->getName()<<":"<<drop->getColor()<<","<<drop->getVolume()<<",";
+        outStream<<drop->getName()<<","<<drop->getColor()<<","<<drop->getVolume()<<",";
         foreach(Info info, drop->getDropletInfo()){
-            outStream<<QString::number(info.time)<<","<<info.position<<","<<info.status<<"-";
+            outStream<<QString::number(info.time)<<","<<info.position<<","<<info.status<<",";
         }
-        outStream<<"E"<<endl;
+        outStream<<endl;
     }
     file.close();
+}
+
+QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
+    //TODO open droplets
+    QList<Droplet*> dropletlist;
+
+    QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Load Droplets"), "", "Text Files (*.txt)");
+    QFile file (fileName);
+    if (!file.open(QIODevice::ReadOnly))
+        return dropletlist; //FIXME dont want to return list if it failed to open
+    QTextStream inStream(&file);
+
+    while(!inStream.atEnd()){
+        QString line = inStream.readLine();
+        QStringList list = line.split(",");
+
+        Droplet* droplet = new Droplet();
+        droplet->setName(list.at(0));
+        droplet->setColor(list.at(1));
+        droplet->setVolume(QString(list.at(2)).toDouble());
+
+        for(int i = 3; i<list.length()-2; i++){
+            Info info;
+            info.time       =   list.at(i).toInt();
+            info.position   =   list.at(i+1);
+            info.status     =   list.at(i+2);
+            droplet->addInfo(info);
+        }
+        dropletlist.append(droplet);
+    }
+   file.close();
+   return dropletlist;
 }
 
 //check right, bottom,left and top of the clicked electrode to see whether there is a
@@ -196,7 +226,7 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
 
    //first check if the clicked electrode already has a droplet on it
    if(clicked_electrode->getAvailability() == 0){
-       //TODO fixed?
+       //TODO clicked on the same droplet?
        clicked_electrode->getDroplet()->updateInfo(clicked_electrode->text(), time,clicked_electrode, "remain");
 
    }

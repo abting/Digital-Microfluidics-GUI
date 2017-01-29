@@ -548,3 +548,9 @@ void MainWindow::on_actionSave_Droplets_triggered()
 {
     mylayout->saveDroplets(this,listdrop);
 }
+
+void MainWindow::on_actionLoad_Droplets_triggered()
+{
+   listdrop = mylayout->openDroplets(this);
+
+}

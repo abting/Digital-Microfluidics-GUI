@@ -73,6 +73,8 @@ private slots:
 
     void on_actionSave_Droplets_triggered();
 
+    void on_actionLoad_Droplets_triggered();
+
 private:
     Ui::MainWindow *ui;
 

@@ -19,6 +19,14 @@ Droplet::Droplet(int FirstIndex){
 
 }
 
+Droplet::Droplet(){
+
+}
+
+void Droplet::addInfo(Info info){
+    DropletInfo.append(info);
+}
+
 Droplet::Droplet(QString name,QString color, double vol, int FirstIndex){
 
    Name = name;
@@ -78,7 +86,7 @@ void Droplet::updateInfo(QString pos, int time, Electrode* e, QString status){
        }
        while(i<time){
            Info temp1;
-           temp1.position = ""; //FIXME
+           temp1.position = ""; //FIXME double commas
            temp1.time = i;
            temp1.status = statusE;
            temp1.elec = tempE;

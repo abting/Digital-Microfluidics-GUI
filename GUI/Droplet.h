@@ -19,6 +19,7 @@ struct Info
 class Droplet
 {
 public:
+   Droplet();
    Droplet(int);
    Droplet(QString name,QString color,double volume, int);
 
@@ -36,6 +37,7 @@ public:
 
    QList <Info> getDropletInfo();
    Info getInfo(int time);            //get the struct at a specific time
+   void addInfo(Info);
 
    bool Selected = false;
 

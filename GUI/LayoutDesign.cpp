@@ -192,7 +192,7 @@ bool LayoutDesign::checkName(){
 }
 
 bool LayoutDesign::checkDuplicates(){
-    //TODO implement
+    //TODO check dupliccates
     return true;
 }
 

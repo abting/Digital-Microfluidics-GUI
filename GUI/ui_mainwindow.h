@@ -47,6 +47,7 @@ public:
     QAction *Open_Sequence;
     QAction *Connect;
     QAction *actionSave_Droplets;
+    QAction *actionLoad_Droplets;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_4;
     QSplitter *splitter;
@@ -111,6 +112,8 @@ public:
         Connect->setObjectName(QStringLiteral("Connect"));
         actionSave_Droplets = new QAction(MainWindow);
         actionSave_Droplets->setObjectName(QStringLiteral("actionSave_Droplets"));
+        actionLoad_Droplets = new QAction(MainWindow);
+        actionLoad_Droplets->setObjectName(QStringLiteral("actionLoad_Droplets"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout_4 = new QVBoxLayout(centralWidget);
@@ -337,6 +340,7 @@ public:
         menuFile->addAction(Save_Layout);
         menuFile->addAction(Open_Layout);
         menuFile->addAction(actionSave_Droplets);
+        menuFile->addAction(actionLoad_Droplets);
         menuSequencing->addAction(Save_Sequence);
         menuSequencing->addAction(Open_Sequence);
         menuAdruino->addAction(Connect);
@@ -367,6 +371,7 @@ public:
         Connect->setShortcut(QApplication::translate("MainWindow", "Ctrl+Shift+C", 0));
         actionSave_Droplets->setText(QApplication::translate("MainWindow", "Save Droplets", 0));
         actionSave_Droplets->setShortcut(QApplication::translate("MainWindow", "Ctrl+D", 0));
+        actionLoad_Droplets->setText(QApplication::translate("MainWindow", "Load Droplets", 0));
 #ifndef QT_NO_STATUSTIP
         DispenceButton->setStatusTip(QApplication::translate("MainWindow", "perform Dispence", 0));
 #endif // QT_NO_STATUSTIP
