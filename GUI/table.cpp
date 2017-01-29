@@ -188,6 +188,15 @@ void Table::updateTableEmode(QString type, Electrode* elec)
     }
 }
 
+void Table::setupDroplets(QList<Droplet*> dropList){
+    foreach(Droplet* drop, dropList){
+        addDropToTable(drop,dropList,0);
+        foreach(Info dropInfo, drop->getDropletInfo()){
+            updateTable(dropInfo.elec,dropInfo.time);
+        }
+    }
+}
+
 void Table::InitializeTableEmode(QMainWindow* main)
 {
     //Setup Table

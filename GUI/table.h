@@ -25,6 +25,7 @@ public:
     void InitializeTableEmode(QMainWindow*);
     void setItem(int , int , QTableWidgetItem*);
     QTableWidgetItem* getItem(int , int);
+    void setupDroplets(QList<Droplet*>);
 
 private:
     int rows;
