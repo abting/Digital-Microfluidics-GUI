@@ -65,7 +65,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     CancelPreviewEmodeButton->setVisible(false);
     BeginButton->setEnabled(false);
     BeginButton->setVisible(false);
-    StartButton->setEnabled(false);
+    StartButton->setEnabled(true);
     StartEmodeButton->setEnabled(false);
 
 
@@ -351,29 +351,33 @@ void MainWindow::SplitDroplet(QList<Electrode*> elecList){
 
 void MainWindow::on_StartButton_clicked()
 {
-    if(arduino->isConnected()){
+ //   if(arduino->isConnected()){
     //For display purposes only
         pathHandler = new PathHandler(listdrop);      
         pathHandler->setPathList();
-//        if(pathHandler->getPathList().length()>0){
-//            for(int i = 0; i<pathHandler->getPathList().length(); i++){
-//                InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
-//                qApp->processEvents();
-//                Sleep(700);
-//                InstructonMonitor->clear();
-//            }
-//        }
+        if(pathHandler->getPathList().length()>0){
+            for(int i = tableDmode->getSlider()->value(); i<pathHandler->getPathList().length(); i++){
+                InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
+                qApp->processEvents();
+                Sleep(200);
+                InstructonMonitor->clear();
+                time->setPreviousTime();
+                time->increaseTime(TimeSpinner);
+                timeChange(8);
+                selectColumn(tableDmode->getSlider()->value());
+            }
+        }
 //        QThread* threadArduino = new QThread;
 //        arduino->moveToThread(threadArduino);
 //        threadArduino->start();
-        arduino->SendSequence(pathHandler);
+        arduino->SendSequence(pathHandler, tableDmode->getSlider()->value());
 //        threadArduino->deleteLater();
-    }
+//    }
 
-    else{
-        StartButton->setEnabled(false);
-        QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
-    }
+//    else{
+//        StartButton->setEnabled(false);
+//        QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
+//    }
 
 }
 
@@ -649,7 +653,7 @@ void MainWindow::on_Start_EmodeButton_clicked()
 //      QThread* threadArduino = new QThread;
 //      arduino->moveToThread(threadArduino);
 //      threadArduino->start();
-        arduino->SendSequence(pathHandler);
+        arduino->SendSequence(pathHandler, tableEmode->getSlider()->value());
 //      threadArduino->deleteLater();
     }
     else{

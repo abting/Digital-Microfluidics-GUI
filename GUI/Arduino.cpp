@@ -30,7 +30,7 @@ void Arduino::Connect()
 }
 
 
-void Arduino::SendSequence(PathHandler *pathhandler)
+void Arduino::SendSequence(PathHandler *pathhandler, int startTime)
 {
     if (this->isWritable()){
         QByteArray readData = this->readAll();
@@ -38,7 +38,7 @@ void Arduino::SendSequence(PathHandler *pathhandler)
         QString detectionValue_send = "a";                              //Detection value sent, this tells arduino to stop reading (speed up processing)
         QString s_data = readData;                                      //Need to convert QByteArray info into a QString in order to compare
 
-        for(int i = 0; i<pathhandler->getPathList().length(); i++){     //Number of Slots
+        for(int i = startTime; i<pathhandler->getPathList().length(); i++){     //Number of Slots
             QString infoToBeSent = pathhandler->getPathList().at(i) + "," +  detectionValue_send;        //Identifier to stop reading on the arduino end
             this->write(infoToBeSent.toStdString().c_str());         //Communicating with Arduino
             qApp->processEvents();

@@ -15,7 +15,7 @@ public:
     Arduino();
     void Connect();
     bool isConnected();
-    void SendSequence(PathHandler *pathhandler);
+    void SendSequence(PathHandler*, int);
     //KIWI
     void SendSingleCommand(QString, QString);
 
