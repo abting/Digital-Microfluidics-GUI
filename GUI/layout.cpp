@@ -281,44 +281,46 @@ void Layout::Neighbors(){
             if(item){
                 widget = item->widget();
                 current = dynamic_cast<Electrode*>(widget);
-            }
 
-            //check top of the current electrode
-            item = gridlayout->itemAtPosition(i-1,j);
-            if(item){
-                widget = item->widget();
-                temp = dynamic_cast<Electrode*>(widget);
-                if(temp != NULL){
-                    current->addNeighbor(temp);
-              }
-            }
-            //check right of the current electrode
 
-            item = gridlayout->itemAtPosition(i,j); //j+1
-            if(item){
-                widget = item->widget();
-                temp = dynamic_cast<Electrode*>(widget);
-                if(temp != NULL){
-                    current->addNeighbor(temp);
-              }
-            }
-            //check bottom of the current electrode
-            item = gridlayout->itemAtPosition(i,j); //i+1
-            if(item){
-                widget = item->widget();
-                temp = dynamic_cast<Electrode*>(widget);
-                if(temp != NULL){
-                    current->addNeighbor(temp);
-              }
-            }
-            //check left of the current electrode
-            item = gridlayout->itemAtPosition(i,j-1);
-            if(item){
-                widget = item->widget();
-                temp = dynamic_cast<Electrode*>(widget);
-                if(temp != NULL){
-                    current->addNeighbor(temp);
-              }
+                //check top of the current electrode
+                item = gridlayout->itemAtPosition(i-1,j);
+                if(item){
+                    widget = item->widget();
+                    temp = dynamic_cast<Electrode*>(widget);
+                    if(temp != NULL){
+                        current->addNeighbor(temp);
+                  }
+                }
+                //check right of the current electrode
+
+                item = gridlayout->itemAtPosition(i,j+1); //j+1
+                if(item){
+                    widget = item->widget();
+                    temp = dynamic_cast<Electrode*>(widget);
+                    if(temp != NULL){
+                        current->addNeighbor(temp);
+                  }
+                }
+                //check bottom of the current electrode
+                item = gridlayout->itemAtPosition(i+1,j); //i+1
+                if(item){
+                    widget = item->widget();
+                    temp = dynamic_cast<Electrode*>(widget);
+                    if(temp != NULL){
+                        current->addNeighbor(temp);
+                  }
+                }
+                //check left of the current electrode
+                item = gridlayout->itemAtPosition(i,j-1);
+                if(item){
+                    widget = item->widget();
+                    temp = dynamic_cast<Electrode*>(widget);
+                    if(temp != NULL){
+                        current->addNeighbor(temp);
+                  }
+                }
+
             }
         }
     }
