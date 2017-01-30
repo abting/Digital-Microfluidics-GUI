@@ -19,6 +19,10 @@ Droplet::Droplet(int FirstIndex){
 
 }
 
+Droplet::Droplet(){
+
+}
+
 Droplet::Droplet(QString name,QString color, double vol, int FirstIndex){
 
    Name = name;
@@ -49,6 +53,10 @@ QString Droplet::getColor(){
 
 double Droplet::getVolume(){
    return volume;
+}
+
+void Droplet::addInfo(Info inf){
+    DropletInfo.append(inf);
 }
 
 //Updates the droplet's information, it's index represents a time slot

@@ -19,10 +19,10 @@ void Table::CreateTable(QMainWindow* main)
     //for(int i = 1;i<20;i++){
         table->setColumnWidth(1,50);
 
-        table->setColumnWidth(2,20);
+        table->setColumnWidth(2,25);
     //}
     for (int j = 1;j<3;j++){
-        table->setRowHeight(j,20);
+        table->setRowHeight(j,25);
     }
     QTableWidgetItem* THeader = new QTableWidgetItem("Timeline");
     QTableWidgetItem* DHeader = new QTableWidgetItem("Droplet Name");
@@ -56,7 +56,7 @@ void Table::addDropToTable(Droplet *drop, QList <Droplet*> listD, int tTime) //t
     //If table is full, create an extra row
     if(table->item(table->rowCount()-1,0)){
         table->setRowCount(table->rowCount()+1);
-        table->setRowHeight(table->rowCount()-1,20);
+        table->setRowHeight(table->rowCount()-1,25);
     }
     //Add the new droplet at the specified time
     table->setItem(table->rowCount()-1, 0, Name);
@@ -74,7 +74,7 @@ void Table::removeDropFromTable(Droplet *drop)
     }
     if(table->rowCount()<=2){
         table->setRowCount(table->rowCount()+1);
-        table->setRowHeight(table->rowCount()-1,20);
+        table->setRowHeight(table->rowCount()-1,25);
     }
 }
 
@@ -104,7 +104,9 @@ void Table::updateTable(Electrode *elec, int tTime)
            else{
                QTableWidgetItem* initialPosition = new QTableWidgetItem(drop->getDropletInfo().at(tTime).position);
                table->setItem(rowNum, tTime+2, initialPosition);
-               table->item(rowNum,tTime+2)->setBackgroundColor(drop->getColor());
+               if(drop->getDropletInfo().at(tTime).status != "remain" && drop->getDropletInfo().at(tTime).status != "absent"){
+                   table->item(rowNum,tTime+2)->setBackgroundColor(drop->getColor());
+               }
            }
        }
     }
@@ -160,7 +162,7 @@ void Table::updateTableEmode(QString type, Electrode* elec)
         }
         if(addRow){
             table->setRowCount(table->rowCount()+1);
-            table->setRowHeight(table->rowCount()-1,20);
+            table->setRowHeight(table->rowCount()-1,25);
             table->setSpan(0,0,table->rowCount(),1);
         }
         for(int i = 2; i<table->rowCount(); i++){
@@ -190,9 +192,13 @@ void Table::updateTableEmode(QString type, Electrode* elec)
 
 void Table::setupDroplets(QList<Droplet*> dropList){
     foreach(Droplet* drop, dropList){
-        addDropToTable(drop,dropList,0);
+        addDropToTable(drop,dropList,drop->getInitialTime());
         foreach(Info dropInfo, drop->getDropletInfo()){
-            updateTable(dropInfo.elec,dropInfo.time);
+            if(dropInfo.elec!=NULL){
+                dropInfo.elec->setDroplet(drop);
+                updateTable(dropInfo.elec,dropInfo.time);
+                dropInfo.elec->removeDroplet();
+            }
         }
     }
 }
@@ -204,10 +210,10 @@ void Table::InitializeTableEmode(QMainWindow* main)
     table->setRowCount(3);
     table->setColumnWidth(0,150);
     //for(int i = 1;i<20;i++){
-        table->setColumnWidth(1,20);
+        table->setColumnWidth(1,25);
     //}
     for (int j = 1;j<3;j++){
-        table->setRowHeight(j,20);
+        table->setRowHeight(j,25);
     }
     QTableWidgetItem* EHeader = new QTableWidgetItem("Electrodes");
     QTableWidgetItem* THeader = new QTableWidgetItem("Timeline");

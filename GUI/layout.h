@@ -53,6 +53,8 @@ public:
 
     Electrode* elecFromText(QString elec);
     void ResetColors();
+    void saveDroplets(QMainWindow *,QList<Droplet*> list);
+    QList<Droplet*>  openDroplets(QMainWindow *);
 
  private:
      int rows;

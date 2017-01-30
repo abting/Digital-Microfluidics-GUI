@@ -22,6 +22,7 @@ class Droplet
 public:
    Droplet(int);
    Droplet(QString name,QString color,double volume, int);
+   Droplet();
 
    //setters and getters
    void setName(QString name);
@@ -48,6 +49,8 @@ public:
    int getInitialTime();
    Electrode* getLatestElectrode();
    void setLatestElectrode(Electrode*);
+
+   void addInfo(Info);
 
 private:
    QString Color;

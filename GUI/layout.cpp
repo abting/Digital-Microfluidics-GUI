@@ -178,7 +178,7 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
    //first check if the clicked electrode already has a droplet on it
    if(clicked_electrode->getAvailability() == 0){
        //FIXME do nothing??or merge??
-       clicked_electrode->getDroplet()->updateInfo(clicked_electrode->text(), time,clicked_electrode, "remain");
+       clicked_electrode->getDroplet()->updateInfo(clicked_electrode->text(), time,clicked_electrode, "update");
 
    }
    else{
@@ -371,4 +371,67 @@ void Layout::ResetColors(){
             }
         }
     }
+}
+
+
+void Layout::saveDroplets(QMainWindow *layout,QList<Droplet*> list){
+
+    if(list.isEmpty()) return;
+
+    QString fileName = QFileDialog::getSaveFileName(layout,QObject::tr("Save File"),"","Text Files (*.txt)");
+    QFile file (fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+    QTextStream outStream(&file);
+
+    foreach(Droplet* drop,list){
+        outStream<<drop->getName()<<","<<drop->getColor()<<","<<drop->getVolume()<<","<<drop->getInitialTime()<<",";
+        foreach(Info info, drop->getDropletInfo()){
+            outStream<<QString::number(info.time)<<","<<info.position<<","<<info.status<<",";
+        }
+        outStream<<endl;
+    }
+    file.close();
+}
+
+QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
+    //TODO open droplets
+    QList<Droplet*> dropletlist;
+
+    QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Load Droplets"), "", "Text Files (*.txt)");
+    QFile file (fileName);
+    if (!file.open(QIODevice::ReadOnly))
+        return dropletlist; //FIXME dont want to return list if it failed to open
+    QTextStream inStream(&file);
+
+    while(!inStream.atEnd()){
+        QString line = inStream.readLine();
+        QStringList list = line.split(",");
+
+        Droplet* droplet = new Droplet();
+        droplet->setName(list.at(0));
+        droplet->setColor(list.at(1));
+        droplet->setVolume(QString(list.at(2)).toDouble());
+        droplet->setInitialTime(QString(list.at(3)).toDouble());
+
+        Electrode* latest;
+        for(int i = 4; i<list.length()-2; i+=3){
+            Info info;
+            info.time       =   list.at(i).toInt();
+            info.position   =   list.at(i+1);
+            info.status     =   list.at(i+2);
+            if(info.status!="remain" && info.status!= "absent"){
+                info.elec       =   elecFromText(info.position);
+                latest = info.elec;
+            }
+            else if(info.status=="remain"){
+                info.elec = latest;
+            }
+
+            droplet->addInfo(info);
+        }
+        dropletlist.append(droplet);
+    }
+   file.close();
+   return dropletlist;
 }

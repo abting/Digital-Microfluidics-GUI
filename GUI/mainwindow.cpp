@@ -731,8 +731,8 @@ void MainWindow::SpinboxValueChanged(int value, Table* table,QSpinBox* timespin,
     if (value+offset >= table->getColumn()){         //Need to account for +1 offset in the columns
         table->setColumn(value+(offset+1));
         for (int i=origCol;i<table->getColumn();i++){
-            table->setColumnW(i,20);
-            increaseSize +=20;
+            table->setColumnW(i,25);
+            increaseSize +=25;
         }
         //Increase Span of headers and Slider, increase size of Slider accordingly
         table->setSp(1,offset,1,table->getColumn()-1);
@@ -824,23 +824,56 @@ void MainWindow::on_preview_EmodeButton_clicked()
 
 void MainWindow::on_Save_Sequence_triggered()
 {
-    if(TabButton->currentIndex()==0){
-        pathHandler = new PathHandler(listdrop);
-        pathHandler->setPathList();
-        pathHandler->savePath(this);
-    }
-    else if(TabButton->currentIndex()==1){
-    }
+//    if(TabButton->currentIndex()==0){
+//        pathHandler = new PathHandler(listdrop);
+//        pathHandler->setPathList();
+//        pathHandler->savePath(this);
+//    }
+//    else if(TabButton->currentIndex()==1){
+//    }
+    mylayout->saveDroplets(this,listdrop);
+
+
+    //TODO if they load a list in the middle-->reset first
+    //FIXME does not work as intended
+   //QList<Droplet*> test = mylayout->openDroplets(this);
+   //mylayout->saveDroplets(this,test);
 }
 
 void MainWindow::on_Open_Sequence_triggered()
 {
-    if(TabButton->currentIndex()==0){
-        pathHandler = new PathHandler();
-        pathHandler->openPath(this);
+//    if(TabButton->currentIndex()==0){
+//        pathHandler = new PathHandler();
+//        pathHandler->openPath(this);
+//    }
+//    else if(TabButton->currentIndex()==1){
+//    }
+    if(listdrop.isEmpty()){
+
     }
-    else if(TabButton->currentIndex()==1){
+    else{
+         InitializeUI(true);
     }
+    listdrop = mylayout->openDroplets(this);
+    foreach(Droplet *a , listdrop){
+        //InstructonMonitor->insertPlainText(QString::number(b.status) + " , ");
+        //InstructonMonitor->insertPlainText(a->getName());
+        foreach (Info b, a->getDropletInfo()){
+            //InstructonMonitor->insertPlainText(b.status + " , ");
+            //InstructonMonitor->insertPlainText(b.position + " , ");
+            //InstructonMonitor->insertPlainText(QString::number(b.time) + " , ");
+        }
+        InstructonMonitor->insertPlainText("\n");
+    }
+    int tableLength =1;
+    foreach(Droplet* drop,listdrop){
+        if(tableLength < drop->getDropletInfo().length()){
+            tableLength = drop->getDropletInfo().length();
+        }
+    }
+    TimeSpinner->setValue(tableLength);
+    tableDmode->setupDroplets(listdrop);
+
 }
 
 
