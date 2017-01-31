@@ -61,6 +61,8 @@ private slots:
     void on_addDrop_clicked();
     void on_removedrop_clicked();
     void on_BeginButton_clicked();
+    void on_actionSave_Droplets_triggered();
+    void on_actionLoad_Droplets_triggered();
 
     void InitializeTable();
     void on_dropTime_valueChanged(int arg1);
@@ -70,10 +72,6 @@ private slots:
     void removeDropFromTable(Droplet *drop);
     void timeChange(int);
     void addToDList(Droplet*);
-
-    void on_actionSave_Droplets_triggered();
-
-    void on_actionLoad_Droplets_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -26,7 +26,7 @@ public:
     void setPathList();
     QStringList getPathList();
 
-    void savedropletpath(); //txt
+    void savedropletpath(); //TODO savedroplet path needed?
     void opensavedpath();   //txt
 
 private:

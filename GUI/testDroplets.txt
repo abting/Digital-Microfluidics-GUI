@@ -1,0 +1,5 @@
+#ND
+drop,green,99,0,42,update,1,42,remain,2,49,update,3,86,update,4,86,remain,5,,remain,6,87,update,7,48,update,8,49,update,
+drop2,green,99,0,10,update,1,,remain,2,,remain,3,,remain,4,,remain,5,,remain,6,,remain,7,,remain,8,,remain,9,,remain,10,,remain,11,20,update,12,44,update,13,39,update,14,40,update,15,40,remain,16,40,update,17,40,remain,18,,merged,
+drop3,green,99,0,33,update,1,,remain,2,,remain,3,,remain,4,,remain,5,,remain,6,,remain,7,,remain,8,,remain,9,15,update,10,17,update,11,,remain,12,,remain,13,,remain,14,,remain,15,,remain,16,,remain,17,,remain,18,,merged,
+Merged,red,198,0,,absent,1,,absent,2,,absent,3,,absent,4,,absent,5,,absent,6,,absent,7,,absent,8,,absent,9,,absent,10,,absent,11,,absent,12,,absent,13,,absent,14,,absent,15,,absent,16,,absent,17,,absent,18,46,update,19,17,update,20,19,update,

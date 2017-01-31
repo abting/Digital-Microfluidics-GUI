@@ -372,6 +372,7 @@ public:
         actionSave_Droplets->setText(QApplication::translate("MainWindow", "Save Droplets", 0));
         actionSave_Droplets->setShortcut(QApplication::translate("MainWindow", "Ctrl+D", 0));
         actionLoad_Droplets->setText(QApplication::translate("MainWindow", "Load Droplets", 0));
+        actionLoad_Droplets->setShortcut(QApplication::translate("MainWindow", "Ctrl+L", 0));
 #ifndef QT_NO_STATUSTIP
         DispenceButton->setStatusTip(QApplication::translate("MainWindow", "perform Dispence", 0));
 #endif // QT_NO_STATUSTIP

@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QString>
+#include <Droplet.h>
 
 namespace Ui {
 class DropletSelector;
@@ -22,6 +23,8 @@ public:
     QString getColor();
     double getVolume();
     bool Done = false;
+
+    bool isDuplicate(QList<Droplet*>, QString);
 
 private slots:
     void on_OK_clicked();

@@ -47,6 +47,7 @@ public:
    int getInitialTime();
    Electrode* getLatestElectrode();
    void setLatestElectrode(Electrode*);
+   bool isDupliate(QList<Droplet*>);
 
 private:
 

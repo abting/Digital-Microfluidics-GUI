@@ -100,6 +100,7 @@ void Layout::SaveLayout(QMainWindow *layout){
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
     QTextStream outStream(&file);
+    outStream<<"#NL"<<endl;
     QString text = QString::fromStdString(std::to_string(rows)) + "," + QString::fromStdString(std::to_string(columns))+ "\n";
     outStream << text;
 
@@ -132,8 +133,14 @@ void Layout::OpenLayout(QMainWindow *layout,QGridLayout *grid){
     QFile file (fileName);
     if (!file.open(QIODevice::ReadOnly))
         return;
-    ClearLayout();
     QTextStream inStream(&file);
+    QString specialChar = inStream.readLine();
+    if(specialChar != "#NL"){
+        QMessageBox::warning(NULL,tr("Wrong File Type"), tr("The chosen file does not contain the information"));
+        return;
+    }
+
+    ClearLayout();
     bool firstLine = true;
     int at_row=0;
     while(!inStream.atEnd()){
@@ -167,7 +174,7 @@ void Layout::saveDroplets(QMainWindow *layout,QList<Droplet*> list){
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
     QTextStream outStream(&file);
-
+    outStream<<"#ND"<<endl;
     foreach(Droplet* drop,list){
         outStream<<drop->getName()<<","<<drop->getColor()<<","<<drop->getVolume()<<",";
         foreach(Info info, drop->getDropletInfo()){
@@ -179,7 +186,7 @@ void Layout::saveDroplets(QMainWindow *layout,QList<Droplet*> list){
 }
 
 QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
-    //TODO open droplets
+
     QList<Droplet*> dropletlist;
 
     QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Load Droplets"), "", "Text Files (*.txt)");
@@ -187,6 +194,11 @@ QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
     if (!file.open(QIODevice::ReadOnly))
         return dropletlist; //FIXME dont want to return list if it failed to open
     QTextStream inStream(&file);
+    QString specialChar = inStream.readLine();
+    if(specialChar != "#ND"){
+        QMessageBox::warning(NULL,tr("Wrong File Type"), tr("The chosen file does not contain the information"));
+        return dropletlist;
+    }
 
     while(!inStream.atEnd()){
         QString line = inStream.readLine();
@@ -197,7 +209,7 @@ QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
         droplet->setColor(list.at(1));
         droplet->setVolume(QString(list.at(2)).toDouble());
 
-        for(int i = 3; i<list.length()-2; i++){
+        for(int i = 3; i<list.length()-2; i+=3){
             Info info;
             info.time       =   list.at(i).toInt();
             info.position   =   list.at(i+1);

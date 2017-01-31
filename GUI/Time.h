@@ -21,8 +21,6 @@ private:
 
    int PreviousTime;
    QSlider *TimeSlider;
-
-
 };
 
 #endif // TIME_H

@@ -85,6 +85,10 @@ void MainWindow::ProcessClick(){
     if(AddDroplet->isChecked()){                    //if "add droplet" option is selected
         if(electrode->isEmpty()){
             Droplet *NewDroplet = new Droplet(tab->getSlider()->value());
+            while(NewDroplet->isDupliate(listdrop)){
+                QMessageBox::warning(this,tr("Duplicate Name"), tr("Please choose a unique name"));
+                NewDroplet = new Droplet(tab->getSlider()->value());
+            }
             if(NewDroplet->Selected){
                 electrode->setDroplet(NewDroplet);
                 electrode->setToolTip("Name: " + NewDroplet->getName() + "\nVolume: " + QString::number(NewDroplet->getVolume()));
@@ -551,6 +555,6 @@ void MainWindow::on_actionSave_Droplets_triggered()
 
 void MainWindow::on_actionLoad_Droplets_triggered()
 {
+    //TODO if they load a list in the middle-->reset first
    listdrop = mylayout->openDroplets(this);
-
 }

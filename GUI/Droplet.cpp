@@ -14,13 +14,21 @@ Droplet::Droplet(int FirstIndex){
        Color = dropselect->getColor();
        latestElectrode = NULL;
        InitialTime = FirstIndex;
-
    }
-
 }
 
 Droplet::Droplet(){
 
+}
+
+//checks for a duplicate, the list of droplets has to be pased to it first
+bool Droplet::isDupliate(QList<Droplet *> list){
+    foreach(Droplet* drop,list){
+        if(drop->getName() == Name){
+            return true;
+        }
+    }
+    return false;
 }
 
 void Droplet::addInfo(Info info){

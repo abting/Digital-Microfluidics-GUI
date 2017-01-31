@@ -36,7 +36,7 @@ LayoutDesign::LayoutDesign(QWidget *parent): QDialog(parent), ui(new Ui::LayoutD
     DesignLayout();
     ConnectSignals();
 
-    QMessageBox::warning(this,tr("GridDesign"), tr("Please make the shape of the DMF chip"));
+    QMessageBox::warning(NULL,tr("GridDesign"), tr("Please make the shape of the DMF chip"));
 }
 
 LayoutDesign::~LayoutDesign(){
@@ -91,7 +91,7 @@ void LayoutDesign::Edit(){
     }
     else{       
        electrode = obj;
-       electrode->setStyleSheet("background-color: orange; border-style: outset ;border-width: 4px; border-color: blue");
+       electrode->setStyleSheet("background-color: orange; border-style: outset ;border-width: 4px; border-color: blue");       
     }
 }
 
@@ -110,7 +110,7 @@ int leftcount = 48;
             contactpad->setMinimumSize(30,30);
             connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
             TopFrame->addWidget(contactpad,i,j);
-            //contactPads.append(contactpad);
+            contactPads.append(contactpad);
             topcount++;
             }
         }
@@ -125,7 +125,7 @@ int leftcount = 48;
                 contactpad->setMinimumSize(30,30);
                 connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
                 BottomFrame->addWidget(contactpad,i,j);
-                //contactPads.append(contactpad);
+                contactPads.append(contactpad);
                 botcount++;
             }
         }
@@ -138,7 +138,7 @@ int leftcount = 48;
         contactpad->setMinimumSize(30,30);
         connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
         LeftFrame->addWidget(contactpad,i,0);
-        //contactPads.append(contactpad);
+        contactPads.append(contactpad);
         leftcount++;
    }
 }
@@ -150,7 +150,7 @@ void LayoutDesign::SetElectrodeNumber(){
         electrode->setText(obj->text());
         electrode->setStyleSheet("background-color: orange");
         std::string number = obj->text().toStdString();
-        electrode->setNumber(number);
+        electrode->setNumber(number);        
     }
 }
 
@@ -185,14 +185,31 @@ bool LayoutDesign::checkName(){
             QLayoutItem* item = Designgrid->itemAtPosition(i,j);
             QWidget* widget = item->widget();
             Electrode* electrode = dynamic_cast<Electrode*>(widget);
-            if (electrode->getState() == true && electrode->getNumber() == "") return false;
+            if (electrode->getState() == true && electrode->getNumber() == "")
+                return false;
         }
     }
     return true;
 }
 
 bool LayoutDesign::checkDuplicates(){
-    //TODO check dupliccates
+
+    for (int i=0; i<Designgrid->rowCount();i++){
+        for(int j=0; j<Designgrid->columnCount();j++){
+            QLayoutItem* item = Designgrid->itemAtPosition(i,j);
+            QWidget* widget = item->widget();
+            Electrode* electrode = dynamic_cast<Electrode*>(widget);
+            elecName<<(electrode->text()).toInt();
+        }
+    }
+
+    qSort(elecName.begin(),elecName.end());
+    for(int i=0; i<elecName.length()-1;i++){
+        if(elecName.at(i) == elecName.at(i+1)){
+            elecName.clear();
+            return false;
+        }
+    }
     return true;
 }
 

@@ -42,13 +42,14 @@ private slots:
 
 private:
     Ui::LayoutDesign *ui;
-    QList<Electrode*> contactPads;
+    QList<QPushButton*> contactPads;
+    QList<int>          elecName;
 
-    bool EditMode;
-    Layout *mylayout;
-    Electrode *electrode = NULL;    //refrence to the most recent electrode clicked   
-    int inputRows;                  //number of rows the user wants
-    int inputColumns;               //number of columns the user wants
+    bool        EditMode;
+    Layout*     mylayout;
+    Electrode*  electrode = NULL;    //refrence to the most recent electrode clicked
+    int         inputRows;                  //number of rows the user wants
+    int         inputColumns;               //number of columns the user wants
 
     //widgets
     QGridLayout *Designgrid;      //handler for the QGridLayout
