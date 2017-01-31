@@ -118,6 +118,10 @@ private slots:
 
     void on_RealTimeActuationBox_clicked(bool checked);
 
+    void on_CancelStart_EmodeButton_clicked();
+
+    void on_CancelStartButton_clicked();
+
 signals:
     //Emited when the thread should be deleted
     void Done();
@@ -157,7 +161,8 @@ private:
     QCheckBox *AddDroplet;
     QCheckBox *RemoveDroplet;
     QPushButton *BeginButton;   
-    QPushButton *CancelPreviewButton;
+    QPushButton *CancelPreviewButton;   
+    QPushButton *CancelStartButton;
 
     QCheckBox *TurnOnButton;
     QCheckBox *TurnOffButton;
@@ -166,7 +171,8 @@ private:
     QTabWidget *TabButton;
     QTabWidget *TabTable; 
     QPushButton *CancelPreviewEmodeButton;
-    QCheckBox *RealTimeActuationButton;
+    QCheckBox *RealTimeActuationButton;   
+    QPushButton *CancelStartEmodeButton;
 
     //TODO NEW
     QTableWidget *DropletTable;
@@ -177,6 +183,8 @@ private:
 
 signals:
     void increment();
+    void stopArduino(bool);
+    void deleteArduinoThread();
 
 };
 

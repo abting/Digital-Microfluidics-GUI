@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     DropletTable = ui->dropTable;
     TimeSpinner = ui->dropTime;
     CancelPreviewButton = ui->CancelPreviwButton;
+    CancelStartButton = ui->CancelStartButton;
+
 
     //Electrode Mode Widgets
     IncrementButton = ui->Increment_EmodeButton;
@@ -39,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     DropletTableEmode = ui->dropTableEmode; 
     CancelPreviewEmodeButton = ui->CancelPreviwEmodeButton;
     RealTimeActuationButton = ui->RealTimeActuationBox;
+    CancelStartEmodeButton = ui->CancelStart_EmodeButton;
 
     //Tab Widgets
     TabButton = ui->ModeButtonTab;
@@ -63,9 +66,13 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     CancelPreviewButton->setVisible(false);
     CancelPreviewEmodeButton->setEnabled(false);
     CancelPreviewEmodeButton->setVisible(false);
+    CancelStartButton->setEnabled(false);
+    CancelStartButton->setVisible(false);
+    CancelStartEmodeButton->setEnabled(false);
+    CancelStartEmodeButton->setVisible(false);
     BeginButton->setEnabled(false);
     BeginButton->setVisible(false);
-    StartButton->setEnabled(true);
+    StartButton->setEnabled(false);
     StartEmodeButton->setEnabled(false);
 
 
@@ -131,12 +138,14 @@ void MainWindow::ProcessClick(){
                 electrode->getDroplet()->updateInfo(electrode->text(), tableDmode->getSlider()->value(), electrode, "update");
                 listdrop.append(NewDroplet);
                 addDropToTable(NewDroplet);
+                InstructonMonitor->setPlainText("Added Droplet '" + NewDroplet->getName() + "' to electrode: " + electrode->text());
             }
         }
     }
     else if(RemoveDroplet->isChecked()){           //if the "Remove droplet" option is selected
         if(!(electrode->isEmpty())){
             Droplet* removeDrop = electrode->getDroplet();
+            InstructonMonitor->setPlainText("Removed Droplet '" + removeDrop->getName() + "'");
             listdrop.removeOne(removeDrop);
             removeDropFromTable(removeDrop);
             electrode->removeDroplet();
@@ -148,13 +157,20 @@ void MainWindow::ProcessClick(){
     else if(turnOn){
         electrode->setStyleSheet("background-color: blue");
         tableEmode->updateTableEmode("add",electrode);
+        InstructonMonitor->setPlainText("Turned on Electrode:" + electrode->text());
     }
     else if (turnOff){
         electrode->setStyleSheet("background-color: grey");
         tableEmode->updateTableEmode("remove",electrode);
+        InstructonMonitor->setPlainText("Turned off Electrode:" + electrode->text());
     }
     else if(RealTimeActuate){
-        arduino->SendSingleCommand("actuate", electrode->text());
+        if(arduino->isConnected() && arduino->isWritable()){
+            arduino->SendSingleCommand("actuate", electrode->text());
+        }
+        else{
+            printToInstructionMonitor("Communication Error\nArduino is not connected or is busy");
+        }
     }
     else{                                              //if the user just want to move the droplet
         time->setPreviousTime();
@@ -165,6 +181,7 @@ void MainWindow::ProcessClick(){
         }
         timeChange(8);
         selectColumn(tableDmode->getSlider()->value());
+        InstructonMonitor->setPlainText("Electrode " + electrode->text() + " was clicked");
     }
 }
 
@@ -351,34 +368,46 @@ void MainWindow::SplitDroplet(QList<Electrode*> elecList){
 
 void MainWindow::on_StartButton_clicked()
 {
- //   if(arduino->isConnected()){
-    //For display purposes only
-        pathHandler = new PathHandler(listdrop);      
-        pathHandler->setPathList();
-        if(pathHandler->getPathList().length()>0){
-            for(int i = tableDmode->getSlider()->value(); i<pathHandler->getPathList().length(); i++){
-                InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
-                qApp->processEvents();
-                Sleep(200);
-                InstructonMonitor->clear();
-                time->setPreviousTime();
-                time->increaseTime(TimeSpinner);
-                timeChange(8);
-                selectColumn(tableDmode->getSlider()->value());
-            }
-        }
-//        QThread* threadArduino = new QThread;
-//        arduino->moveToThread(threadArduino);
-//        threadArduino->start();
-        arduino->SendSequence(pathHandler, tableDmode->getSlider()->value());
-//        threadArduino->deleteLater();
-//    }
+    DisableSignals();
+    pathHandler = new PathHandler(listdrop);
+    pathHandler->setPathList();
 
-//    else{
-//        StartButton->setEnabled(false);
-//        QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
-//    }
+    arduino->setPathHandler(pathHandler);
+    arduino->setStartTime(tableDmode->getSlider()->value());
+    arduino->StopArduino(false);
 
+    if(arduino->isConnected()){
+        CancelStartButton->setEnabled(true);
+        CancelStartButton->setVisible(true);
+//For display purposes only
+//        if(pathHandler->getPathList().length()>0){
+//            for(int i = tableDmode->getSlider()->value(); i<pathHandler->getPathList().length(); i++){
+//                InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
+//                qApp->processEvents();
+//                Sleep(200);
+//                InstructonMonitor->clear();
+//                time->setPreviousTime();
+//                time->increaseTime(TimeSpinner);
+//                timeChange(8);
+//                selectColumn(tableDmode->getSlider()->value());
+//            }
+//        }
+
+        QThread* threadArduinoDmode = new QThread;
+        connect(threadArduinoDmode, SIGNAL(started()), arduino, SLOT(SendSequence()));
+        connect(arduino,SIGNAL(Done()),this, SLOT(on_CancelStartButton_clicked()));
+        connect(this,SIGNAL(stopArduino(bool)),arduino, SLOT(StopArduino(bool)));
+        connect(this,SIGNAL(deleteArduinoThread()),threadArduinoDmode, SLOT(deleteLater()));
+        connect(threadArduinoDmode, SIGNAL(finished()), threadArduinoDmode, SLOT(deleteLater()));
+
+        arduino->moveToThread(threadArduinoDmode);
+        InstructonMonitor->setPlainText("Starting from time slot: " + QString::number(tableDmode->getSlider()->value()));
+        threadArduinoDmode->start();
+    }
+    else{
+        StartButton->setEnabled(false);
+        QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
+    }
 }
 
 void MainWindow::on_SplitButton_clicked()
@@ -401,6 +430,8 @@ void MainWindow::on_PreviewButton_clicked()
 
 void MainWindow::on_DispenceButton_clicked()
 {
+    printToInstructionMonitor("Please click on the droplet that you want to dispense from.\n\nThen, choose the adjacent electrodes the droplet\n"
+                              "will dispense on\n\nAfter that, click on Begin Dispensing");
     DisableSignals();
     //TODO ASK USER FOR NUMBER OF INPUTS OR USE A VECTOR
     BeginButton->setEnabled(true);
@@ -427,8 +458,8 @@ void MainWindow::on_New_Layout_triggered(){
     mylayout->InsertDesign(layoutdesign->returnDesign());
 
 
-    connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
-    connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addToDList(Droplet*)));
+    connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
+    connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addToDList(Droplet*)));
 
     connectSignals();
     InitializeUI(true);
@@ -481,8 +512,8 @@ void MainWindow::on_Open_Layout_triggered(){
         RemoveDroplet->setEnabled(true);
         InitializeUI(true);
         connectSignals();
-        connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
-        connect(mylayout, SIGNAL(Lsignal(Droplet*)), this, SLOT(addToDList(Droplet*)));
+        connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
+        connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addToDList(Droplet*)));
 
         mylayout->Neighbors();
     }
@@ -638,9 +669,16 @@ void MainWindow::on_Increment_EmodeButton_clicked()
 void MainWindow::on_Start_EmodeButton_clicked()
 {
 
+    DisableSignals();
+    pathHandler = new PathHandler();
+    pathHandler->setPathListEmode(tableEmode);
+
+    arduino->setPathHandler(pathHandler);
+    arduino->setStartTime(tableEmode->getSlider()->value());
+    arduino->StopArduino(false);
     if(arduino->isConnected()){
-        pathHandler = new PathHandler();
-        pathHandler->setPathListEmode(tableEmode);
+        CancelStartEmodeButton->setEnabled(true);
+        CancelStartEmodeButton->setVisible(true);
         //For display purposes only
 //      if(pathHandler->getPathList().length()>0){
 //          for(int i = 0; i<pathHandler->getPathList().length(); i++){
@@ -650,11 +688,17 @@ void MainWindow::on_Start_EmodeButton_clicked()
 //              InstructonMonitor->clear();
 //          }
 //      }
-//      QThread* threadArduino = new QThread;
-//      arduino->moveToThread(threadArduino);
-//      threadArduino->start();
-        arduino->SendSequence(pathHandler, tableEmode->getSlider()->value());
-//      threadArduino->deleteLater();
+
+        QThread* threadArduinoEmode = new QThread;
+        connect(threadArduinoEmode, SIGNAL(started()), arduino, SLOT(SendSequence()));
+        connect(arduino,SIGNAL(Done()),this, SLOT(on_CancelStartButton_clicked()));
+        connect(this,SIGNAL(stopArduino(bool)),arduino, SLOT(StopArduino(bool)));
+        connect(this,SIGNAL(deleteArduinoThread()),threadArduinoEmode, SLOT(deleteLater()));
+        connect(threadArduinoEmode, SIGNAL(finished()), threadArduinoEmode, SLOT(deleteLater()));
+
+        arduino->moveToThread(threadArduinoEmode);
+        InstructonMonitor->setPlainText("Starting from time slot: " + QString::number(tableEmode->getSlider()->value()));
+        threadArduinoEmode->start();
     }
     else{
         StartButton->setEnabled(false);
@@ -771,12 +815,14 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
     Time* preview = new Time(tablemode->getSlider());
     QThread* threadPreview = new QThread;
     QLabel* l = new QLabel();
+    int previewSpeed  = 500;  //500ms
 
     preview->moveToThread(threadPreview);
     connect(this, SIGNAL(increment()), preview, SLOT(timeDelay()));
     connect(preview, SIGNAL(timeD1(QString)), l, SLOT(setText(QString)));
     connect(threadPreview, SIGNAL(finished()), threadPreview, SLOT(deleteLater()));
     threadPreview->start();
+    InstructonMonitor->setPlainText("Preview started at a refresh rate of " + QString::number(previewSpeed) + " ms");
 
     //First bring the slider back to 0, remove the droplets at the last slider position
     timemode->setPreviousTime();
@@ -786,6 +832,7 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
     //Start incrementing the TableSlider, add and remove droplets in the process
     //for(int k = 0; k<=tablemode->getSlider()->maximum();k++){
     int k = 0;
+    //int k = tablemode->getSlider()->value();
 
     while(k<=tablemode->getSlider()->maximum()){
         timemode->setPreviousTime();
@@ -881,14 +928,16 @@ void MainWindow::on_CancelPreviwEmodeButton_clicked()
 {
     CancelpreviewEMode = true;
     CancelPreviewEmodeButton->setEnabled(false);
-    CancelPreviewEmodeButton->setVisible(false);
+    CancelPreviewEmodeButton->setVisible(false);    
+    printToInstructionMonitor("Input canceled by user\n");
 }
 
 void MainWindow::on_CancelPreviwButton_clicked()
 {
     CancelpreviewMode = true;
     CancelPreviewButton->setEnabled(false);
-    CancelPreviewButton->setVisible(false);
+    CancelPreviewButton->setVisible(false);    
+    printToInstructionMonitor("Input canceled by user\n");
 }
 
 void MainWindow::on_RealTimeActuationBox_clicked(bool checked)
@@ -899,3 +948,23 @@ void MainWindow::on_RealTimeActuationBox_clicked(bool checked)
         RealTimeActuate = true;
     }
 }
+
+void MainWindow::on_CancelStartButton_clicked()
+{
+    CancelStartButton->setEnabled(false);
+    CancelStartButton->setVisible(false);
+    arduino->StopArduino(true);
+    emit stopArduino(true);
+    emit deleteArduinoThread();
+}
+
+void MainWindow::on_CancelStart_EmodeButton_clicked()
+{
+    CancelStartEmodeButton->setEnabled(false);
+    CancelStartEmodeButton->setVisible(false);
+    arduino->StopArduino(true);
+    emit stopArduino(true);
+    emit deleteArduinoThread();
+}
+
+

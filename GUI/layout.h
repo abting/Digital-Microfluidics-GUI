@@ -62,7 +62,7 @@ public:
      QGridLayout *gridlayout;
 
 signals:
-     void Lsignal(Droplet* nDrop);
+     void addDropletFromLayout(Droplet* nDrop);
      void l(int a);
 
 

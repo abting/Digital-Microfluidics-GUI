@@ -5,6 +5,12 @@ Arduino::Arduino(){
 
 }
 
+Arduino::Arduino(PathHandler* pHandler, int sTime){
+    pHandler = pathHandler;
+    sTime = startTime;
+
+}
+
 void Arduino::Connect()
 {
     foreach(const QSerialPortInfo &serialPortInfo, QSerialPortInfo::availablePorts()){
@@ -30,7 +36,7 @@ void Arduino::Connect()
 }
 
 
-void Arduino::SendSequence(PathHandler *pathhandler, int startTime)
+void Arduino::SendSequence()//PathHandler *pathhandler, int startTime)
 {
     if (this->isWritable()){
         QByteArray readData = this->readAll();
@@ -38,8 +44,8 @@ void Arduino::SendSequence(PathHandler *pathhandler, int startTime)
         QString detectionValue_send = "a";                              //Detection value sent, this tells arduino to stop reading (speed up processing)
         QString s_data = readData;                                      //Need to convert QByteArray info into a QString in order to compare
 
-        for(int i = startTime; i<pathhandler->getPathList().length(); i++){     //Number of Slots
-            QString infoToBeSent = pathhandler->getPathList().at(i) + "," +  detectionValue_send;        //Identifier to stop reading on the arduino end
+        for(int i = startTime; i<pathHandler->getPathList().length(); i++){     //Number of Slots
+            QString infoToBeSent = pathHandler->getPathList().at(i) + "," +  detectionValue_send;        //Identifier to stop reading on the arduino end
             this->write(infoToBeSent.toStdString().c_str());         //Communicating with Arduino
             qApp->processEvents();
             //Sleep(100);
@@ -47,12 +53,20 @@ void Arduino::SendSequence(PathHandler *pathhandler, int startTime)
                 readData = this->readAll();
                 s_data = readData;
                 qApp->processEvents();
+                if(stopArduino){
+                    emit Done();
+                    moveToThread(qApp->thread());
+                    return;
+                }
             }
             readData = this->readAll();
         }
+        emit Done();
+        moveToThread(qApp->thread());
     }
     else{
         qDebug() << "Communication Error, Couldn't write to serial";
+        //emit Done();
     }
 }
 
@@ -74,4 +88,16 @@ void Arduino::SendSingleCommand(QString instruction, QString command)
 bool Arduino::isConnected()
 {
     return arduino_is_available;
+}
+
+void Arduino::setPathHandler(PathHandler * pathH){
+    pathHandler = pathH;
+}
+void Arduino::setStartTime(int sTime){
+    startTime = sTime;
+}
+
+void Arduino::StopArduino(bool stop){
+    stopArduino = stop;
+
 }

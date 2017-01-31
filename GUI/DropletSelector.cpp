@@ -38,6 +38,7 @@ void DropletSelector::on_OK_clicked(){
         QMessageBox::warning(this,tr("Warning"), tr("Please choose a name with less than ten characters"));
     }
     else if(this->getName().length()==0){
+
         QMessageBox::warning(this,tr("Warning"), tr("Please fill out the name text box"));
     }
     else if(!this->VolumeEditor->text().toInt()>0){

@@ -261,7 +261,7 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
            }
            newdrop->setVolume(vol);
            clicked_electrode->setDroplet(newdrop);
-           emit Lsignal(newdrop);
+           emit addDropletFromLayout(newdrop);
        }
   }
 }

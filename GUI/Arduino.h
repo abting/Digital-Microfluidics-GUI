@@ -6,6 +6,7 @@
 #include <QString>
 #include <PathHandler.h>
 
+
 class Arduino:public QSerialPort
 {
     Q_OBJECT
@@ -13,14 +14,29 @@ class Arduino:public QSerialPort
 public:
 
     Arduino();
-    void Connect();
+
+    Arduino(PathHandler*, int);
+
     bool isConnected();
-    void SendSequence(PathHandler*, int);
+
+public slots:
+
+    void Connect();
+    void SendSequence();//PathHandler*, int);
     //KIWI
     void SendSingleCommand(QString, QString);
+    void setPathHandler(PathHandler*);
+    void setStartTime(int);
+    void StopArduino(bool);
 
+signals:
+    //Emited when the arduino sending information is done
+    void Done();
 private:
 
+    bool stopArduino;
+    PathHandler* pathHandler;
+    int startTime;
     static const quint16 arduino_uno_vendor_id = 9025;
     static const quint16 arduino_uno_product_id = 67;
     QString arduino_port_name = "";

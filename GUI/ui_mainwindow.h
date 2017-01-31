@@ -64,6 +64,7 @@ public:
     QPushButton *CancelPreviwButton;
     QHBoxLayout *horizontalLayout;
     QPushButton *StartButton;
+    QPushButton *CancelStartButton;
     QCheckBox *addDrop;
     QCheckBox *removedrop;
     QPushButton *BeginButton;
@@ -75,6 +76,7 @@ public:
     QPushButton *preview_EmodeButton;
     QPushButton *CancelPreviwEmodeButton;
     QPushButton *Start_EmodeButton;
+    QPushButton *CancelStart_EmodeButton;
     QVBoxLayout *verticalLayout_7;
     QHBoxLayout *horizontalLayout_6;
     QCheckBox *turnOn_EmodeButton;
@@ -213,6 +215,12 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        CancelStartButton = new QPushButton(DropletMode);
+        CancelStartButton->setObjectName(QStringLiteral("CancelStartButton"));
+        CancelStartButton->setStyleSheet(QStringLiteral("background: rgb(255, 79, 48);"));
+
+        verticalLayout->addWidget(CancelStartButton);
+
         addDrop = new QCheckBox(DropletMode);
         addDrop->setObjectName(QStringLiteral("addDrop"));
 
@@ -268,6 +276,12 @@ public:
         Start_EmodeButton->setStyleSheet(QStringLiteral("background: rgb(71, 200, 51)"));
 
         verticalLayout_10->addWidget(Start_EmodeButton);
+
+        CancelStart_EmodeButton = new QPushButton(ElectrodeMode);
+        CancelStart_EmodeButton->setObjectName(QStringLiteral("CancelStart_EmodeButton"));
+        CancelStart_EmodeButton->setStyleSheet(QStringLiteral("background: rgb(255, 79, 48);"));
+
+        verticalLayout_10->addWidget(CancelStart_EmodeButton);
 
         verticalLayout_7 = new QVBoxLayout();
         verticalLayout_7->setSpacing(6);
@@ -474,7 +488,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        ModeButtonTab->setCurrentIndex(0);
+        ModeButtonTab->setCurrentIndex(1);
         CancelButton->setDefault(false);
         ModeTableTab->setCurrentIndex(0);
 
@@ -514,6 +528,7 @@ public:
         StartButton->setStatusTip(QApplication::translate("MainWindow", "Send the path sequence to Arduino", 0));
 #endif // QT_NO_STATUSTIP
         StartButton->setText(QApplication::translate("MainWindow", "Start", 0));
+        CancelStartButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
         addDrop->setText(QApplication::translate("MainWindow", "Add Droplet", 0));
         removedrop->setText(QApplication::translate("MainWindow", "Remove Droplet", 0));
         BeginButton->setText(QApplication::translate("MainWindow", "Begin Dispensing", 0));
@@ -537,6 +552,7 @@ public:
         preview_EmodeButton->setText(QApplication::translate("MainWindow", "Preview", 0));
         CancelPreviwEmodeButton->setText(QApplication::translate("MainWindow", "Cancel Preview", 0));
         Start_EmodeButton->setText(QApplication::translate("MainWindow", "Start", 0));
+        CancelStart_EmodeButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
         turnOn_EmodeButton->setText(QApplication::translate("MainWindow", "Turn ON Electrode", 0));
         turnOff_EmodeButton->setText(QApplication::translate("MainWindow", "Turn OFF Electrode", 0));
         RealTimeActuationBox->setText(QApplication::translate("MainWindow", "Real-Time Actuation", 0));

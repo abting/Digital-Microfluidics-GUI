@@ -50,7 +50,7 @@
         <item>
          <widget class="QTabWidget" name="ModeButtonTab">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="DropletMode">
            <attribute name="title">
@@ -125,6 +125,16 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="CancelStartButton">
+              <property name="styleSheet">
+               <string notr="true">background: rgb(255, 79, 48);</string>
+              </property>
+              <property name="text">
+               <string>Cancel</string>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="addDrop">
@@ -227,6 +237,16 @@
                 </property>
                 <property name="text">
                  <string>Start</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="CancelStart_EmodeButton">
+                <property name="styleSheet">
+                 <string notr="true">background: rgb(255, 79, 48);</string>
+                </property>
+                <property name="text">
+                 <string>Cancel</string>
                 </property>
                </widget>
               </item>
