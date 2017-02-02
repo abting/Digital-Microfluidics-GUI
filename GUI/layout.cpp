@@ -252,14 +252,18 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
            newdrop->updateInfo(clicked_electrode->text(), time, clicked_electrode, "update");
 
           double vol =0;
+          QString nameMerged = "";
            foreach(Electrode *elec,occupied_electrodes){
              vol += elec->getDroplet()->getVolume();
+             nameMerged += elec->getDroplet()->getName() + "-";         //Needed to change "," to "-" to avoid txt file issues
              elec->getDroplet()->updateInfo("",time,elec,"merged");
              if(elec->getDroplet()){
                  elec->removeDroplet();
              }
            }
+           nameMerged += "Merged";
            newdrop->setVolume(vol);
+           newdrop->setName(nameMerged);
            clicked_electrode->setDroplet(newdrop);
            emit addDropletFromLayout(newdrop);
        }

@@ -15,7 +15,7 @@ void Table::CreateTable(QMainWindow* main)
     //Setup Table
     table->setColumnCount(3);
     table->setRowCount(3);
-    table->setColumnWidth(0,100);
+    table->setColumnWidth(0,175);
     //for(int i = 1;i<20;i++){
         table->setColumnWidth(1,50);
 
@@ -53,6 +53,7 @@ void Table::addDropToTable(Droplet *drop, QList <Droplet*> listD, int tTime) //t
     QTableWidgetItem* Name = new QTableWidgetItem(drop->getName());
     QTableWidgetItem* Volume = new QTableWidgetItem(QString::number(drop->getVolume()));
     QTableWidgetItem* initialPosition = new QTableWidgetItem(drop->getDropletInfo().at(tTime).position);
+    Name->setFlags(Name->flags() ^ Qt::ItemIsEditable);         //Prevents user from editing the name
     //If table is full, create an extra row
     if(table->item(table->rowCount()-1,0)){
         table->setRowCount(table->rowCount()+1);

@@ -55,14 +55,14 @@ void Arduino::SendSequence()//PathHandler *pathhandler, int startTime)
                 qApp->processEvents();
                 if(stopArduino){
                     emit Done();
-                    moveToThread(qApp->thread());
+                    moveToThread(qApp->thread());   //Moves the thread back to the main thread
                     return;
                 }
             }
             readData = this->readAll();
         }
         emit Done();
-        moveToThread(qApp->thread());
+        moveToThread(qApp->thread());               //Moves the thread back to the main thread
     }
     else{
         qDebug() << "Communication Error, Couldn't write to serial";

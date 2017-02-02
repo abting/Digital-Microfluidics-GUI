@@ -132,6 +132,10 @@ void MainWindow::ProcessClick(){
     if(AddDroplet->isChecked()){                    //if "add droplet" option is selected
         if(electrode->isEmpty()){
             Droplet *NewDroplet = new Droplet(tableDmode->getSlider()->value());
+            while(NewDroplet->isDupliate(listdrop)){
+                QMessageBox::warning(this,tr("Duplicate Name"), tr("Please choose a unique name"));
+                NewDroplet = new Droplet(tableDmode->getSlider()->value());
+            }
             if(NewDroplet->Selected){
                 electrode->setDroplet(NewDroplet);
                 electrode->setToolTip("Name: " + NewDroplet->getName() + "\nVolume: " + QString::number(NewDroplet->getVolume()));
@@ -458,11 +462,11 @@ void MainWindow::on_New_Layout_triggered(){
     mylayout->InsertDesign(layoutdesign->returnDesign());
 
 
+    InitializeUI(true);
+    connectSignals();
     connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
     connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addToDList(Droplet*)));
 
-    connectSignals();
-    InitializeUI(true);
 
     mylayout->Neighbors();
     }
@@ -871,14 +875,14 @@ void MainWindow::on_preview_EmodeButton_clicked()
 
 void MainWindow::on_Save_Sequence_triggered()
 {
-//    if(TabButton->currentIndex()==0){
+    if(TabButton->currentIndex()==0){
 //        pathHandler = new PathHandler(listdrop);
 //        pathHandler->setPathList();
 //        pathHandler->savePath(this);
-//    }
-//    else if(TabButton->currentIndex()==1){
-//    }
-    mylayout->saveDroplets(this,listdrop);
+        mylayout->saveDroplets(this,listdrop);
+    }
+    else if(TabButton->currentIndex()==1){
+    }
 
 
     //TODO if they load a list in the middle-->reset first
@@ -887,39 +891,52 @@ void MainWindow::on_Save_Sequence_triggered()
    //mylayout->saveDroplets(this,test);
 }
 
-void MainWindow::on_Open_Sequence_triggered()
-{
-//    if(TabButton->currentIndex()==0){
-//        pathHandler = new PathHandler();
-//        pathHandler->openPath(this);
-//    }
-//    else if(TabButton->currentIndex()==1){
-//    }
-    if(listdrop.isEmpty()){
+void MainWindow::on_Open_Sequence_triggered()           //As of right now it resets both because of initialzietable() Talk to abtin about separating
+{    if(TabButton->currentIndex()==0){
+//        if(listdrop.isEmpty()){
+
+//        }
+//        else{
+//             InitializeTable();
+//             //time = new Time(tableDmode->getSlider());
+//             //timeEmode = new Time(tableEmode->getSlider());
+//        }
+
+        QList<Droplet*> temp;
+        mylayout->ResetColors();
+        temp = mylayout->openDroplets(this);
+        if(!temp.isEmpty()){
+            listdrop.clear();
+            listdrop = temp;
+            InitializeTable();
+            time = new Time(tableDmode->getSlider());
+            timeEmode = new Time(tableEmode->getSlider());
+
+            foreach(Droplet *a , listdrop){
+                //InstructonMonitor->insertPlainText(QString::number(b.status) + " , ");
+                //InstructonMonitor->insertPlainText(a->getName());
+                foreach (Info b, a->getDropletInfo()){
+                    //InstructonMonitor->insertPlainText(b.status + " , ");
+                    //InstructonMonitor->insertPlainText(b.position + " , ");
+                    //InstructonMonitor->insertPlainText(QString::number(b.time) + " , ");
+                }
+                InstructonMonitor->insertPlainText("\n");
+            }
+            int tableLength =1;
+            foreach(Droplet* drop,listdrop){
+                if(tableLength < drop->getDropletInfo().length()){
+                    tableLength = drop->getDropletInfo().length();
+                }
+            }
+            TimeSpinner->setValue(tableLength);
+            if(!listdrop.isEmpty()){
+                tableDmode->setupDroplets(listdrop);
+            }
+        }
+    }
+    else if(TabButton->currentIndex()==1){
 
     }
-    else{
-         InitializeUI(true);
-    }
-    listdrop = mylayout->openDroplets(this);
-    foreach(Droplet *a , listdrop){
-        //InstructonMonitor->insertPlainText(QString::number(b.status) + " , ");
-        //InstructonMonitor->insertPlainText(a->getName());
-        foreach (Info b, a->getDropletInfo()){
-            //InstructonMonitor->insertPlainText(b.status + " , ");
-            //InstructonMonitor->insertPlainText(b.position + " , ");
-            //InstructonMonitor->insertPlainText(QString::number(b.time) + " , ");
-        }
-        InstructonMonitor->insertPlainText("\n");
-    }
-    int tableLength =1;
-    foreach(Droplet* drop,listdrop){
-        if(tableLength < drop->getDropletInfo().length()){
-            tableLength = drop->getDropletInfo().length();
-        }
-    }
-    TimeSpinner->setValue(tableLength);
-    tableDmode->setupDroplets(listdrop);
 
 }
 

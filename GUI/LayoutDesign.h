@@ -21,6 +21,7 @@ public:
 
     void DesignLayout();            //method to get the user input for rows and columns
     void ConnectSignals();          //method to connect all the signals needed
+    void DisconnectSignals();          //method to disconnect all the signals needed
     void AddContactPads();          //add the contact pads on top, botom and left side
 
     //Methods to check for errors

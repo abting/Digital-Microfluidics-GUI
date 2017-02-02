@@ -50,6 +50,7 @@ public:
    Electrode* getLatestElectrode();
    void setLatestElectrode(Electrode*);
 
+   bool isDupliate(QList<Droplet*>);
    void addInfo(Info);
 
 private:

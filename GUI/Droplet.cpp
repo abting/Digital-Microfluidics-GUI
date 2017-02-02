@@ -22,7 +22,15 @@ Droplet::Droplet(int FirstIndex){
 Droplet::Droplet(){
 
 }
-
+//checks for a duplicate, the list of droplets has to be pased to it first
+bool Droplet::isDupliate(QList<Droplet *> list){
+    foreach(Droplet* drop,list){
+        if(drop->getName() == Name){
+            return true;
+        }
+    }
+    return false;
+}
 Droplet::Droplet(QString name,QString color, double vol, int FirstIndex){
 
    Name = name;

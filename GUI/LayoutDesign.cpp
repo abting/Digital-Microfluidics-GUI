@@ -71,6 +71,20 @@ void LayoutDesign::ConnectSignals(){
     }
 }
 
+void LayoutDesign::DisconnectSignals(){
+
+    int totalColumns = Designgrid->columnCount();
+    int totalRows = Designgrid->rowCount();
+    for(int i=0; i<totalRows;i++){
+        for(int j=0; j<totalColumns;j++){
+            QLayoutItem* item = Designgrid->itemAtPosition(i,j);
+            QWidget* widget = item->widget();
+            Electrode* electrode = dynamic_cast<Electrode*>(widget);
+            disconnect(electrode,SIGNAL(clicked()),this,SLOT(Edit()));
+        }
+    }
+}
+
 //when the user is creating their desired pattern, this method changes the color of the electrodes clicked
 void LayoutDesign::Edit(){
 
@@ -163,6 +177,7 @@ void LayoutDesign::on_AcceptButton_clicked(){
 void LayoutDesign::on_CreateButton_clicked()
 {
     if(checkDuplicates() && checkName() ){
+        DisconnectSignals();            // Disconnect signals before loading the design
         Done = true;
         QDialog::accept();
         this->close();
