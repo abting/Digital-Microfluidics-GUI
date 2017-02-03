@@ -19,6 +19,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -82,6 +83,16 @@ public:
     QCheckBox *turnOn_EmodeButton;
     QCheckBox *turnOff_EmodeButton;
     QCheckBox *RealTimeActuationBox;
+    QWidget *tab;
+    QVBoxLayout *verticalLayout_12;
+    QLabel *label_8;
+    QSpinBox *IterationspinBox;
+    QLabel *label_9;
+    QLineEdit *IterationDelayText;
+    QLabel *label_10;
+    QHBoxLayout *horizontalLayout_8;
+    QLineEdit *ActuationTimeText;
+    QPushButton *setActuationButton;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_3;
     QTextEdit *InstructonMonitor;
@@ -117,7 +128,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1095, 692);
+        MainWindow->resize(967, 660);
         New_Layout = new QAction(MainWindow);
         New_Layout->setObjectName(QStringLiteral("New_Layout"));
         Save_Layout = new QAction(MainWindow);
@@ -314,6 +325,55 @@ public:
         verticalLayout_11->addLayout(verticalLayout_10);
 
         ModeButtonTab->addTab(ElectrodeMode, QString());
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        verticalLayout_12 = new QVBoxLayout(tab);
+        verticalLayout_12->setSpacing(6);
+        verticalLayout_12->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
+        label_8 = new QLabel(tab);
+        label_8->setObjectName(QStringLiteral("label_8"));
+
+        verticalLayout_12->addWidget(label_8);
+
+        IterationspinBox = new QSpinBox(tab);
+        IterationspinBox->setObjectName(QStringLiteral("IterationspinBox"));
+        IterationspinBox->setMinimum(1);
+
+        verticalLayout_12->addWidget(IterationspinBox);
+
+        label_9 = new QLabel(tab);
+        label_9->setObjectName(QStringLiteral("label_9"));
+
+        verticalLayout_12->addWidget(label_9);
+
+        IterationDelayText = new QLineEdit(tab);
+        IterationDelayText->setObjectName(QStringLiteral("IterationDelayText"));
+
+        verticalLayout_12->addWidget(IterationDelayText);
+
+        label_10 = new QLabel(tab);
+        label_10->setObjectName(QStringLiteral("label_10"));
+
+        verticalLayout_12->addWidget(label_10);
+
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        ActuationTimeText = new QLineEdit(tab);
+        ActuationTimeText->setObjectName(QStringLiteral("ActuationTimeText"));
+
+        horizontalLayout_8->addWidget(ActuationTimeText);
+
+        setActuationButton = new QPushButton(tab);
+        setActuationButton->setObjectName(QStringLiteral("setActuationButton"));
+
+        horizontalLayout_8->addWidget(setActuationButton);
+
+
+        verticalLayout_12->addLayout(horizontalLayout_8);
+
+        ModeButtonTab->addTab(tab, QString());
 
         verticalLayout_2->addWidget(ModeButtonTab);
 
@@ -461,7 +521,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1095, 21));
+        menuBar->setGeometry(QRect(0, 0, 967, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuSequencing = new QMenu(menuBar);
@@ -488,9 +548,9 @@ public:
 
         retranslateUi(MainWindow);
 
-        ModeButtonTab->setCurrentIndex(1);
+        ModeButtonTab->setCurrentIndex(2);
         CancelButton->setDefault(false);
-        ModeTableTab->setCurrentIndex(0);
+        ModeTableTab->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -512,25 +572,40 @@ public:
         Connect->setText(QApplication::translate("MainWindow", "Connect ", 0));
         Connect->setShortcut(QApplication::translate("MainWindow", "Ctrl+Shift+C", 0));
 #ifndef QT_NO_STATUSTIP
-        DispenceButton->setStatusTip(QApplication::translate("MainWindow", "perform Dispence", 0));
+        DispenceButton->setStatusTip(QApplication::translate("MainWindow", "Perform Dispence", 0));
 #endif // QT_NO_STATUSTIP
         DispenceButton->setText(QApplication::translate("MainWindow", "Dispense", 0));
 #ifndef QT_NO_STATUSTIP
-        SplitButton->setStatusTip(QApplication::translate("MainWindow", "perform split", 0));
+        SplitButton->setStatusTip(QApplication::translate("MainWindow", "Perform Split", 0));
 #endif // QT_NO_STATUSTIP
         SplitButton->setText(QApplication::translate("MainWindow", "Split", 0));
 #ifndef QT_NO_STATUSTIP
         PreviewButton->setStatusTip(QApplication::translate("MainWindow", "Preview current sequence", 0));
 #endif // QT_NO_STATUSTIP
         PreviewButton->setText(QApplication::translate("MainWindow", "Preview", 0));
+#ifndef QT_NO_STATUSTIP
+        CancelPreviwButton->setStatusTip(QApplication::translate("MainWindow", "Cancel the preview sequence", 0));
+#endif // QT_NO_STATUSTIP
         CancelPreviwButton->setText(QApplication::translate("MainWindow", "Cancel Preview", 0));
 #ifndef QT_NO_STATUSTIP
         StartButton->setStatusTip(QApplication::translate("MainWindow", "Send the path sequence to Arduino", 0));
 #endif // QT_NO_STATUSTIP
         StartButton->setText(QApplication::translate("MainWindow", "Start", 0));
+#ifndef QT_NO_STATUSTIP
+        CancelStartButton->setStatusTip(QApplication::translate("MainWindow", "Stop sequencing", 0));
+#endif // QT_NO_STATUSTIP
         CancelStartButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
+#ifndef QT_NO_STATUSTIP
+        addDrop->setStatusTip(QApplication::translate("MainWindow", "Add a droplet to an electrode", 0));
+#endif // QT_NO_STATUSTIP
         addDrop->setText(QApplication::translate("MainWindow", "Add Droplet", 0));
+#ifndef QT_NO_STATUSTIP
+        removedrop->setStatusTip(QApplication::translate("MainWindow", "Remove a droplet from an electrode", 0));
+#endif // QT_NO_STATUSTIP
         removedrop->setText(QApplication::translate("MainWindow", "Remove Droplet", 0));
+#ifndef QT_NO_STATUSTIP
+        BeginButton->setStatusTip(QApplication::translate("MainWindow", "Press when done selecting electrodes", 0));
+#endif // QT_NO_STATUSTIP
         BeginButton->setText(QApplication::translate("MainWindow", "Begin Dispensing", 0));
 #ifndef QT_NO_TOOLTIP
         CancelButton->setToolTip(QApplication::translate("MainWindow", "[Esc]", 0));
@@ -549,14 +624,54 @@ public:
 #endif // QT_NO_STATUSTIP
         Increment_EmodeButton->setText(QApplication::translate("MainWindow", "Increment", 0));
         Increment_EmodeButton->setShortcut(QApplication::translate("MainWindow", "Space", 0));
+#ifndef QT_NO_STATUSTIP
+        preview_EmodeButton->setStatusTip(QApplication::translate("MainWindow", "Preview the sequence", 0));
+#endif // QT_NO_STATUSTIP
         preview_EmodeButton->setText(QApplication::translate("MainWindow", "Preview", 0));
+#ifndef QT_NO_STATUSTIP
+        CancelPreviwEmodeButton->setStatusTip(QApplication::translate("MainWindow", "Cancel the preview sequence", 0));
+#endif // QT_NO_STATUSTIP
         CancelPreviwEmodeButton->setText(QApplication::translate("MainWindow", "Cancel Preview", 0));
+#ifndef QT_NO_STATUSTIP
+        Start_EmodeButton->setStatusTip(QApplication::translate("MainWindow", "Send the path sequence to Arduino", 0));
+#endif // QT_NO_STATUSTIP
         Start_EmodeButton->setText(QApplication::translate("MainWindow", "Start", 0));
+#ifndef QT_NO_STATUSTIP
+        CancelStart_EmodeButton->setStatusTip(QApplication::translate("MainWindow", "Stop the sequence", 0));
+#endif // QT_NO_STATUSTIP
         CancelStart_EmodeButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
+#ifndef QT_NO_STATUSTIP
+        turnOn_EmodeButton->setStatusTip(QApplication::translate("MainWindow", "Turn on an electrode", 0));
+#endif // QT_NO_STATUSTIP
         turnOn_EmodeButton->setText(QApplication::translate("MainWindow", "Turn ON Electrode", 0));
+#ifndef QT_NO_STATUSTIP
+        turnOff_EmodeButton->setStatusTip(QApplication::translate("MainWindow", "Turn off an electrode", 0));
+#endif // QT_NO_STATUSTIP
         turnOff_EmodeButton->setText(QApplication::translate("MainWindow", "Turn OFF Electrode", 0));
+#ifndef QT_NO_STATUSTIP
+        RealTimeActuationBox->setStatusTip(QApplication::translate("MainWindow", "Actuate Electrode in Real-Time", 0));
+#endif // QT_NO_STATUSTIP
         RealTimeActuationBox->setText(QApplication::translate("MainWindow", "Real-Time Actuation", 0));
         ModeButtonTab->setTabText(ModeButtonTab->indexOf(ElectrodeMode), QApplication::translate("MainWindow", "Electrode Mode", 0));
+#ifndef QT_NO_STATUSTIP
+        label_8->setStatusTip(QApplication::translate("MainWindow", "Set the number of iterations for a sequence", 0));
+#endif // QT_NO_STATUSTIP
+        label_8->setText(QApplication::translate("MainWindow", "Sequence Iterations", 0));
+#ifndef QT_NO_STATUSTIP
+        label_9->setStatusTip(QApplication::translate("MainWindow", "Set the delay between iterations", 0));
+#endif // QT_NO_STATUSTIP
+        label_9->setText(QApplication::translate("MainWindow", "Iteration Delay (ms)", 0));
+        IterationDelayText->setText(QApplication::translate("MainWindow", "2000", 0));
+#ifndef QT_NO_STATUSTIP
+        label_10->setStatusTip(QApplication::translate("MainWindow", "Set the amount of time the electrode is turned on", 0));
+#endif // QT_NO_STATUSTIP
+        label_10->setText(QApplication::translate("MainWindow", "Actuation Time (ms)", 0));
+        ActuationTimeText->setText(QApplication::translate("MainWindow", "1000", 0));
+#ifndef QT_NO_STATUSTIP
+        setActuationButton->setStatusTip(QApplication::translate("MainWindow", "Send the actuation delay instruction to Arduino", 0));
+#endif // QT_NO_STATUSTIP
+        setActuationButton->setText(QApplication::translate("MainWindow", "Set", 0));
+        ModeButtonTab->setTabText(ModeButtonTab->indexOf(tab), QApplication::translate("MainWindow", "Parameters", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Instruction Monitor", 0));
         label->setText(QApplication::translate("MainWindow", "Maximum Step:", 0));
         label_2->setText(QApplication::translate("MainWindow", "Current Step:", 0));

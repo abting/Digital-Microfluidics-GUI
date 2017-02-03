@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1095</width>
-    <height>692</height>
+    <width>967</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,7 +50,7 @@
         <item>
          <widget class="QTabWidget" name="ModeButtonTab">
           <property name="currentIndex">
-           <number>1</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="DropletMode">
            <attribute name="title">
@@ -62,7 +62,7 @@
               <item>
                <widget class="QPushButton" name="DispenceButton">
                 <property name="statusTip">
-                 <string>perform Dispence</string>
+                 <string>Perform Dispence</string>
                 </property>
                 <property name="text">
                  <string>Dispense</string>
@@ -76,7 +76,7 @@
               <item>
                <widget class="QPushButton" name="SplitButton">
                 <property name="statusTip">
-                 <string>perform split</string>
+                 <string>Perform Split</string>
                 </property>
                 <property name="text">
                  <string>Split</string>
@@ -101,6 +101,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="CancelPreviwButton">
+              <property name="statusTip">
+               <string>Cancel the preview sequence</string>
+              </property>
               <property name="styleSheet">
                <string notr="true">background: rgb(255, 79, 48);</string>
               </property>
@@ -128,6 +131,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="CancelStartButton">
+              <property name="statusTip">
+               <string>Stop sequencing</string>
+              </property>
               <property name="styleSheet">
                <string notr="true">background: rgb(255, 79, 48);</string>
               </property>
@@ -138,6 +144,9 @@
             </item>
             <item>
              <widget class="QCheckBox" name="addDrop">
+              <property name="statusTip">
+               <string>Add a droplet to an electrode</string>
+              </property>
               <property name="text">
                <string>Add Droplet</string>
               </property>
@@ -145,6 +154,9 @@
             </item>
             <item>
              <widget class="QCheckBox" name="removedrop">
+              <property name="statusTip">
+               <string>Remove a droplet from an electrode</string>
+              </property>
               <property name="text">
                <string>Remove Droplet</string>
               </property>
@@ -152,6 +164,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="BeginButton">
+              <property name="statusTip">
+               <string>Press when done selecting electrodes</string>
+              </property>
               <property name="text">
                <string>Begin Dispensing</string>
               </property>
@@ -215,6 +230,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="preview_EmodeButton">
+                <property name="statusTip">
+                 <string>Preview the sequence</string>
+                </property>
                 <property name="text">
                  <string>Preview</string>
                 </property>
@@ -222,6 +240,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="CancelPreviwEmodeButton">
+                <property name="statusTip">
+                 <string>Cancel the preview sequence</string>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">background: rgb(255, 79, 48);</string>
                 </property>
@@ -232,6 +253,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="Start_EmodeButton">
+                <property name="statusTip">
+                 <string>Send the path sequence to Arduino</string>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">background: rgb(71, 200, 51)</string>
                 </property>
@@ -242,6 +266,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="CancelStart_EmodeButton">
+                <property name="statusTip">
+                 <string>Stop the sequence</string>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">background: rgb(255, 79, 48);</string>
                 </property>
@@ -256,6 +283,9 @@
                  <layout class="QHBoxLayout" name="horizontalLayout_6">
                   <item>
                    <widget class="QCheckBox" name="turnOn_EmodeButton">
+                    <property name="statusTip">
+                     <string>Turn on an electrode</string>
+                    </property>
                     <property name="text">
                      <string>Turn ON Electrode</string>
                     </property>
@@ -263,6 +293,9 @@
                   </item>
                   <item>
                    <widget class="QCheckBox" name="turnOff_EmodeButton">
+                    <property name="statusTip">
+                     <string>Turn off an electrode</string>
+                    </property>
                     <property name="text">
                      <string>Turn OFF Electrode</string>
                     </property>
@@ -272,12 +305,87 @@
                 </item>
                 <item>
                  <widget class="QCheckBox" name="RealTimeActuationBox">
+                  <property name="statusTip">
+                   <string>Actuate Electrode in Real-Time</string>
+                  </property>
                   <property name="text">
                    <string>Real-Time Actuation</string>
                   </property>
                  </widget>
                 </item>
                </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab">
+           <attribute name="title">
+            <string>Parameters</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_12">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="statusTip">
+               <string>Set the number of iterations for a sequence</string>
+              </property>
+              <property name="text">
+               <string>Sequence Iterations</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="IterationspinBox">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_9">
+              <property name="statusTip">
+               <string>Set the delay between iterations</string>
+              </property>
+              <property name="text">
+               <string>Iteration Delay (ms)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="IterationDelayText">
+              <property name="text">
+               <string>2000</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="statusTip">
+               <string>Set the amount of time the electrode is turned on</string>
+              </property>
+              <property name="text">
+               <string>Actuation Time (ms)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <item>
+               <widget class="QLineEdit" name="ActuationTimeText">
+                <property name="text">
+                 <string>1000</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="setActuationButton">
+                <property name="statusTip">
+                 <string>Send the actuation delay instruction to Arduino</string>
+                </property>
+                <property name="text">
+                 <string>Set</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -304,7 +412,7 @@
     <item>
      <widget class="QTabWidget" name="ModeTableTab">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="DropletMode">
        <attribute name="title">
@@ -482,7 +590,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1095</width>
+     <width>967</width>
      <height>21</height>
     </rect>
    </property>

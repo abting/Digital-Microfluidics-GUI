@@ -122,6 +122,8 @@ private slots:
 
     void on_CancelStartButton_clicked();
 
+    void on_setActuationButton_clicked();
+
 signals:
     //Emited when the thread should be deleted
     void Done();
@@ -163,6 +165,9 @@ private:
     QPushButton *BeginButton;   
     QPushButton *CancelPreviewButton;   
     QPushButton *CancelStartButton;
+    QSpinBox *IterationBox;
+    QLineEdit *IterationDelayText;
+    QLineEdit *ActuationText;
 
     QCheckBox *TurnOnButton;
     QCheckBox *TurnOffButton;

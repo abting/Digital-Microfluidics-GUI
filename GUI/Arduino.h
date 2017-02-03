@@ -28,6 +28,8 @@ public slots:
     void setPathHandler(PathHandler*);
     void setStartTime(int);
     void StopArduino(bool);
+    void setIterationDelay(int);
+    void setIterations(int);
 
 signals:
     //Emited when the arduino sending information is done
@@ -37,6 +39,8 @@ private:
     bool stopArduino;
     PathHandler* pathHandler;
     int startTime;
+    int numberOfIterations;
+    unsigned IterationDelay;
     static const quint16 arduino_uno_vendor_id = 9025;
     static const quint16 arduino_uno_product_id = 67;
     QString arduino_port_name = "";

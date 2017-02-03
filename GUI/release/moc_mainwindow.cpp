@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[55];
-    char stringdata0[1059];
+    QByteArrayData data[56];
+    char stringdata0[1089];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -83,7 +83,8 @@ QT_MOC_LITERAL(50, 898, 34), // "on_CancelPreviwEmodeButton_cl..."
 QT_MOC_LITERAL(51, 933, 29), // "on_CancelPreviwButton_clicked"
 QT_MOC_LITERAL(52, 963, 31), // "on_RealTimeActuationBox_clicked"
 QT_MOC_LITERAL(53, 995, 34), // "on_CancelStart_EmodeButton_cl..."
-QT_MOC_LITERAL(54, 1030, 28) // "on_CancelStartButton_clicked"
+QT_MOC_LITERAL(54, 1030, 28), // "on_CancelStartButton_clicked"
+QT_MOC_LITERAL(55, 1059, 29) // "on_setActuationButton_clicked"
 
     },
     "MainWindow\0Done\0\0increment\0stopArduino\0"
@@ -116,7 +117,8 @@ QT_MOC_LITERAL(54, 1030, 28) // "on_CancelStartButton_clicked"
     "on_CancelPreviwButton_clicked\0"
     "on_RealTimeActuationBox_clicked\0"
     "on_CancelStart_EmodeButton_clicked\0"
-    "on_CancelStartButton_clicked"
+    "on_CancelStartButton_clicked\0"
+    "on_setActuationButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -126,7 +128,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      44,   14, // methods
+      45,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -134,52 +136,53 @@ static const uint qt_meta_data_MainWindow[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,  234,    2, 0x06 /* Public */,
-       3,    0,  235,    2, 0x06 /* Public */,
-       4,    1,  236,    2, 0x06 /* Public */,
-       5,    0,  239,    2, 0x06 /* Public */,
+       1,    0,  239,    2, 0x06 /* Public */,
+       3,    0,  240,    2, 0x06 /* Public */,
+       4,    1,  241,    2, 0x06 /* Public */,
+       5,    0,  244,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    0,  240,    2, 0x08 /* Private */,
-       7,    0,  241,    2, 0x08 /* Private */,
-       8,    0,  242,    2, 0x08 /* Private */,
-       9,    0,  243,    2, 0x08 /* Private */,
-      10,    0,  244,    2, 0x08 /* Private */,
-      11,    0,  245,    2, 0x08 /* Private */,
-      12,    0,  246,    2, 0x08 /* Private */,
-      13,    0,  247,    2, 0x08 /* Private */,
-      14,    0,  248,    2, 0x08 /* Private */,
-      15,    0,  249,    2, 0x08 /* Private */,
-      16,    0,  250,    2, 0x08 /* Private */,
-      17,    0,  251,    2, 0x08 /* Private */,
-      18,    1,  252,    2, 0x08 /* Private */,
-      20,    1,  255,    2, 0x08 /* Private */,
-      22,    1,  258,    2, 0x08 /* Private */,
-      24,    1,  261,    2, 0x08 /* Private */,
-      25,    1,  264,    2, 0x08 /* Private */,
-      27,    1,  267,    2, 0x08 /* Private */,
-      28,    1,  270,    2, 0x08 /* Private */,
-      29,    0,  273,    2, 0x08 /* Private */,
-      30,    0,  274,    2, 0x08 /* Private */,
-      31,    0,  275,    2, 0x08 /* Private */,
-      32,    1,  276,    2, 0x08 /* Private */,
-      34,    1,  279,    2, 0x08 /* Private */,
-      35,    0,  282,    2, 0x08 /* Private */,
-      36,    1,  283,    2, 0x08 /* Private */,
-      38,    1,  286,    2, 0x08 /* Private */,
-      39,    1,  289,    2, 0x08 /* Private */,
-      40,    1,  292,    2, 0x08 /* Private */,
-      41,    1,  295,    2, 0x08 /* Private */,
-      42,    0,  298,    2, 0x08 /* Private */,
-      43,    0,  299,    2, 0x08 /* Private */,
-      44,    0,  300,    2, 0x08 /* Private */,
-      45,    4,  301,    2, 0x08 /* Private */,
-      48,    3,  310,    2, 0x08 /* Private */,
-      50,    0,  317,    2, 0x08 /* Private */,
-      51,    0,  318,    2, 0x08 /* Private */,
-      52,    1,  319,    2, 0x08 /* Private */,
-      53,    0,  322,    2, 0x08 /* Private */,
-      54,    0,  323,    2, 0x08 /* Private */,
+       6,    0,  245,    2, 0x08 /* Private */,
+       7,    0,  246,    2, 0x08 /* Private */,
+       8,    0,  247,    2, 0x08 /* Private */,
+       9,    0,  248,    2, 0x08 /* Private */,
+      10,    0,  249,    2, 0x08 /* Private */,
+      11,    0,  250,    2, 0x08 /* Private */,
+      12,    0,  251,    2, 0x08 /* Private */,
+      13,    0,  252,    2, 0x08 /* Private */,
+      14,    0,  253,    2, 0x08 /* Private */,
+      15,    0,  254,    2, 0x08 /* Private */,
+      16,    0,  255,    2, 0x08 /* Private */,
+      17,    0,  256,    2, 0x08 /* Private */,
+      18,    1,  257,    2, 0x08 /* Private */,
+      20,    1,  260,    2, 0x08 /* Private */,
+      22,    1,  263,    2, 0x08 /* Private */,
+      24,    1,  266,    2, 0x08 /* Private */,
+      25,    1,  269,    2, 0x08 /* Private */,
+      27,    1,  272,    2, 0x08 /* Private */,
+      28,    1,  275,    2, 0x08 /* Private */,
+      29,    0,  278,    2, 0x08 /* Private */,
+      30,    0,  279,    2, 0x08 /* Private */,
+      31,    0,  280,    2, 0x08 /* Private */,
+      32,    1,  281,    2, 0x08 /* Private */,
+      34,    1,  284,    2, 0x08 /* Private */,
+      35,    0,  287,    2, 0x08 /* Private */,
+      36,    1,  288,    2, 0x08 /* Private */,
+      38,    1,  291,    2, 0x08 /* Private */,
+      39,    1,  294,    2, 0x08 /* Private */,
+      40,    1,  297,    2, 0x08 /* Private */,
+      41,    1,  300,    2, 0x08 /* Private */,
+      42,    0,  303,    2, 0x08 /* Private */,
+      43,    0,  304,    2, 0x08 /* Private */,
+      44,    0,  305,    2, 0x08 /* Private */,
+      45,    4,  306,    2, 0x08 /* Private */,
+      48,    3,  315,    2, 0x08 /* Private */,
+      50,    0,  322,    2, 0x08 /* Private */,
+      51,    0,  323,    2, 0x08 /* Private */,
+      52,    1,  324,    2, 0x08 /* Private */,
+      53,    0,  327,    2, 0x08 /* Private */,
+      54,    0,  328,    2, 0x08 /* Private */,
+      55,    0,  329,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -226,6 +229,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   33,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -282,6 +286,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 41: _t->on_RealTimeActuationBox_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 42: _t->on_CancelStart_EmodeButton_clicked(); break;
         case 43: _t->on_CancelStartButton_clicked(); break;
+        case 44: _t->on_setActuationButton_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -368,13 +373,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 44)
+        if (_id < 45)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 44;
+        _id -= 45;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 44)
+        if (_id < 45)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 44;
+        _id -= 45;
     }
     return _id;
 }

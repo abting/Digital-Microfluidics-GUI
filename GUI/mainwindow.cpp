@@ -30,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     TimeSpinner = ui->dropTime;
     CancelPreviewButton = ui->CancelPreviwButton;
     CancelStartButton = ui->CancelStartButton;
+    IterationBox = ui->IterationspinBox;
+    IterationDelayText = ui->IterationDelayText;
+    ActuationText = ui->ActuationTimeText;
 
 
     //Electrode Mode Widgets
@@ -74,12 +77,17 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     BeginButton->setVisible(false);
     StartButton->setEnabled(false);
     StartEmodeButton->setEnabled(false);
+    IterationBox->setEnabled(false);
+    IterationDelayText->setEnabled(false);
+    ActuationText->setEnabled(false);
 
 
     //Initialize Arduino and GridLayout
     InitializeUI(false);
     arduino = new Arduino();
     mylayout = new Layout(ElectrodeLayout);
+    IterationDelayText->setValidator(new QIntValidator(500, 10000, this));      //Set delay between iterations 0.5 and 10s
+    ActuationText->setValidator(new QIntValidator(500, 10000, this));           //Set delay between actuation 0.5 and 10s
 }
 
 MainWindow::~MainWindow()
@@ -379,6 +387,9 @@ void MainWindow::on_StartButton_clicked()
     arduino->setPathHandler(pathHandler);
     arduino->setStartTime(tableDmode->getSlider()->value());
     arduino->StopArduino(false);
+    arduino->setIterations(IterationBox->value());
+    arduino->setIterationDelay(IterationDelayText->text().toInt());
+
 
     if(arduino->isConnected()){
         CancelStartButton->setEnabled(true);
@@ -490,6 +501,9 @@ void MainWindow::on_Connect_triggered()
 
         StartButton->setEnabled(true);
         StartEmodeButton->setEnabled(true);
+        IterationBox->setEnabled(true);
+        IterationDelayText->setEnabled(true);
+        ActuationText->setEnabled(true);
         printToInstructionMonitor("Arduino Connected!");
     }else{
 
@@ -984,4 +998,13 @@ void MainWindow::on_CancelStart_EmodeButton_clicked()
     emit deleteArduinoThread();
 }
 
-
+void MainWindow::on_setActuationButton_clicked()
+{
+    if(arduino->isConnected() && arduino->isWritable()){
+        InstructonMonitor->setPlainText("The actuation time was set to: " + ActuationText->text() + " ms");
+        arduino->SendSingleCommand("delay", ActuationText->text());
+    }
+    else{
+        printToInstructionMonitor("Communication Error\nArduino is not connected or is busy");
+    }
+}
