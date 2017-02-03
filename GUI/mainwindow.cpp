@@ -694,6 +694,10 @@ void MainWindow::on_Start_EmodeButton_clicked()
     arduino->setPathHandler(pathHandler);
     arduino->setStartTime(tableEmode->getSlider()->value());
     arduino->StopArduino(false);
+    arduino->setIterations(IterationBox->value());
+    arduino->setIterationDelay(IterationDelayText->text().toInt());
+
+
     if(arduino->isConnected()){
         CancelStartEmodeButton->setEnabled(true);
         CancelStartEmodeButton->setVisible(true);
@@ -709,7 +713,7 @@ void MainWindow::on_Start_EmodeButton_clicked()
 
         QThread* threadArduinoEmode = new QThread;
         connect(threadArduinoEmode, SIGNAL(started()), arduino, SLOT(SendSequence()));
-        connect(arduino,SIGNAL(Done()),this, SLOT(on_CancelStartButton_clicked()));
+        connect(arduino,SIGNAL(Done()),this, SLOT(on_CancelStart_EmodeButton_clicked()));
         connect(this,SIGNAL(stopArduino(bool)),arduino, SLOT(StopArduino(bool)));
         connect(this,SIGNAL(deleteArduinoThread()),threadArduinoEmode, SLOT(deleteLater()));
         connect(threadArduinoEmode, SIGNAL(finished()), threadArduinoEmode, SLOT(deleteLater()));
