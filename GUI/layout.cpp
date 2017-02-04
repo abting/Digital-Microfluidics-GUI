@@ -95,11 +95,12 @@ void Layout::InsertDesign(QGridLayout *E_grid){
 
 void Layout::SaveLayout(QMainWindow *layout){
 
-    QString fileName = QFileDialog::getSaveFileName(layout,QObject::tr("Save File"),"","Text Files (*.txt)");
+    QString fileName = QFileDialog::getSaveFileName(layout,QObject::tr("Save File"),"Layout Files","Text Files (*.txt)");
     QFile file (fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
     QTextStream outStream(&file);
+    outStream<<"#NL"<<endl;
     QString text = QString::fromStdString(std::to_string(rows)) + "," + QString::fromStdString(std::to_string(columns))+ "\n";
     outStream << text;
 
@@ -128,12 +129,21 @@ void Layout::OpenLayout(QMainWindow *layout,QGridLayout *grid){
     gridlayout->setAlignment(Qt::AlignCenter);
     gridlayout->setMargin(0);
 
-    QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Open Design"), "", "Text Files (*.txt)");
+
+    QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Open Design"), "Layout Files", "Text Files (*.txt)");
     QFile file (fileName);
     if (!file.open(QIODevice::ReadOnly))
         return;
-    ClearLayout();
+
     QTextStream inStream(&file);
+
+    QString specialChar = inStream.readLine();
+    if(specialChar != "#NL"){
+        QMessageBox::warning(NULL,tr("Wrong File Type"), tr("The chosen file does not contain the information"));
+        return;
+    }
+
+    ClearLayout();
     bool firstLine = true;
     int at_row=0;
     while(!inStream.atEnd()){
@@ -142,8 +152,8 @@ void Layout::OpenLayout(QMainWindow *layout,QGridLayout *grid){
         if(firstLine){
             rows = list.at(0).toInt();
             columns = list.at(1).toInt();
-            std::cout<<rows;
-            std::cout<<columns;
+            //std::cout<<rows;
+            //std::cout<<columns;
             firstLine = false;
         }
         else{
@@ -176,7 +186,7 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
 
    //first check if the clicked electrode already has a droplet on it
    if(clicked_electrode->getAvailability() == 0){
-       //FIXME do nothing??or merge??
+       //TODO clicked on the same droplet?
        clicked_electrode->getDroplet()->updateInfo(clicked_electrode->text(), time,clicked_electrode, "update");
 
    }
@@ -247,7 +257,7 @@ void Layout::CheckSurroundingElectrodes(Electrode* clicked_electrode, int time){
        }
        //if  there is more than one droplet nearby merge them as a new droplet
        else{
-           Droplet *newdrop = new Droplet("new","red",0, time);
+           Droplet *newdrop = new Droplet("Merged","red",0, time);
            newdrop->updateInfo(clicked_electrode->text(), time, clicked_electrode, "update");
 
           double vol =0;
@@ -381,12 +391,12 @@ void Layout::saveDroplets(QMainWindow *layout,QList<Droplet*> list){
 
     if(list.isEmpty()) return;
 
-    QString fileName = QFileDialog::getSaveFileName(layout,QObject::tr("Save File"),"","Text Files (*.txt)");
+    QString fileName = QFileDialog::getSaveFileName(layout,QObject::tr("Save File"),"Sequence Files","Text Files (*.txt)");
     QFile file (fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
     QTextStream outStream(&file);
-
+    outStream<<"#ND"<<endl;
     foreach(Droplet* drop,list){
         outStream<<drop->getName()<<","<<drop->getColor()<<","<<drop->getVolume()<<","<<drop->getInitialTime()<<",";
         foreach(Info info, drop->getDropletInfo()){
@@ -400,11 +410,18 @@ void Layout::saveDroplets(QMainWindow *layout,QList<Droplet*> list){
 QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
     //TODO open droplets
     QList<Droplet*> dropletlist;
-    QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Load Droplets"), "", "Text Files (*.txt)");
+    QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Load Droplets"), "Sequence Files", "Text Files (*.txt)");
     QFile file (fileName);
     if (!file.open(QIODevice::ReadOnly))
         return dropletlist; //FIXME dont want to return list if it failed to open
     QTextStream inStream(&file);
+
+
+    QString specialChar = inStream.readLine();
+    if(specialChar != "#ND"){
+        QMessageBox::warning(NULL,tr("Wrong File Type"), tr("The chosen file does not contain the information"));
+        return dropletlist;
+    }
 
     while(!inStream.atEnd()){
         QString line = inStream.readLine();
@@ -440,12 +457,12 @@ QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
 
 void Layout::saveElectrodeModeSequence(QMainWindow *layout, Table* tableEmode){
 
-    QString fileName = QFileDialog::getSaveFileName(layout,QObject::tr("Save ElectrodeMode Sequence"),"","Text Files (*.txt)");
+    QString fileName = QFileDialog::getSaveFileName(layout,QObject::tr("Save ElectrodeMode Sequence"),"Sequence Files","Text Files (*.txt)");
     QFile file (fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
     QTextStream outStream(&file);
-
+    outStream<<"#NE"<<endl;
     outStream<<tableEmode->getColumn()<<","<<tableEmode->getRow();          //Save Row and column
     outStream<<endl;
     for(int j = 1;j<tableEmode->getColumn();j++){
@@ -463,12 +480,18 @@ void Layout::saveElectrodeModeSequence(QMainWindow *layout, Table* tableEmode){
 void Layout::openElectrodeModeSequence(QMainWindow * layout, Table* tableEmode){
     //TODO open droplets
 
-    QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Open ElectrodeMode Sequence"), "", "Text Files (*.txt)");
+    QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Open ElectrodeMode Sequence"), "Sequence Files", "Text Files (*.txt)");
     QFile file (fileName);
     if (!file.open(QIODevice::ReadOnly)){
          return;                    //FIXME dont want to return list if it failed to open
     }
     QTextStream inStream(&file);
+
+    QString specialChar = inStream.readLine();
+    if(specialChar != "#NE"){
+        QMessageBox::warning(NULL,tr("Wrong File Type"), tr("The chosen file does not contain the information"));
+        return;
+    }
 
     bool firstLine = true;                              //In the first line record the row and column information
     while(!inStream.atEnd()){

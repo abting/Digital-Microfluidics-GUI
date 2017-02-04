@@ -10,10 +10,9 @@ class Electrode;
 
 struct Info
 {
-   QString position;
    int time;
+   QString position;
    Electrode* elec;
-   Electrode* elecOn;
    QString status;
 };
 

@@ -170,6 +170,7 @@ void MainWindow::ProcessClick(){
             listdrop.removeOne(removeDrop);
             removeDropFromTable(removeDrop);
             electrode->removeDroplet();
+            RemoveDroplet->setChecked(false);
             delete removeDrop;
         }
     }
@@ -239,8 +240,8 @@ void MainWindow::getUserInput(int input){
 void MainWindow::ProcessEvents(){
     QList<Electrode*> listOfElectrodes = clickhandler->getElectrodeList();
 
-    clickhandler->deleteLater();
-    thread->deleteLater();
+//    clickhandler->deleteLater();          ABTIN REMOVED THIS
+//    thread->deleteLater();
 
     if(DispenceMode){
         DispenceButton->setEnabled(true);
@@ -256,6 +257,8 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
 
     CancelButton->setVisible(false);
     CancelButton->setEnabled(false);
+    SplitButton->setEnabled(true);          //Abtin set this
+    DispenceButton->setEnabled(true);
     DispenceMode = false;
 
     Electrode *last;
@@ -335,29 +338,55 @@ void MainWindow::SplitDroplet(QList<Electrode*> elecList){
     CancelButton->setVisible(false);
     CancelButton->setEnabled(false);
 
-    Droplet* temp;
+    SplitButton->setEnabled(true);
+    DispenceButton->setEnabled(true);
+    SplitMode = false;
+
+    Electrode* parent = elecList.at(0);
+    int sharedNeighbor = 0;
+    //Droplet* temp;
     //if there is a droplet on the first electrode
-    if(elecList.at(0)->getAvailability() == 0){
-        temp = elecList.at(0)->getDroplet();
+    if(parent->getAvailability() == 0){
+        Droplet* temp = parent->getDroplet();
         bool fail = false;
 
+        if(parent == elecList.at(1) || parent == elecList.at(2) || elecList.at(1) == elecList.at(2)){
+            QMessageBox::warning(this,tr("Warning"), tr("Split failed, you have selected the same electrode more than once"));
+            return;
+        }
         foreach(Electrode* elec, elecList.at(1)->getNeighbors()){
+            if(elec == parent){
+                sharedNeighbor++;
+            }
             if(elec->getAvailability() == 0 ){
                 if(elec->getDroplet() != temp){
-                    QMessageBox::warning(this,tr("Warning"), tr("split failed, there are more droplets around"));
+                    QMessageBox::warning(this,tr("Warning"), tr("Split failed, there are more droplets around"));
                     fail = true;
+                    return;
                 }
             }
         }
+        if(sharedNeighbor != 1){
+            QMessageBox::warning(this,tr("Warning"), tr("Electrode 1 is not adajecnt to the parent droplet"));
+            return;
+        }
+        sharedNeighbor =0;
         foreach(Electrode* elec, elecList.at(2)->getNeighbors()){
+            if(elec == parent){
+                sharedNeighbor++;
+            }
             if(elec->getAvailability() == 0 ){
                 if(elec->getDroplet() != temp ){
-                    QMessageBox::warning(this,tr("Warning"), tr("split failed, there are more droplets around"));
+                    QMessageBox::warning(this,tr("Warning"), tr("Split failed, there are more droplets around"));
                     fail = true;
+                    return;
                 }
             }
         }
-
+        if(sharedNeighbor != 1){
+            QMessageBox::warning(this,tr("Warning"), tr("Electrode 2 is not adajecnt to the parent droplet"));
+            return;
+        }
         if(!fail){
 
             //if all the surrounding electrodes are empty, create two new droplets
@@ -375,12 +404,9 @@ void MainWindow::SplitDroplet(QList<Electrode*> elecList){
             addDropToTable(split2);
 
             //Remove access to the droplet that was used to be split
-            elecList.at(0)->getDroplet()->updateInfo("", time->CurrentTime(), elecList.at(0), "split");
-            elecList.at(0)->removeDroplet();
+            parent->getDroplet()->updateInfo("", time->CurrentTime(), parent, "split");
+            parent->removeDroplet();
             cout<<listdrop.size()<<endl;
-
-            //finish splitting mode
-            SplitMode = false;
         }
     }
     else{
@@ -427,6 +453,7 @@ void MainWindow::on_SplitButton_clicked()
     printToInstructionMonitor("Please click on the droplet you want to split\n");
     CancelButton->setVisible(true);
     CancelButton->setEnabled(true);
+    DispenceButton->setEnabled(false);
     SplitMode = true;
     getUserInput(3);
 }
@@ -450,6 +477,7 @@ void MainWindow::on_DispenceButton_clicked()
     BeginButton->setVisible(true);
     CancelButton->setVisible(true);
     CancelButton->setEnabled(true);
+    SplitButton->setEnabled(false);
     DispenceMode = true;
     getUserInput(1000);
 }
@@ -482,6 +510,12 @@ void MainWindow::on_CancelButton_clicked()
     printToInstructionMonitor("Input canceled by user\n");
     clickhandler->deleteLater();
     thread->deleteLater();
+    delete clickhandler;
+
+    SplitMode = false;
+    DispenceMode = false;
+    SplitButton->setEnabled(true);
+    DispenceButton->setEnabled(true);
     CancelButton->setVisible(false);
     CancelButton->setEnabled(false);
     BeginButton->setEnabled(false);

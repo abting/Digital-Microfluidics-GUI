@@ -23,7 +23,6 @@ public slots:
 
     void Connect();
     void SendSequence();//PathHandler*, int);
-    //KIWI
     void SendSingleCommand(QString, QString);
     void setPathHandler(PathHandler*);
     void setStartTime(int);

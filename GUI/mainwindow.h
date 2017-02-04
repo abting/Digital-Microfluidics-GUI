@@ -22,8 +22,6 @@
 #include <QTabWidget>
 
 
-//extern bool ow;
-
 namespace Ui {
 class MainWindow;
 }
@@ -48,7 +46,7 @@ public:
 
     void SpinboxValueChanged(int, Table*,QSpinBox*, int);
 
-    QList<Droplet*> listdrop;  //TODO NEW
+    QList<Droplet*> listdrop;
 
 
 

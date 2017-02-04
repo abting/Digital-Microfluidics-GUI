@@ -1,5 +1,6 @@
 #include "DropletSelector.h"
 #include "ui_DropletSelector.h"
+#include <QMessageBox>
 
 DropletSelector::DropletSelector(QWidget *parent):QDialog(parent),ui(new Ui::DropletSelector){
 
@@ -7,8 +8,8 @@ DropletSelector::DropletSelector(QWidget *parent):QDialog(parent),ui(new Ui::Dro
     NameEditor = ui->nameedit;
     VolumeEditor = ui->voledit;
     ColorSelector = ui->colorbox;
-    NameEditor->setText("Name");
-    VolumeEditor->setText("1");
+    NameEditor->setText("Droplet");
+    VolumeEditor->setText("100");
 
     QStringList ColorList = QStringList() << "green"<<"red"<<"yellow"<<"blue"<<"pink"<<"white"<<"cyan"<<"magenta"<<"black";
     ColorSelector->addItems(ColorList);

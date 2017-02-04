@@ -43,6 +43,8 @@ private slots:
 
 private:
     Ui::LayoutDesign *ui;
+    QList<QPushButton*> contactPads;
+    QList<int> elecName;
 
     bool EditMode;
     Layout *mylayout;

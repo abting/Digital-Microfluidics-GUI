@@ -36,11 +36,13 @@ LayoutDesign::LayoutDesign(QWidget *parent): QDialog(parent), ui(new Ui::LayoutD
     DesignLayout();
     ConnectSignals();
 
-    QMessageBox::warning(this,tr("GridDesign"), tr("Please make the shape of the DMF chip"));
+    QMessageBox::warning(NULL,tr("GridDesign"), tr("Please make the shape of the DMF chip"));
 }
 
 LayoutDesign::~LayoutDesign()
 {
+    qDeleteAll(contactPads);
+    contactPads.clear();
     delete ui;
 }
 
@@ -122,6 +124,7 @@ int leftcount = 48;
             contactpad->setMinimumSize(30,30);
             connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
             TopFrame->addWidget(contactpad,i,j);
+            contactPads.append(contactpad);
             topcount++;
             }
         }
@@ -136,6 +139,7 @@ int leftcount = 48;
                 contactpad->setMinimumSize(30,30);
                 connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
                 BottomFrame->addWidget(contactpad,i,j);
+                contactPads.append(contactpad);
                 botcount++;
             }
         }
@@ -148,10 +152,12 @@ int leftcount = 48;
         contactpad->setMinimumSize(30,30);
         connect(contactpad,SIGNAL(clicked(bool)),this,SLOT(SetElectrodeNumber()));
         LeftFrame->addWidget(contactpad,i,0);
+        contactPads.append(contactpad);
         leftcount++;
    }
 }
 
+//match the electrode number clicked with the contact pad clicked
 void LayoutDesign::SetElectrodeNumber(){
     if(electrode){
         QPushButton *obj = qobject_cast<QPushButton*>(QObject::sender()); //get the refrence to the object that provoked this SLOT
@@ -193,14 +199,31 @@ bool LayoutDesign::checkName(){
             QLayoutItem* item = Designgrid->itemAtPosition(i,j);
             QWidget* widget = item->widget();
             Electrode* electrode = dynamic_cast<Electrode*>(widget);
-            if (electrode->getState() == true && electrode->getNumber() == "") return false;
+            if (electrode->getState() == true && electrode->getNumber() == ""){
+                return false;
+            }
         }
     }
     return true;
 }
 
 bool LayoutDesign::checkDuplicates(){
-    //TODO implement
+//    for (int i=0; i<Designgrid->rowCount();i++){
+//           for(int j=0; j<Designgrid->columnCount();j++){
+//               QLayoutItem* item = Designgrid->itemAtPosition(i,j);
+//               QWidget* widget = item->widget();
+//               Electrode* electrode = dynamic_cast<Electrode*>(widget);
+//               elecName<<(electrode->text()).toInt();
+//           }
+//       }
+
+//       qSort(elecName.begin(),elecName.end());
+//       for(int i=0; i<elecName.length()-1;i++){
+//           if(elecName.at(i) == elecName.at(i+1)){
+//               elecName.clear();
+//               return false;
+//           }
+//       }
     return true;
 }
 

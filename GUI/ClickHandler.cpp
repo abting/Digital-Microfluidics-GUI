@@ -14,7 +14,8 @@ ClickHandler::ClickHandler(int input){
 }
 
 ClickHandler::~ClickHandler(){
-    //TODO DELETE QList?
+    qDeleteAll(ElectrodeList.begin(),ElectrodeList.end());
+    ElectrodeList.clear();
 }
 
 void ClickHandler::clicked(){
