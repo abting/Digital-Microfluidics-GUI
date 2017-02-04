@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Layout_t {
     QByteArrayData data[7];
-    char stringdata0[48];
+    char stringdata0[58];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,12 +34,12 @@ QT_MOC_LITERAL(1, 7, 20), // "addDropletFromLayout"
 QT_MOC_LITERAL(2, 28, 0), // ""
 QT_MOC_LITERAL(3, 29, 8), // "Droplet*"
 QT_MOC_LITERAL(4, 38, 5), // "nDrop"
-QT_MOC_LITERAL(5, 44, 1), // "l"
-QT_MOC_LITERAL(6, 46, 1) // "a"
+QT_MOC_LITERAL(5, 44, 9), // "setColumn"
+QT_MOC_LITERAL(6, 54, 3) // "col"
 
     },
     "Layout\0addDropletFromLayout\0\0Droplet*\0"
-    "nDrop\0l\0a"
+    "nDrop\0setColumn\0col"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,7 +74,7 @@ void Layout::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->addDropletFromLayout((*reinterpret_cast< Droplet*(*)>(_a[1]))); break;
-        case 1: _t->l((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->setColumn((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -89,7 +89,7 @@ void Layout::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         }
         {
             typedef void (Layout::*_t)(int );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Layout::l)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Layout::setColumn)) {
                 *result = 1;
                 return;
             }
@@ -141,7 +141,7 @@ void Layout::addDropletFromLayout(Droplet * _t1)
 }
 
 // SIGNAL 1
-void Layout::l(int _t1)
+void Layout::setColumn(int _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);

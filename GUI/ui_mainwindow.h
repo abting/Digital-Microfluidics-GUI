@@ -84,6 +84,7 @@ public:
     QCheckBox *turnOff_EmodeButton;
     QCheckBox *RealTimeActuationBox;
     QWidget *tab;
+    QVBoxLayout *verticalLayout_13;
     QVBoxLayout *verticalLayout_12;
     QLabel *label_8;
     QSpinBox *IterationspinBox;
@@ -93,6 +94,10 @@ public:
     QHBoxLayout *horizontalLayout_8;
     QLineEdit *ActuationTimeText;
     QPushButton *setActuationButton;
+    QLabel *label_3;
+    QHBoxLayout *horizontalLayout_9;
+    QLineEdit *VoltageText;
+    QPushButton *setVoltageButton;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_3;
     QTextEdit *InstructonMonitor;
@@ -128,7 +133,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(967, 660);
+        MainWindow->resize(1202, 660);
         New_Layout = new QAction(MainWindow);
         New_Layout->setObjectName(QStringLiteral("New_Layout"));
         Save_Layout = new QAction(MainWindow);
@@ -327,9 +332,12 @@ public:
         ModeButtonTab->addTab(ElectrodeMode, QString());
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
-        verticalLayout_12 = new QVBoxLayout(tab);
+        verticalLayout_13 = new QVBoxLayout(tab);
+        verticalLayout_13->setSpacing(6);
+        verticalLayout_13->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
+        verticalLayout_12 = new QVBoxLayout();
         verticalLayout_12->setSpacing(6);
-        verticalLayout_12->setContentsMargins(11, 11, 11, 11);
         verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
         label_8 = new QLabel(tab);
         label_8->setObjectName(QStringLiteral("label_8"));
@@ -372,6 +380,30 @@ public:
 
 
         verticalLayout_12->addLayout(horizontalLayout_8);
+
+        label_3 = new QLabel(tab);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        verticalLayout_12->addWidget(label_3);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        VoltageText = new QLineEdit(tab);
+        VoltageText->setObjectName(QStringLiteral("VoltageText"));
+
+        horizontalLayout_9->addWidget(VoltageText);
+
+        setVoltageButton = new QPushButton(tab);
+        setVoltageButton->setObjectName(QStringLiteral("setVoltageButton"));
+
+        horizontalLayout_9->addWidget(setVoltageButton);
+
+
+        verticalLayout_12->addLayout(horizontalLayout_9);
+
+
+        verticalLayout_13->addLayout(verticalLayout_12);
 
         ModeButtonTab->addTab(tab, QString());
 
@@ -521,7 +553,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 967, 21));
+        menuBar->setGeometry(QRect(0, 0, 1202, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuSequencing = new QMenu(menuBar);
@@ -588,7 +620,7 @@ public:
 #endif // QT_NO_STATUSTIP
         CancelPreviwButton->setText(QApplication::translate("MainWindow", "Cancel Preview", 0));
 #ifndef QT_NO_STATUSTIP
-        StartButton->setStatusTip(QApplication::translate("MainWindow", "Send the path sequence to Arduino", 0));
+        StartButton->setStatusTip(QApplication::translate("MainWindow", "Send the path sequence to Arduino starting from the slider's current position", 0));
 #endif // QT_NO_STATUSTIP
         StartButton->setText(QApplication::translate("MainWindow", "Start", 0));
 #ifndef QT_NO_STATUSTIP
@@ -633,7 +665,7 @@ public:
 #endif // QT_NO_STATUSTIP
         CancelPreviwEmodeButton->setText(QApplication::translate("MainWindow", "Cancel Preview", 0));
 #ifndef QT_NO_STATUSTIP
-        Start_EmodeButton->setStatusTip(QApplication::translate("MainWindow", "Send the path sequence to Arduino", 0));
+        Start_EmodeButton->setStatusTip(QApplication::translate("MainWindow", "Send the path sequence to Arduino starting from the slider's current position", 0));
 #endif // QT_NO_STATUSTIP
         Start_EmodeButton->setText(QApplication::translate("MainWindow", "Start", 0));
 #ifndef QT_NO_STATUSTIP
@@ -671,6 +703,11 @@ public:
         setActuationButton->setStatusTip(QApplication::translate("MainWindow", "Send the actuation delay instruction to Arduino", 0));
 #endif // QT_NO_STATUSTIP
         setActuationButton->setText(QApplication::translate("MainWindow", "Set", 0));
+#ifndef QT_NO_STATUSTIP
+        label_3->setStatusTip(QApplication::translate("MainWindow", "Set the voltage of the function generator", 0));
+#endif // QT_NO_STATUSTIP
+        label_3->setText(QApplication::translate("MainWindow", "Voltage (Vpk-pk)", 0));
+        setVoltageButton->setText(QApplication::translate("MainWindow", "Set", 0));
         ModeButtonTab->setTabText(ModeButtonTab->indexOf(tab), QApplication::translate("MainWindow", "Parameters", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Instruction Monitor", 0));
         label->setText(QApplication::translate("MainWindow", "Maximum Step:", 0));

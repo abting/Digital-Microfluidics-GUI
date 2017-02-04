@@ -44,21 +44,6 @@ double DropletSelector::getVolume(){
 
 void DropletSelector::on_OK_clicked(){
 
-//    if(this->getName().length()>10 ){
-//        QMessageBox::warning(this,tr("Warning"), tr("Please choose a name with less than ten characters"));
-//    }
-//    else if(this->getName().length()==0){
-
-//        QMessageBox::warning(this,tr("Warning"), tr("Please fill out the name text box"));
-//    }
-//    else if(!this->VolumeEditor->text().toInt()>0){
-//        QMessageBox::warning(this,tr("Warning"), tr("Please specify an integer for the volume"));
-//    }
-//    else{
-//        Done = true;
-//        QDialog::accept();
-//    }
-
     QString temp = VolumeEditor->text();
     double vol = temp.toDouble(false);
     //FIXME add list somehow

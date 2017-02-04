@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include <Droplet.h>
 
-
+class Droplet;
+class Electrode;
 class Table : public QTableWidget
 {
 public:
@@ -26,6 +27,8 @@ public:
     void setItem(int , int , QTableWidgetItem*);
     QTableWidgetItem* getItem(int , int);
     void setupDroplets(QList<Droplet*>);
+    void setText(int,int,QString);
+    void setBackColor(int,int,QString);
 
 private:
     int rows;

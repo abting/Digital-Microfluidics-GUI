@@ -1,4 +1,5 @@
 #include "table.h"
+#include "Droplet.h"
 
 Table::Table()
 {
@@ -16,11 +17,8 @@ void Table::CreateTable(QMainWindow* main)
     table->setColumnCount(3);
     table->setRowCount(3);
     table->setColumnWidth(0,175);
-    //for(int i = 1;i<20;i++){
-        table->setColumnWidth(1,50);
-
-        table->setColumnWidth(2,25);
-    //}
+    table->setColumnWidth(1,50);
+    table->setColumnWidth(2,25);
     for (int j = 1;j<3;j++){
         table->setRowHeight(j,25);
     }
@@ -82,8 +80,6 @@ void Table::removeDropFromTable(Droplet *drop)
 
 void Table::updateTable(Electrode *elec, int tTime)
 {
-
-
     if(elec->getDroplet()){
         Droplet *drop = elec->getDroplet();
         int rowNum = 0;
@@ -145,9 +141,16 @@ QTableWidgetItem* Table::getItem(int r, int c){
 }
 
 void Table::setItem(int r, int c, QTableWidgetItem* it){
-    table->setItem(r,c,it);;
+    table->setItem(r,c,it);
 }
 
+void Table::setText(int r, int c, QString text){
+    table->item(r,c)->setText(text);
+}
+
+void Table::setBackColor(int r, int c, QString color){
+    table->item(r,c)->setBackgroundColor(color);
+}
 
 void Table::updateTableEmode(QString type, Electrode* elec)
 {
@@ -210,9 +213,7 @@ void Table::InitializeTableEmode(QMainWindow* main)
     table->setColumnCount(2);
     table->setRowCount(3);
     table->setColumnWidth(0,150);
-    //for(int i = 1;i<20;i++){
-        table->setColumnWidth(1,25);
-    //}
+    table->setColumnWidth(1,25);
     for (int j = 1;j<3;j++){
         table->setRowHeight(j,25);
     }

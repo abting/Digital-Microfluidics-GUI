@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     Droplet.cpp \
     DropletSelector.cpp \
     Time.cpp \
-    table.cpp
+    table.cpp \
+    functiongenerator.cpp
 
 HEADERS  += mainwindow.h \
     electrode.h \
@@ -38,7 +39,8 @@ HEADERS  += mainwindow.h \
     Droplet.h \
     DropletSelector.h \
     Time.h \
-    table.h
+    table.h \
+    functiongenerator.h
 
 FORMS    += mainwindow.ui \
     NewLayout.ui \

@@ -42,7 +42,7 @@ void Time::timeDelay(){
     timeD += 1;
     QThread::msleep(500);
     QString a =QString::number(timeD);
-    emit timeD1(a);
+    emit timeDelayPreview(a);
 }
 
 //QList<int> Time::returnTimeList()

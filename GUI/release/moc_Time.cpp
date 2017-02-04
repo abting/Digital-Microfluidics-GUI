@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Time_t {
     QByteArrayData data[4];
-    char stringdata0[23];
+    char stringdata0[33];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,12 +30,12 @@ struct qt_meta_stringdata_Time_t {
 static const qt_meta_stringdata_Time_t qt_meta_stringdata_Time = {
     {
 QT_MOC_LITERAL(0, 0, 4), // "Time"
-QT_MOC_LITERAL(1, 5, 6), // "timeD1"
-QT_MOC_LITERAL(2, 12, 0), // ""
-QT_MOC_LITERAL(3, 13, 9) // "timeDelay"
+QT_MOC_LITERAL(1, 5, 16), // "timeDelayPreview"
+QT_MOC_LITERAL(2, 22, 0), // ""
+QT_MOC_LITERAL(3, 23, 9) // "timeDelay"
 
     },
-    "Time\0timeD1\0\0timeDelay"
+    "Time\0timeDelayPreview\0\0timeDelay"
 };
 #undef QT_MOC_LITERAL
 
@@ -73,7 +73,7 @@ void Time::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         Time *_t = static_cast<Time *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->timeD1((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 0: _t->timeDelayPreview((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 1: _t->timeDelay(); break;
         default: ;
         }
@@ -82,7 +82,7 @@ void Time::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         void **func = reinterpret_cast<void **>(_a[1]);
         {
             typedef void (Time::*_t)(QString );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Time::timeD1)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Time::timeDelayPreview)) {
                 *result = 0;
                 return;
             }
@@ -127,7 +127,7 @@ int Time::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Time::timeD1(QString _t1)
+void Time::timeDelayPreview(QString _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

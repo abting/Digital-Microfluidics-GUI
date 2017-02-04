@@ -7,7 +7,6 @@
 #include "Droplet.h"
 
 
-
 Layout::Layout(QObject *parent): QObject(parent){
 }
 Layout::~Layout(){
@@ -401,7 +400,6 @@ void Layout::saveDroplets(QMainWindow *layout,QList<Droplet*> list){
 QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
     //TODO open droplets
     QList<Droplet*> dropletlist;
-
     QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Load Droplets"), "", "Text Files (*.txt)");
     QFile file (fileName);
     if (!file.open(QIODevice::ReadOnly))
@@ -418,7 +416,7 @@ QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
         droplet->setVolume(QString(list.at(2)).toDouble());
         droplet->setInitialTime(QString(list.at(3)).toDouble());
 
-        Electrode* latest;
+        Electrode* latest;                              //Record the latest electrode
         for(int i = 4; i<list.length()-2; i+=3){
             Info info;
             info.time       =   list.at(i).toInt();
@@ -429,7 +427,7 @@ QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
                 latest = info.elec;
             }
             else if(info.status=="remain"){
-                info.elec = latest;
+                info.elec = latest;                         //It should be set to the last electrode that the droplet was on
             }
 
             droplet->addInfo(info);
@@ -438,4 +436,61 @@ QList<Droplet*> Layout::openDroplets(QMainWindow * layout){
     }
    file.close();
    return dropletlist;
+}
+
+void Layout::saveElectrodeModeSequence(QMainWindow *layout, Table* tableEmode){
+
+    QString fileName = QFileDialog::getSaveFileName(layout,QObject::tr("Save ElectrodeMode Sequence"),"","Text Files (*.txt)");
+    QFile file (fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+    QTextStream outStream(&file);
+
+    outStream<<tableEmode->getColumn()<<","<<tableEmode->getRow();          //Save Row and column
+    outStream<<endl;
+    for(int j = 1;j<tableEmode->getColumn();j++){
+        outStream <<QString::number(j)<<",";                                //Save Timeslot (column)
+        for(int i = 2; i<tableEmode->getRow();i++){
+            if(tableEmode->getItem(i,j)){
+                outStream<<tableEmode->getItem(i,j)->text()<<",";           //Save positions at a given timeslot
+            }
+        }
+        outStream<<endl;
+    }
+    file.close();
+}
+
+void Layout::openElectrodeModeSequence(QMainWindow * layout, Table* tableEmode){
+    //TODO open droplets
+
+    QString fileName = QFileDialog::getOpenFileName(layout,QObject::tr("Open ElectrodeMode Sequence"), "", "Text Files (*.txt)");
+    QFile file (fileName);
+    if (!file.open(QIODevice::ReadOnly)){
+         return;                    //FIXME dont want to return list if it failed to open
+    }
+    QTextStream inStream(&file);
+
+    bool firstLine = true;                              //In the first line record the row and column information
+    while(!inStream.atEnd()){
+        QString line = inStream.readLine();
+        QStringList list = line.split(",");
+        if(firstLine){
+            QString col = list.at(0);
+            QString row = list.at(1);
+            emit setColumn(col.toInt()-2);              //offset for table      --Sets the Maximum step to the correct value
+            tableEmode->setRow(row.toInt());
+            firstLine=false;
+        }
+        else{
+            int i=1;                                                                //First position would appear at index 1
+            while(i<list.length()-1){
+                QTableWidgetItem* position = new QTableWidgetItem(list.at(i));
+                QString col = list.at(0);                                           //Timeslot that it should be added to
+                tableEmode->setItem(i+1,col.toInt(),position);                      //Take into account +1 offset for the row
+                tableEmode->setBackColor(i+1,col.toInt(),"blue");
+                i++;
+            }
+        }
+    }
+   file.close();
 }

@@ -28,16 +28,16 @@ public:
    void setName(QString name);
    void setColor(QString color);
    void setVolume(double volume);
-
-   void updateInfo(QString pos, int time, Electrode*, QString);     //update the position and the time of the droplet
    void setdropletPath(Info);
-
    QString getName();
    QString getColor();
    double getVolume();
+   Info getInfo(int time);            //get the struct at a specific time
+
+   void updateInfo(QString pos, int time, Electrode*, QString);     //update the position and the time of the droplet
+
 
    QList <Info> getDropletInfo();
-   Info getInfo(int time);            //get the struct at a specific time
 
    bool Selected = false;
 

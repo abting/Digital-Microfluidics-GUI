@@ -46,7 +46,10 @@ public:
     void SplitDroplet(QList<Electrode*>);
     void DispenceDroplet(QList<Electrode*>);
 
+    void SpinboxValueChanged(int, Table*,QSpinBox*, int);
+
     QList<Droplet*> listdrop;  //TODO NEW
+
 
 
 private slots:
@@ -69,6 +72,7 @@ private slots:
 
     //TODO NEW
     void InitializeTable();
+    void InitializeTableEmode();
     void on_dropTime_valueChanged(int arg1);
     void addDropToTable(Droplet*);
     void updateTable(Electrode*);
@@ -77,6 +81,7 @@ private slots:
     void timeChange(int);
     void addToDList(Droplet*);
 
+    void setupOpenSequenceEmode(int);
 
     void on_BeginButton_clicked();
 
@@ -108,7 +113,6 @@ private slots:
 
     void on_Open_Sequence_triggered();
 
-    void SpinboxValueChanged(int, Table*,QSpinBox*, int);
 
     void Preview(Table*, Time*, bool);
 
@@ -123,6 +127,8 @@ private slots:
     void on_CancelStartButton_clicked();
 
     void on_setActuationButton_clicked();
+
+    void on_setVoltageButton_clicked();
 
 signals:
     //Emited when the thread should be deleted
@@ -168,6 +174,9 @@ private:
     QSpinBox *IterationBox;
     QLineEdit *IterationDelayText;
     QLineEdit *ActuationText;
+    QPushButton *setActuation;
+    QLineEdit *VoltageText;
+    QPushButton *setVoltage;
 
     QCheckBox *TurnOnButton;
     QCheckBox *TurnOffButton;

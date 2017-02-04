@@ -10,8 +10,8 @@ Arduino::Arduino(){
 Arduino::Arduino(PathHandler* pHandler, int sTime){
     pathHandler = pHandler;
     startTime = sTime ;
-    numberOfIterations = 3;
-    IterationDelay = 5000;
+    numberOfIterations = 1;
+    IterationDelay = 3000;
 
 
 }
@@ -61,7 +61,7 @@ void Arduino::SendSequence()//PathHandler *pathhandler, int startTime)
                     qApp->processEvents();
                     if(stopArduino){
                         emit Done();
-                        moveToThread(qApp->thread());   //Moves the thread back to the main thread
+                        moveToThread(qApp->thread());   //Moves the thread back to the  thread
                         return;
                     }
                 }
@@ -70,11 +70,11 @@ void Arduino::SendSequence()//PathHandler *pathhandler, int startTime)
             QThread::msleep(IterationDelay);          //Wait before next iteration
         }
         emit Done();
-        moveToThread(qApp->thread());               //Moves the thread back to the main thread
+        moveToThread(qApp->thread());               //Moves the thread back to the  thread
     }
     else{
         qDebug() << "Communication Error, Couldn't write to serial";
-        //emit Done();
+        emit Done();
     }
 }
 

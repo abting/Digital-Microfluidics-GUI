@@ -33,6 +33,9 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     IterationBox = ui->IterationspinBox;
     IterationDelayText = ui->IterationDelayText;
     ActuationText = ui->ActuationTimeText;
+    setActuation = ui->setActuationButton;
+    VoltageText = ui->VoltageText;
+    setVoltage = ui->setVoltageButton;
 
 
     //Electrode Mode Widgets
@@ -80,14 +83,19 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     IterationBox->setEnabled(false);
     IterationDelayText->setEnabled(false);
     ActuationText->setEnabled(false);
+    setActuation->setEnabled(false);
+    VoltageText->setEnabled(false);
+    setVoltage->setEnabled(false);
 
 
     //Initialize Arduino and GridLayout
     InitializeUI(false);
-    arduino = new Arduino();
+    //arduino = new Arduino();
     mylayout = new Layout(ElectrodeLayout);
+    //funcgen = new funcGen();
     IterationDelayText->setValidator(new QIntValidator(500, 10000, this));      //Set delay between iterations 0.5 and 10s
     ActuationText->setValidator(new QIntValidator(500, 10000, this));           //Set delay between actuation 0.5 and 10s
+    VoltageText->setValidator(new QIntValidator(0, 10000, this));                                  //Set voltage in mV between 0 and 10000
 }
 
 MainWindow::~MainWindow()
@@ -109,6 +117,7 @@ void MainWindow::InitializeUI(bool enable){
 
     //Initiliaze Table and reset function if layout is already created
     InitializeTable();
+    InitializeTableEmode();
     if(listdrop.length()>0){
         qDeleteAll(listdrop.begin(), listdrop.end());
     }
@@ -274,6 +283,7 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
             }
             if(sharedNeighbor != 1){
                 QMessageBox::warning(this,tr("Warning"), tr("The electrodes you have chosen are not adjacant to one another"));
+                printToInstructionMonitor("Dispensing was unsuccessful");
                 return;
             }
             sharedNeighbor = 0;
@@ -312,7 +322,7 @@ void MainWindow::DispenceDroplet(QList<Electrode*> elecList){
         initialDrop->updateInfo(elecList.at(0)->text(),time->CurrentTime(),elecList.at(0),"update");
         updateTable(elecList.at(0));
         selectColumn(tableDmode->getSlider()->value());
-        QMessageBox::warning(this,tr("DONE"), tr("DONE!"));
+        printToInstructionMonitor("Dispensing was successful");
     }
     else{
         QMessageBox::warning(this,tr("Warning"), tr("There is no droplet on the first Electrode"));
@@ -394,19 +404,6 @@ void MainWindow::on_StartButton_clicked()
     if(arduino->isConnected()){
         CancelStartButton->setEnabled(true);
         CancelStartButton->setVisible(true);
-//For display purposes only
-//        if(pathHandler->getPathList().length()>0){
-//            for(int i = tableDmode->getSlider()->value(); i<pathHandler->getPathList().length(); i++){
-//                InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
-//                qApp->processEvents();
-//                Sleep(200);
-//                InstructonMonitor->clear();
-//                time->setPreviousTime();
-//                time->increaseTime(TimeSpinner);
-//                timeChange(8);
-//                selectColumn(tableDmode->getSlider()->value());
-//            }
-//        }
 
         QThread* threadArduinoDmode = new QThread;
         connect(threadArduinoDmode, SIGNAL(started()), arduino, SLOT(SendSequence()));
@@ -472,13 +469,10 @@ void MainWindow::on_New_Layout_triggered(){
     mylayout = new Layout(ElectrodeLayout,row,column);
     mylayout->InsertDesign(layoutdesign->returnDesign());
 
-
     InitializeUI(true);
     connectSignals();
     connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
     connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addToDList(Droplet*)));
-
-
     mylayout->Neighbors();
     }
 }
@@ -496,17 +490,17 @@ void MainWindow::on_CancelButton_clicked()
 
 void MainWindow::on_Connect_triggered()
 {
+    arduino = new Arduino();
     arduino->Connect();
     if(arduino->isConnected()){
-
         StartButton->setEnabled(true);
         StartEmodeButton->setEnabled(true);
         IterationBox->setEnabled(true);
         IterationDelayText->setEnabled(true);
         ActuationText->setEnabled(true);
+        setActuation->setEnabled(true);
         printToInstructionMonitor("Arduino Connected!");
     }else{
-
         StartButton->setEnabled(false);
         StartEmodeButton->setEnabled(false);
         QMessageBox::warning(this,tr("Arduino"), tr("WARNING! Arduino not Connected!"));
@@ -523,16 +517,14 @@ void MainWindow::on_Open_Layout_triggered(){
 
     mylayout->OpenLayout(this,ElectrodeLayout);
     if(ElectrodeLayout->count() != 0){
-
         LayoutExists = true;
-
         AddDroplet->setEnabled(true);
         RemoveDroplet->setEnabled(true);
+
         InitializeUI(true);
         connectSignals();
         connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addDropToTable(Droplet*)));
         connect(mylayout, SIGNAL(addDropletFromLayout(Droplet*)), this, SLOT(addToDList(Droplet*)));
-
         mylayout->Neighbors();
     }
 }
@@ -540,22 +532,24 @@ void MainWindow::on_Open_Layout_triggered(){
 void MainWindow::InitializeTable()
 {
     //Setup Tables
-    TimeSpinnerEmode->setMinimum(0);
     TimeSpinner->setMinimum(0);
-    TimeSpinnerEmode->setValue(0);
     TimeSpinner->setValue(0);
-
     DropletTable->clear();
-    DropletTableEmode->clear();
-
     tableDmode = new Table(DropletTable);
     tableDmode->CreateTable(this);
-    tableEmode = new Table(DropletTableEmode);
-    tableEmode->InitializeTableEmode(this);
     ui->currentStepText->setText(QString::number(0));
-    ui->currentStepText_Emode->setText(QString::number(0));
 }
 
+void MainWindow::InitializeTableEmode()
+{
+    //Setup Tables
+    TimeSpinnerEmode->setMinimum(0);
+    TimeSpinnerEmode->setValue(0);
+    DropletTableEmode->clear();
+    tableEmode = new Table(DropletTableEmode);
+    tableEmode->InitializeTableEmode(this);
+    ui->currentStepText_Emode->setText(QString::number(0));
+}
 void MainWindow::addDropToTable(Droplet *drop)
 {
     tableDmode->addDropToTable(drop,listdrop,time->CurrentTime());
@@ -606,12 +600,10 @@ void MainWindow::selectColumn(int value)        //Value is the value of the tabl
     }
     else if(TabButton->currentIndex()==1){
         ui->currentStepText_Emode->setText(QString::number(value));
-        //QList <Electrode*> addElecs;
         //Access the electrodes based on their numbers, set their color to blue indicating that they're turned on
         for(int i = 2; i<tableEmode->getRow();i++){
             if(tableEmode->getItem(i,tableEmode->getSlider()->value()+1)){
                 Electrode* el = mylayout->elecFromText(tableEmode->getItem(i,tableEmode->getSlider()->value()+1)->text());
-                //removeElecs.append(el);
                 el->setStyleSheet("background-color:blue");
             }
         }
@@ -648,12 +640,10 @@ void MainWindow::timeChange(int value)
             }
         }
         else if (TabButton->currentIndex() == 1){
-            //QList <Electrode*> removeElecs;
             //If the has an associated electrode at that time, set that electrode to grey (turned off)
             for(int i = 2; i<tableEmode->getRow();i++){
                 if(tableEmode->getItem(i,tableEmode->getSlider()->value()+1)){              //Need to account for +1 offset in the table
                     Electrode* el = mylayout->elecFromText(tableEmode->getItem(i,tableEmode->getSlider()->value()+1)->text());
-                    //removeElecs.append(el);
                     el->setStyleSheet("background-color:grey");
                 }
             }
@@ -701,15 +691,6 @@ void MainWindow::on_Start_EmodeButton_clicked()
     if(arduino->isConnected()){
         CancelStartEmodeButton->setEnabled(true);
         CancelStartEmodeButton->setVisible(true);
-        //For display purposes only
-//      if(pathHandler->getPathList().length()>0){
-//          for(int i = 0; i<pathHandler->getPathList().length(); i++){
-//              InstructonMonitor->insertPlainText(pathHandler->getPathList().at(i));
-//              qApp->processEvents();
-//              Sleep(700);
-//              InstructonMonitor->clear();
-//          }
-//      }
 
         QThread* threadArduinoEmode = new QThread;
         connect(threadArduinoEmode, SIGNAL(started()), arduino, SLOT(SendSequence()));
@@ -790,7 +771,6 @@ void MainWindow::on_ModeTableTab_tabBarClicked(int index)
 }
 
 void MainWindow::SpinboxValueChanged(int value, Table* table,QSpinBox* timespin, int offset){
-
     //Increase the size of the table according to the TimeSpinner
     int origCol = table->getColumn();
     int increaseSize = 0;
@@ -833,15 +813,14 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
 {    
     CancelpreviewEMode = false;
     CancelpreviewMode = false;
-
     Time* preview = new Time(tablemode->getSlider());
     QThread* threadPreview = new QThread;
-    QLabel* l = new QLabel();
+    QLabel* tempLabel = new QLabel();
     int previewSpeed  = 500;  //500ms
 
     preview->moveToThread(threadPreview);
     connect(this, SIGNAL(increment()), preview, SLOT(timeDelay()));
-    connect(preview, SIGNAL(timeD1(QString)), l, SLOT(setText(QString)));
+    connect(preview, SIGNAL(timeDelayPreview(QString)), tempLabel, SLOT(setText(QString)));
     connect(threadPreview, SIGNAL(finished()), threadPreview, SLOT(deleteLater()));
     threadPreview->start();
     InstructonMonitor->setPlainText("Preview started at a refresh rate of " + QString::number(previewSpeed) + " ms");
@@ -852,10 +831,7 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
     tablemode->getSlider()->setValue(0);
 
     //Start incrementing the TableSlider, add and remove droplets in the process
-    //for(int k = 0; k<=tablemode->getSlider()->maximum();k++){
     int k = 0;
-    //int k = tablemode->getSlider()->value();
-
     while(k<=tablemode->getSlider()->maximum()){
         timemode->setPreviousTime();
         if(!Dmode){
@@ -876,7 +852,7 @@ void MainWindow::Preview(Table* tablemode, Time* timemode, bool Dmode)
         selectColumn(tablemode->getSlider()->value());
         emit increment();
         qApp->processEvents();
-        k = l->text().toInt();
+        k = tempLabel->text().toInt();
     }
     threadPreview->deleteLater();
 }
@@ -894,31 +870,19 @@ void MainWindow::on_preview_EmodeButton_clicked()
 void MainWindow::on_Save_Sequence_triggered()
 {
     if(TabButton->currentIndex()==0){
-//        pathHandler = new PathHandler(listdrop);
-//        pathHandler->setPathList();
-//        pathHandler->savePath(this);
         mylayout->saveDroplets(this,listdrop);
     }
     else if(TabButton->currentIndex()==1){
+        mylayout->saveElectrodeModeSequence(this,tableEmode);
     }
-
-
     //TODO if they load a list in the middle-->reset first
     //FIXME does not work as intended
    //QList<Droplet*> test = mylayout->openDroplets(this);
    //mylayout->saveDroplets(this,test);
 }
 
-void MainWindow::on_Open_Sequence_triggered()           //As of right now it resets both because of initialzietable() Talk to abtin about separating
+void MainWindow::on_Open_Sequence_triggered()
 {    if(TabButton->currentIndex()==0){
-//        if(listdrop.isEmpty()){
-
-//        }
-//        else{
-//             InitializeTable();
-//             //time = new Time(tableDmode->getSlider());
-//             //timeEmode = new Time(tableEmode->getSlider());
-//        }
 
         QList<Droplet*> temp;
         mylayout->ResetColors();
@@ -928,34 +892,36 @@ void MainWindow::on_Open_Sequence_triggered()           //As of right now it res
             listdrop = temp;
             InitializeTable();
             time = new Time(tableDmode->getSlider());
-            timeEmode = new Time(tableEmode->getSlider());
 
-            foreach(Droplet *a , listdrop){
-                //InstructonMonitor->insertPlainText(QString::number(b.status) + " , ");
-                //InstructonMonitor->insertPlainText(a->getName());
-                foreach (Info b, a->getDropletInfo()){
-                    //InstructonMonitor->insertPlainText(b.status + " , ");
-                    //InstructonMonitor->insertPlainText(b.position + " , ");
-                    //InstructonMonitor->insertPlainText(QString::number(b.time) + " , ");
-                }
-                InstructonMonitor->insertPlainText("\n");
-            }
+//            foreach(Droplet *a , listdrop){
+//                //InstructonMonitor->insertPlainText(QString::number(b.status) + " , ");
+//                //InstructonMonitor->insertPlainText(a->getName());
+//                foreach (Info b, a->getDropletInfo()){
+//                    //InstructonMonitor->insertPlainText(b.status + " , ");
+//                    //InstructonMonitor->insertPlainText(b.position + " , ");
+//                    //InstructonMonitor->insertPlainText(QString::number(b.time) + " , ");
+//                }
+//                InstructonMonitor->insertPlainText("\n");
+//            }
             int tableLength =1;
             foreach(Droplet* drop,listdrop){
                 if(tableLength < drop->getDropletInfo().length()){
                     tableLength = drop->getDropletInfo().length();
                 }
             }
-            TimeSpinner->setValue(tableLength);
+            TimeSpinner->setValue(tableLength-1);
             if(!listdrop.isEmpty()){
                 tableDmode->setupDroplets(listdrop);
             }
         }
     }
     else if(TabButton->currentIndex()==1){
-
+        InitializeTableEmode();
+        mylayout->ResetColors();
+        timeEmode = new Time(tableEmode->getSlider());
+        connect(mylayout,SIGNAL(setColumn(int)),this,SLOT(setupOpenSequenceEmode(int)));
+        mylayout->openElectrodeModeSequence(this,tableEmode);
     }
-
 }
 
 
@@ -1011,4 +977,16 @@ void MainWindow::on_setActuationButton_clicked()
     else{
         printToInstructionMonitor("Communication Error\nArduino is not connected or is busy");
     }
+}
+
+void MainWindow::on_setVoltageButton_clicked()
+{
+    float voltageValue = VoltageText->text().toFloat();
+    InstructonMonitor->setPlainText("The voltage was set to: " + QString::number(voltageValue) + " mV");
+    //funcgen->send_funcgenInfo(1,voltageValue,0);
+}
+
+void MainWindow::setupOpenSequenceEmode(int value)
+{
+    SpinboxValueChanged(value, tableEmode, TimeSpinnerEmode, 1);
 }

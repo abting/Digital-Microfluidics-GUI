@@ -26,7 +26,6 @@ public:
     void setDroplet(Droplet*);
     void removeDroplet();
     bool isEmpty();
-
     int get_x_position();
     int get_y_positon();
     std::string getNumber();
@@ -35,13 +34,11 @@ public:
     double getOffTime();
     int getAvailability();
     Droplet* getDroplet();
-    //BANANA
     void addNeighbor(Electrode*);
     QList<Electrode*> getNeighbors();
 
 
 private:
-    //BANANA
     QList<Electrode*> neighbours;   //neighbors surrounding the electrode top, right, bottom, left
     int x_position;
     int y_position;

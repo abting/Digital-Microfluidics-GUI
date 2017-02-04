@@ -32,7 +32,7 @@ public:
    QList <int> time;                    //list of total times
 
 signals:
-    void timeD1(QString);
+    void timeDelayPreview(QString);
 
 public slots:
    void timeDelay();
