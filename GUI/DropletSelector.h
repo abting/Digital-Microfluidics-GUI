@@ -24,8 +24,6 @@ public:
     double getVolume();
     bool Done = false;
 
-    bool isDuplicate(QList<Droplet*>, QString);
-
 private slots:
     void on_OK_clicked();
     void on_Cancel_clicked();

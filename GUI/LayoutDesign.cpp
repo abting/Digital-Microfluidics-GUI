@@ -194,23 +194,23 @@ bool LayoutDesign::checkName(){
 
 bool LayoutDesign::checkDuplicates(){
 
-    for (int i=0; i<Designgrid->rowCount();i++){
-        for(int j=0; j<Designgrid->columnCount();j++){
-            QLayoutItem* item = Designgrid->itemAtPosition(i,j);
-            QWidget* widget = item->widget();
-            Electrode* electrode = dynamic_cast<Electrode*>(widget);
-            elecName<<(electrode->text()).toInt();
-        }
-    }
+//    for (int i=0; i<Designgrid->rowCount();i++){
+//        for(int j=0; j<Designgrid->columnCount();j++){
+//            QLayoutItem* item = Designgrid->itemAtPosition(i,j);
+//            QWidget* widget = item->widget();
+//            Electrode* electrode = dynamic_cast<Electrode*>(widget);
+//            elecName<<(electrode->text()).toInt();
+//        }
+//    }
 
-    qSort(elecName.begin(),elecName.end());
-    for(int i=0; i<elecName.length()-1;i++){
-        if(elecName.at(i) == elecName.at(i+1)){
-            elecName.clear();
-            return false;
-        }
-    }
-    return true;
+//    qSort(elecName.begin(),elecName.end());
+//    for(int i=0; i<elecName.length()-1;i++){
+//        if(elecName.at(i) == elecName.at(i+1)){
+//            elecName.clear();
+//            return false;
+//        }
+//    }
+//    return true;
 }
 
 QGridLayout* LayoutDesign::returnDesign(){

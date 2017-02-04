@@ -28,21 +28,6 @@ int Time::getPreviousTime(){
     return PreviousTime;
 }
 
-
-//QList<int> Time::returnTimeList()
-//{
-//   return time;
-//}
-
-//void Time::undoLastEntry(Droplet *droplet)
-//{
-
-//}
-
-//void Time::deleteDropletPath(Droplet* droplet, int Index ){
-
-//}
-
 void Time::increaseTime(QSpinBox* TimeSpin){
 
     if(TimeSpin->value()<=TimeSlider->value()){
